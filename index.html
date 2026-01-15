@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDMX — Depth that Multiplies</title>
+    <title>CDMX — Building the Future of Growth</title>
     <link rel="icon" type="image/png" href="Brand/FullPackage/LogoPackage/x.png">
 
     <!-- Fonts -->
@@ -92,8 +92,79 @@
             background: var(--yellow);
         }
 
-        a, button, .letter-block, .spec-card {
+        a, button, .letter-block, .spec-card, .metric-card, .comparison-card {
             cursor: none;
+        }
+
+        /* ==================== NAVIGATION PROGRESS DOTS ==================== */
+        .progress-nav {
+            position: fixed;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .progress-nav.visible {
+            opacity: 1;
+        }
+
+        .nav-dots {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid var(--white);
+            background: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .nav-dot:hover {
+            background: var(--yellow);
+            border-color: var(--yellow);
+            transform: scale(1.3);
+        }
+
+        .nav-dot.active {
+            background: var(--white);
+            transform: scale(1.2);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--white);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+
+        .nav-line {
+            width: 1px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
         }
 
         /* ==================== TECHNICAL GRID SYSTEM ==================== */
@@ -188,9 +259,25 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
+        .status-closed {
+            color: #FF4444;
+        }
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
+        }
+
+        /* ==================== SECTION FADE-IN ANIMATIONS ==================== */
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ==================== HERO: FULLSCREEN VIDEO ==================== */
@@ -265,10 +352,10 @@
         }
 
         .hero-title {
-            font-size: clamp(5rem, 18vw, 16rem);
+            font-size: clamp(3rem, 12vw, 9rem);
             font-weight: 900;
-            letter-spacing: -0.08em;
-            line-height: 0.85;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
             margin-bottom: 2rem;
             opacity: 0;
             animation: explode 2s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
@@ -324,20 +411,11 @@
             50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* ==================== MISSION BRIEFING ==================== */
-        .briefing-section {
+        /* ==================== MASTERIES SECTION ==================== */
+        .masteries-section {
             position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 2rem;
-            background: var(--black);
-        }
-
-        .briefing-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 12rem 2rem;
+            background: var(--gray-dark);
         }
 
         .section-header {
@@ -345,15 +423,266 @@
             font-size: 0.8rem;
             color: var(--yellow);
             letter-spacing: 0.3em;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .masteries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mastery-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 4rem 3rem;
+            background: rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mastery-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .mastery-number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--gray-mid);
             margin-bottom: 2rem;
+            letter-spacing: 0.2em;
+        }
+
+        .mastery-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .mastery-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .mastery-points {
+            list-style: none;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--gray-light);
+        }
+
+        .mastery-points li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .mastery-points li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+        }
+
+        .mastery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .mastery-card:hover::before {
+            opacity: 1;
+        }
+
+        /* ==================== PROOF SECTION ==================== */
+        .proof-section {
+            position: relative;
+            padding: 12rem 2rem;
+            background: var(--black);
+        }
+
+        .proof-headline {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .proof-headline h2 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.04em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto 8rem;
+        }
+
+        .metric-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 3rem 2rem;
+            background: rgba(255,255,255,0.02);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            border-color: var(--yellow);
+            background: rgba(255,229,125,0.05);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255,229,125,0.2);
+        }
+
+        .metric-value {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--white);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
-        .briefing-title {
+        .metric-sublabel {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .timeline-header {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--yellow);
+            letter-spacing: 0.3em;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+
+        .timeline-items {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-items::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem 0;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            background: var(--black);
+        }
+
+        .timeline-item.completed::before {
+            background: var(--green);
+            box-shadow: 0 0 15px rgba(57,255,20,0.5);
+        }
+
+        .timeline-item.future::before {
+            background: transparent;
+            border-color: var(--gray-mid);
+        }
+
+        .timeline-year {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--yellow);
+            min-width: 80px;
+        }
+
+        .timeline-text {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            line-height: 1.6;
+        }
+
+        .timeline-item.future .timeline-year,
+        .timeline-item.future .timeline-text {
+            opacity: 0.5;
+        }
+
+        /* ==================== PHILOSOPHY SECTION ==================== */
+        .philosophy-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem;
+            background: var(--gray-dark);
+        }
+
+        .philosophy-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-title {
             font-size: clamp(3rem, 8vw, 7rem);
             font-weight: 800;
             line-height: 1;
             letter-spacing: -0.06em;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .philosophy-intro {
+            text-align: center;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--gray-light);
             margin-bottom: 4rem;
         }
 
@@ -394,12 +723,12 @@
         }
 
         .letter-symbol {
-            font-size: 6rem;
-            font-weight: 900;
-            line-height: 1;
+            width: 120px;
+            height: 120px;
             margin-bottom: 2rem;
-            opacity: 0.1;
+            opacity: 0.15;
             filter: brightness(0) invert(1);
+            object-fit: contain;
         }
 
         .letter-title {
@@ -412,6 +741,146 @@
             font-size: 1rem;
             line-height: 1.6;
             color: var(--gray-light);
+        }
+
+        /* ==================== COMPARISON SECTION ==================== */
+        .comparison-section {
+            position: relative;
+            padding: 12rem 2rem;
+            background: var(--black);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+        }
+
+        .comparison-card {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 4rem 2rem;
+            background: rgba(255,255,255,0.02);
+            text-align: center;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comparison-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-10px);
+        }
+
+        .comparison-card.highlighted {
+            border-color: var(--yellow);
+            background: rgba(255,229,125,0.05);
+        }
+
+        .comparison-card.highlighted:hover {
+            box-shadow: 0 20px 60px rgba(255,229,125,0.3);
+        }
+
+        .comparison-title {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            color: var(--gray-light);
+            margin-bottom: 3rem;
+        }
+
+        .comparison-card.highlighted .comparison-title {
+            color: var(--yellow);
+        }
+
+        .comparison-visual {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-hover-text {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .comparison-card:hover .comparison-hover-text {
+            opacity: 1;
+        }
+
+        /* Specialist visual */
+        .specialist-well {
+            width: 100px;
+            height: 200px;
+            border: 3px solid var(--white);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Generalist visual */
+        .generalist-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .gen-dot {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* Multiplied visual */
+        .multiplied-visual {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .mini-orb {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--white);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+        }
+
+        .mini-orb:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .mini-orb:nth-child(2) { bottom: 0; left: 10%; }
+        .mini-orb:nth-child(3) { bottom: 0; right: 10%; }
+
+        .multiplied-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--yellow);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,229,125,0.15) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--yellow);
+            font-weight: 900;
         }
 
         /* ==================== DEPTH VISUALIZATION ==================== */
@@ -471,8 +940,8 @@
             justify-content: center;
         }
 
-        /* Specialist visual */
-        .specialist-well {
+        /* Specialist visual - depth section */
+        .depth-stage .specialist-well {
             width: 100px;
             height: 300px;
             border: 3px solid var(--white);
@@ -480,7 +949,7 @@
             position: relative;
         }
 
-        .specialist-well::after {
+        .depth-stage .specialist-well::after {
             content: 'DEEP';
             position: absolute;
             bottom: 2rem;
@@ -491,14 +960,14 @@
             color: var(--gray-light);
         }
 
-        /* Generalist dots */
-        .generalist-grid {
+        /* Generalist dots - depth section */
+        .depth-stage .generalist-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
         }
 
-        .gen-dot {
+        .depth-stage .gen-dot {
             width: 80px;
             height: 80px;
             border: 2px solid var(--white);
@@ -507,7 +976,7 @@
             position: relative;
         }
 
-        .gen-dot::after {
+        .depth-stage .gen-dot::after {
             content: '';
             position: absolute;
             bottom: -25px;
@@ -606,225 +1075,151 @@
             margin-right: auto;
         }
 
-        /* ==================== TECHNICAL SPECS ==================== */
-        .specs-section {
+        /* ==================== ABOUT SECTION ==================== */
+        .about-section {
             position: relative;
             padding: 12rem 2rem;
             background: var(--gray-dark);
         }
 
-        .specs-grid {
+        .about-content {
+            max-width: 1000px;
+            margin: 4rem auto 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 0;
-            max-width: 1400px;
-            margin: 0 auto;
+            grid-template-columns: 400px 1fr;
+            gap: 6rem;
+            align-items: center;
         }
 
-        .spec-card {
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 4rem 3rem;
-            background: rgba(255,255,255,0.02);
+        .about-photo {
             position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .spec-card:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.2);
+        .about-photo img {
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
-        .spec-number {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--gray-mid);
-            margin-bottom: 2rem;
-            letter-spacing: 0.2em;
-        }
-
-        .spec-title {
+        .about-text h3 {
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
+            margin-bottom: 1rem;
         }
 
-        .spec-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
+        .about-role {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
             color: var(--gray-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
         }
 
-        .spec-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        .about-location {
+            font-size: 0.9rem;
+            color: var(--gray-mid);
+            margin-bottom: 2rem;
         }
 
-        .spec-card:hover::before {
-            opacity: 1;
-        }
-
-        /* ==================== VALUE PROPOSITION ==================== */
-        .value-section {
-            position: relative;
-            padding: 15rem 2rem;
-            background: var(--black);
-            overflow: hidden;
-        }
-
-        .value-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .value-statement {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 4rem;
-        }
-
-        .value-text {
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
+        .about-bio {
+            font-size: 1.1rem;
             line-height: 1.8;
             color: var(--gray-light);
+            margin-bottom: 2rem;
         }
 
-        /* ==================== ACTION SECTION ==================== */
-        .action-section {
+        .about-motto {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--yellow);
+            font-style: italic;
+        }
+
+        /* ==================== MANIFEST SECTION ==================== */
+        .manifest-section {
             position: relative;
             min-height: 100vh;
-            background: var(--black);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8rem 2rem;
-            overflow: hidden;
+            padding: 12rem 2rem;
+            background: var(--black);
         }
 
-        .action-visual {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .action-multiplier {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 25rem;
-            font-weight: 900;
-            color: var(--yellow);
-            opacity: 0.04;
-            animation: expand-pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes expand-pulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.04;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.15);
-                opacity: 0.08;
-            }
-        }
-
-        .action-rings {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .action-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid rgba(255, 229, 125, 0.15);
-            border-radius: 50%;
-            animation: ring-expand 6s ease-in-out infinite;
-        }
-
-        .action-ring:nth-child(1) {
-            width: 250px;
-            height: 250px;
-            animation-delay: 0s;
-        }
-
-        .action-ring:nth-child(2) {
-            width: 450px;
-            height: 450px;
-            animation-delay: 2s;
-        }
-
-        .action-ring:nth-child(3) {
-            width: 650px;
-            height: 650px;
-            animation-delay: 4s;
-        }
-
-        @keyframes ring-expand {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(0.85);
-                opacity: 0;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.4;
-            }
-        }
-
-        .action-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
+        .manifest-content {
             max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
         }
 
-        .action-label {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--yellow);
-            letter-spacing: 0.3em;
+        .manifest-content .section-header {
+            margin-bottom: 4rem;
+            text-align: left;
+        }
+
+        .manifest-opening {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
             margin-bottom: 3rem;
-            text-transform: uppercase;
+            line-height: 1.3;
         }
 
-        .action-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 2rem;
-            letter-spacing: -0.04em;
-        }
-
-        .action-subtitle {
+        .manifest-problems {
             font-size: clamp(1.4rem, 3vw, 2rem);
             color: var(--gray-light);
-            line-height: 1.6;
+            line-height: 1.8;
             margin-bottom: 4rem;
         }
 
-        .action-cta {
+        .manifest-statement {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 4rem;
+            color: var(--yellow);
+            line-height: 1.2;
+        }
+
+        .manifest-solution {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--gray-light);
+            line-height: 1.8;
+            margin-bottom: 4rem;
+        }
+
+        .manifest-closing {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            line-height: 1.8;
+            color: var(--white);
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-section {
+            position: relative;
+            padding: 12rem 2rem 8rem;
+            background: var(--black);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-scarcity {
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .contact-scarcity p {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--gray-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .contact-scarcity .availability {
+            color: var(--yellow);
+            font-weight: 700;
+        }
+
+        .cta-button {
             display: inline-block;
             padding: 1.8rem 4rem;
             background: var(--yellow);
@@ -837,24 +1232,17 @@
             border: 2px solid var(--yellow);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 0 40px rgba(255,229,125,0.3);
+            margin-bottom: 6rem;
         }
 
-        .action-cta:hover {
+        .cta-button:hover {
             background: transparent;
             color: var(--yellow);
             box-shadow: 0 0 80px rgba(255,229,125,0.5);
             transform: translateY(-3px);
         }
 
-        /* ==================== CONTACT TERMINAL ==================== */
-        .contact-section {
-            position: relative;
-            padding: 10rem 2rem 5rem;
-            background: var(--black);
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .contact-terminal {
+        .contact-details {
             max-width: 700px;
             margin: 0 auto;
             font-family: var(--font-mono);
@@ -863,41 +1251,24 @@
             padding: 3rem;
         }
 
-        .terminal-header {
-            font-size: 0.8rem;
-            color: var(--gray-mid);
+        .contact-details .section-header {
+            text-align: left;
             margin-bottom: 2rem;
-            letter-spacing: 0.1em;
         }
 
-        .terminal-content {
-            font-size: 1.1rem;
-            line-height: 2;
-        }
-
-        .terminal-link {
+        .contact-details a {
+            display: block;
             color: var(--white);
             text-decoration: none;
+            font-size: 1.1rem;
+            line-height: 2;
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
 
-        .terminal-link:hover {
+        .contact-details a:hover {
             color: var(--yellow);
             border-bottom-color: var(--yellow);
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 1.2rem;
-            background: var(--green);
-            animation: blink 1s step-end infinite;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
         }
 
         /* ==================== CTA BEACON ==================== */
@@ -953,8 +1324,30 @@
         }
 
         /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .about-photo {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 768px) {
-            /* Mission Header - compacter op mobile */
+            /* Navigation */
+            .progress-nav {
+                right: 1rem;
+            }
+
+            .nav-dot::after {
+                display: none;
+            }
+
+            /* Mission Header */
             .mission-header {
                 padding: 0.8rem 1rem;
                 width: auto;
@@ -985,7 +1378,7 @@
                 font-size: 0.7rem;
             }
 
-            /* Coordinate corners - kleinere tekst, betere positioning */
+            /* Coordinates */
             .coordinates {
                 font-size: 0.5rem;
                 padding: 0.5rem 0.6rem;
@@ -996,48 +1389,61 @@
                 margin-bottom: 0.1rem;
             }
 
-            /* Top left */
-            .coord-tl {
+            .coord-tl, .coord-tr {
                 top: 0.5rem;
-                left: 0.5rem;
             }
 
-            /* Top right */
-            .coord-tr {
-                top: 0.5rem;
-                right: 0.5rem;
-            }
+            .coord-tl { left: 0.5rem; }
+            .coord-tr { right: 0.5rem; }
 
-            /* Bottom corners - verberg op zeer kleine schermen */
-            .coord-bl {
+            .coord-bl, .coord-br {
                 bottom: 0.5rem;
-                left: 0.5rem;
                 font-size: 0.5rem;
             }
 
-            .coord-br {
-                bottom: 0.5rem;
-                right: 0.5rem;
-                font-size: 0.5rem;
-            }
+            .coord-bl { left: 0.5rem; }
+            .coord-br { right: 0.5rem; }
 
             /* Hero */
             .hero-title {
                 font-size: clamp(3rem, 12vw, 8rem);
             }
 
-            /* CDMX Breakdown */
-            .cdmx-breakdown {
+            /* Grids */
+            .cdmx-breakdown,
+            .masteries-grid,
+            .metrics-grid,
+            .comparison-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
-            /* Specs Grid */
-            .specs-grid {
-                grid-template-columns: 1fr;
+            /* Timeline */
+            .timeline-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
             }
 
-            /* Multiplied Depth - FIX voor overlappende cirkels */
+            .timeline-year {
+                min-width: auto;
+            }
+
+            /* CTA Beacon */
+            .cta-beacon {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+            }
+
+            .beacon-button {
+                padding: 1rem 2rem;
+                font-size: 0.8rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Multiplied Depth - mobile optimizations */
             .depth-section {
                 min-height: 150vh;
             }
@@ -1055,7 +1461,7 @@
                 padding: 0.5rem;
             }
 
-            /* Initiële posities - verder uit elkaar op mobile */
+            /* Initial positions - spread out on mobile */
             .orb-1 {
                 top: -80px;
                 left: 50%;
@@ -1072,7 +1478,7 @@
                 right: -50px;
             }
 
-            /* Convergeerde posities - echte overlap op mobile (zoals desktop) */
+            /* Converged positions - true overlap on mobile (like desktop) */
             .depth-stage.active .orb-1 {
                 top: 30px;
                 left: 50%;
@@ -1089,7 +1495,7 @@
                 right: 30px;
             }
 
-            /* Convergence point - kleiner op mobile, BOVEN de cirkels */
+            /* Convergence point - smaller on mobile, ABOVE the circles */
             .convergence-point {
                 width: 100px;
                 height: 100px;
@@ -1101,69 +1507,21 @@
                 width: 35px;
                 height: 35px;
             }
-
-            /* CTA Beacon */
-            .cta-beacon {
-                bottom: 1rem;
-                right: 1rem;
-                left: 1rem;
-            }
-
-            .beacon-button {
-                padding: 1rem 2rem;
-                font-size: 0.8rem;
-                width: 100%;
-                justify-content: center;
-            }
-
-            /* Action Section - beter op mobile */
-            .action-section {
-                padding: 6rem 1.5rem;
-                min-height: 80vh;
-            }
-
-            .action-title {
-                font-size: clamp(2.5rem, 8vw, 5rem);
-            }
-
-            .action-cta {
-                padding: 1.5rem 3rem;
-                font-size: 0.9rem;
-            }
         }
 
-        /* Extra kleine schermen */
+        /* Extra small screens */
         @media (max-width: 480px) {
-            /* Verberg bottom coordinates op zeer kleine schermen */
             .coord-bl,
             .coord-br {
                 display: none;
             }
 
-            /* Mission header nog compacter */
             .mission-header {
                 padding: 0.6rem 0.8rem;
             }
 
             .mission-status {
                 gap: 0.8rem;
-            }
-
-            /* Nog kleinere orbs */
-            .mastery-orb {
-                width: 120px;
-                height: 120px;
-                font-size: 0.65rem;
-            }
-
-            .convergence-point {
-                width: 80px;
-                height: 80px;
-            }
-
-            .convergence-point img {
-                width: 28px;
-                height: 28px;
             }
         }
     </style>
@@ -1178,18 +1536,33 @@
     <!-- Technical Grid Overlay -->
     <div class="grid-overlay"></div>
 
+    <!-- Progress Navigation -->
+    <nav class="progress-nav" id="progressNav">
+        <div class="nav-dots">
+            <a href="#hero" class="nav-dot active" data-label="mission"></a>
+            <span class="nav-line"></span>
+            <a href="#masteries" class="nav-dot" data-label="depth"></a>
+            <span class="nav-line"></span>
+            <a href="#proof" class="nav-dot" data-label="proof"></a>
+            <span class="nav-line"></span>
+            <a href="#about" class="nav-dot" data-label="operator"></a>
+            <span class="nav-line"></span>
+            <a href="#contact" class="nav-dot" data-label="contact"></a>
+        </div>
+    </nav>
+
     <!-- Coordinate System -->
     <div class="coordinates coord-tl">
         <div class="coord-label">ORIGIN</div>
-        <div>51.2°N 4.4°E</div>
+        <div>51.2°N 4.4°E<br>BRUGES</div>
     </div>
     <div class="coordinates coord-tr">
         <div class="coord-label">STATUS</div>
-        <div id="system-status">ACTIVE</div>
+        <div id="system-status" class="status-live">IN ORBIT</div>
     </div>
     <div class="coordinates coord-bl">
         <div class="coord-label">MISSION TIME</div>
-        <div id="mission-elapsed">T+00:00:00</div>
+        <div id="mission-elapsed">T+0d 00:00:00</div>
     </div>
     <div class="coordinates coord-br">
         <div class="coord-label">DEPTH FACTOR</div>
@@ -1201,22 +1574,26 @@
         <div class="mission-status">
             <img src="Brand/FullPackage/LogoPackage/CDMX-Logo.svg" alt="CDMX" class="mission-logo">
             <div class="status-item">
-                <div class="status-label">MISSION</div>
-                <div class="status-value">CDMX-01</div>
+                <div class="status-label">ORIGIN</div>
+                <div class="status-value">51.2°N 4.4°E</div>
             </div>
             <div class="status-item">
-                <div class="status-label">PHASE</div>
-                <div class="status-value status-live">ACTIVE</div>
+                <div class="status-label">STATUS</div>
+                <div class="status-value status-live">IN ORBIT</div>
             </div>
             <div class="status-item">
-                <div class="status-label">MULTIPLIER</div>
-                <div class="status-value">×<span id="header-multiplier">3</span></div>
+                <div class="status-label">MISSION TIME</div>
+                <div class="status-value" id="header-mission-time">T+0d 00:00:00</div>
+            </div>
+            <div class="status-item">
+                <div class="status-label">DEPTH FACTOR</div>
+                <div class="status-value">×3</div>
             </div>
         </div>
     </div>
 
     <!-- HERO -->
-    <section class="hero-section">
+    <section id="hero" class="hero-section">
         <div class="hero-video-container">
             <video class="hero-video" autoplay muted loop playsinline>
                 <source src="14240744_3840_2160_24fps.mp4" type="video/mp4">
@@ -1226,40 +1603,98 @@
         </div>
 
         <div class="hero-content">
-            <h1 class="hero-title">DEPTH<br>MULTIPLIES</h1>
+            <h1 class="hero-title">BUILDING THE<br>FUTURE OF<br>GROWTH</h1>
             <div class="hero-subtitle">CURIOSITY × DEPTH × MASTERY</div>
         </div>
 
-        <div class="scroll-indicator">↓ SCROLL TO DEPLOY</div>
+        <div class="scroll-indicator">↓ INITIATE MISSION BRIEFING</div>
     </section>
 
-    <!-- MISSION BRIEFING -->
-    <section class="briefing-section">
-        <div class="briefing-container">
-            <div class="section-header">// MISSION PARAMETERS</div>
-            <h2 class="briefing-title">The multiplier effect is real. Three domains. Infinite depth.</h2>
+    <!-- MASTERIES -->
+    <section id="masteries" class="masteries-section section">
+        <div class="section-header">// THREE MASTERIES</div>
+        <div class="masteries-grid">
+            <div class="mastery-card">
+                <div class="mastery-number">MASTERY_01</div>
+                <h3 class="mastery-title">DIGITAL GROWTH</h3>
+                <p class="mastery-description">Scaling from €50k to €500k ad spend requires different playbooks. I know which ones.</p>
+                <ul class="mastery-points">
+                    <li>Growth architecture that scales without breaking</li>
+                    <li>Data-driven decisions, not data paralysis</li>
+                    <li>Acquisition that compounds, not grows linearly</li>
+                </ul>
+            </div>
+
+            <div class="mastery-card">
+                <div class="mastery-number">MASTERY_02</div>
+                <h3 class="mastery-title">BUSINESS OPERATIONS</h3>
+                <p class="mastery-description">Anyone can write a strategy. Few can make an organization move.</p>
+                <p class="mastery-description">Operations isn't admin — it's where ambition becomes reality.</p>
+            </div>
+
+            <div class="mastery-card">
+                <div class="mastery-number">MASTERY_03</div>
+                <h3 class="mastery-title">AI & INNOVATION</h3>
+                <p class="mastery-description">The question isn't "can AI do this?" The question is "should a human still do this?"</p>
+                <p class="mastery-description">I build systems that eliminate the second so people can focus on the first.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROOF -->
+    <section id="proof" class="proof-section section">
+        <div class="section-header">// MISSION HISTORY</div>
+
+        <div class="timeline">
+            <div class="timeline-items">
+                <div class="timeline-item completed">
+                    <span class="timeline-year">2018</span>
+                    <span class="timeline-text">Start digital marketing journey</span>
+                </div>
+                <div class="timeline-item completed">
+                    <span class="timeline-year">2024</span>
+                    <span class="timeline-text">Leading digital team & growth for 30+ people agency</span>
+                </div>
+                <div class="timeline-item completed">
+                    <span class="timeline-year">2025</span>
+                    <span class="timeline-text">CDMX founded — Growth & Innovation Manager @ KIXX</span>
+                </div>
+                <div class="timeline-item future">
+                    <span class="timeline-year">2026</span>
+                    <span class="timeline-text">Secret mission in progress</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section id="philosophy" class="philosophy-section section">
+        <div class="philosophy-container">
+            <div class="section-header">// THE MULTIPLIER MODEL</div>
+            <h2 class="philosophy-title">the multiplier effect is real.</h2>
+            <p class="philosophy-intro">three domains. infinite depth.</p>
 
             <div class="cdmx-breakdown">
                 <div class="letter-block">
-                    <div class="letter-symbol">C</div>
+                    <img src="Brand/FullPackage/LogoPackage/C.png" alt="C" class="letter-symbol">
                     <h3 class="letter-title">Curiosity</h3>
                     <p class="letter-desc">The spark. Following interest into new domains. Where others stop at surface patterns, we ask: what's underneath?</p>
                 </div>
 
                 <div class="letter-block">
-                    <div class="letter-symbol">D</div>
+                    <img src="Brand/FullPackage/LogoPackage/D.png" alt="D" class="letter-symbol">
                     <h3 class="letter-title">Depth</h3>
                     <p class="letter-desc">The commitment. Going deep enough to see what others miss. Real mastery isn't breadth—it's depth that compounds.</p>
                 </div>
 
                 <div class="letter-block">
-                    <div class="letter-symbol">M</div>
+                    <img src="Brand/FullPackage/LogoPackage/M.png" alt="M" class="letter-symbol">
                     <h3 class="letter-title">Mastery</h3>
                     <p class="letter-desc">The threshold. Where knowledge becomes intuition. Where patterns emerge before data confirms them.</p>
                 </div>
 
                 <div class="letter-block">
-                    <div class="letter-symbol">×</div>
+                    <img src="Brand/FullPackage/LogoPackage/x.png" alt="×" class="letter-symbol">
                     <h3 class="letter-title">Multiplier</h3>
                     <p class="letter-desc">Where masteries intersect. Not additive—multiplicative. Three deep domains don't triple value. They create exponential advantage.</p>
                 </div>
@@ -1314,74 +1749,80 @@
         </div>
     </section>
 
-    <!-- TECHNICAL SPECS -->
-    <section class="specs-section">
-        <div class="section-header" style="text-align: center; margin-bottom: 6rem;">// THREE MASTERIES</div>
-        <div class="specs-grid">
-            <div class="spec-card">
-                <div class="spec-number">MASTERY_01</div>
-                <h3 class="spec-title">Digital Growth</h3>
-                <p class="spec-description">Pattern recognition in growth systems. Scalable acquisition. Data intuition that tells you what works before the numbers confirm it.</p>
-            </div>
+    <!-- ABOUT -->
+    <section id="about" class="about-section section">
+        <div class="section-header" style="text-align: center;">// ABOUT THE OPERATOR</div>
 
-            <div class="spec-card">
-                <div class="spec-number">MASTERY_02</div>
-                <h3 class="spec-title">Business Operations</h3>
-                <p class="spec-description">How organizations actually work. Where strategy meets execution. The difference between planning and happening.</p>
+        <div class="about-content">
+            <div class="about-photo">
+                <img src="images/renke-pieters.jpg" alt="Renke Pieters">
             </div>
-
-            <div class="spec-card">
-                <div class="spec-number">MASTERY_03</div>
-                <h3 class="spec-title">AI & Innovation</h3>
-                <p class="spec-description">Building systems that compound. AI that augments judgment. Automation that creates leverage, not just efficiency.</p>
+            <div class="about-text">
+                <h3>Renke Pieters</h3>
+                <p class="about-role">Growth & Innovation Manager @ KIXX</p>
+                <p class="about-location">Brugge, Belgium</p>
+                <ul class="mastery-points">
+                    <li>Ironman finisher</li>
+                    <li>Father of two</li>
+                    <li>Someone who'd rather build than talk</li>
+                </ul>
+                <p class="about-motto">I move what stands still.</p>
             </div>
         </div>
     </section>
 
-    <!-- VALUE PROPOSITION -->
-    <section class="value-section">
-        <div class="value-container">
-            <h2 class="value-statement">Depth that de-risks.</h2>
-            <p class="value-text">
-                Each domain de-risks the others. When one market shifts, pattern recognition across all three finds the path.
-                This isn't volatility—this is antifragility.
+    <!-- MANIFEST -->
+    <section id="manifest" class="manifest-section section">
+        <div class="manifest-content">
+            <div class="section-header">// WHY CDMX EXISTS</div>
+            <p class="manifest-opening">Most move slow and break nothing.</p>
+
+            <p class="manifest-problems">
+                Selling hours, not outcomes.<br>
+                Measuring activity, not impact.<br>
+                Talking strategy, not testing reality.
+            </p>
+
+            <p class="manifest-statement">CDMX proves different.</p>
+
+            <p class="manifest-solution">
+                Move fast. Test relentlessly. Outfail the rest.<br>
+                Three domains deep enough to see what others miss.<br>
+                Integrated enough to build what others can't.
+            </p>
+
+            <p class="manifest-closing">
+                Not consultancy.<br>
+                A multiplier for companies ready to grow different.
             </p>
         </div>
     </section>
 
-    <!-- ACTION SECTION -->
-    <section class="action-section">
-        <div class="action-visual">
-            <div class="action-multiplier">×</div>
-            <div class="action-rings">
-                <div class="action-ring"></div>
-                <div class="action-ring"></div>
-                <div class="action-ring"></div>
-            </div>
-        </div>
-        <div class="action-content">
-            <div class="action-label">// INITIATE PROTOCOL</div>
-            <h2 class="action-title">Ready to multiply<br>your impact?</h2>
-            <p class="action-subtitle">Three domains. Infinite depth. Exponential advantage.</p>
-            <a href="mailto:renke@cdmx.be?subject=Mission Inquiry" class="action-cta">START CONVERSATION</a>
-        </div>
-    </section>
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section section">
+        <div class="section-header" style="text-align: center;">// INITIATE PROTOCOL</div>
 
-    <!-- CONTACT TERMINAL -->
-    <section class="contact-section">
-        <div class="contact-terminal">
-            <div class="terminal-header">// ESTABLISH CONNECTION</div>
-            <div class="terminal-content">
-                > <a href="mailto:renke@cdmx.be" class="terminal-link">renke@cdmx.be</a><br>
-                > <a href="https://linkedin.com/in/renkepieters" target="_blank" class="terminal-link">linkedin.com/in/renkepieters</a><br>
-                > <span class="cursor"></span>
-            </div>
+        <div class="contact-scarcity">
+            <p>Depth isn't scalable.</p>
+            <p class="availability">Working with few to move fast.</p>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="mailto:renke@cdmx.be?subject=CDMX%20Partnership%20Inquiry" class="cta-button">
+                START A CONVERSATION
+            </a>
+        </div>
+
+        <div class="contact-details">
+            <div class="section-header">// ESTABLISH CONNECTION</div>
+            <a href="mailto:renke@cdmx.be">renke@cdmx.be</a>
+            <a href="https://linkedin.com/in/renkepieters" target="_blank">linkedin.com/in/renkepieters</a>
         </div>
     </section>
 
     <!-- CTA BEACON -->
     <div class="cta-beacon" id="ctaBeacon">
-        <a href="mailto:renke@cdmx.be?subject=Mission Inquiry" class="beacon-button">
+        <a href="mailto:renke@cdmx.be?subject=CDMX%20Partnership%20Inquiry" class="beacon-button">
             <span class="beacon-pulse"></span>
             <span>INITIATE CONTACT</span>
         </a>
@@ -1389,42 +1830,88 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        // Mission timer
-        const startTime = Date.now();
+        // Mission timer (live counter since Feb 1, 2025)
+        const launchDate = new Date('2025-02-01T00:00:00');
 
         function updateMissionTime() {
-            const elapsed = Date.now() - startTime;
-            const hours = Math.floor(elapsed / 3600000);
-            const minutes = Math.floor((elapsed % 3600000) / 60000);
-            const seconds = Math.floor((elapsed % 60000) / 1000);
+            const now = new Date();
+            const diff = now - launchDate;
 
-            const timeStr = `T+${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            const timeEl = document.getElementById('mission-elapsed');
-            if (timeEl) timeEl.textContent = timeStr;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const timeStr = `T+${days}d ${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+
+            const elapsedEl = document.getElementById('mission-elapsed');
+            const headerTimeEl = document.getElementById('header-mission-time');
+
+            if (elapsedEl) elapsedEl.textContent = timeStr;
+            if (headerTimeEl) headerTimeEl.textContent = timeStr;
         }
 
         setInterval(updateMissionTime, 1000);
         updateMissionTime();
 
-        // Depth factor counter
-        const depthFactorEl = document.getElementById('depth-factor');
-        const headerMultiplierEl = document.getElementById('header-multiplier');
+        // Progress navigation visibility & active state
+        const progressNav = document.getElementById('progressNav');
+        const sections = document.querySelectorAll('section[id]');
+        const navDots = document.querySelectorAll('.nav-dot');
 
-        if (depthFactorEl && headerMultiplierEl) {
-            let currentValue = 1;
-            const targetValue = 3;
-            const interval = setInterval(() => {
-                if (currentValue < targetValue) {
-                    currentValue += 0.1;
-                    const displayValue = currentValue.toFixed(1);
-                    depthFactorEl.textContent = displayValue;
-                    headerMultiplierEl.textContent = displayValue;
-                } else {
-                    depthFactorEl.textContent = targetValue;
-                    headerMultiplierEl.textContent = targetValue;
-                    clearInterval(interval);
+        function updateProgressNav() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            // Show nav after scrolling past hero
+            if (scrollY > windowHeight * 0.3) {
+                progressNav.classList.add('visible');
+            } else {
+                progressNav.classList.remove('visible');
+            }
+
+            // Update active dot based on scroll position
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollY >= (sectionTop - windowHeight / 2)) {
+                    currentSection = section.getAttribute('id');
                 }
-            }, 100);
+            });
+
+            navDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === `#${currentSection}`) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll-triggered section fade-in
+        function animateSections() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                if (rect.top < windowHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        // CTA Beacon visibility
+        const ctaBeacon = document.getElementById('ctaBeacon');
+
+        function updateBeacon() {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+
+            if (scrollY > windowHeight && ctaBeacon) {
+                ctaBeacon.classList.add('visible');
+            } else if (ctaBeacon) {
+                ctaBeacon.classList.remove('visible');
+            }
         }
 
         // Depth stages scroll animation
@@ -1451,27 +1938,15 @@
             });
         }
 
-        // CTA Beacon visibility
-        const ctaBeacon = document.getElementById('ctaBeacon');
-
-        function updateBeacon() {
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-
-            if (scrollY > windowHeight && ctaBeacon) {
-                ctaBeacon.classList.add('visible');
-            } else if (ctaBeacon) {
-                ctaBeacon.classList.remove('visible');
-            }
-        }
-
         // Scroll handler
         let ticking = false;
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    updateDepthStages();
+                    updateProgressNav();
+                    animateSections();
                     updateBeacon();
+                    updateDepthStages();
                     ticking = false;
                 });
                 ticking = true;
@@ -1479,8 +1954,22 @@
         });
 
         // Initial calls
-        updateDepthStages();
+        updateProgressNav();
+        animateSections();
         updateBeacon();
+        updateDepthStages();
+
+        // Smooth scroll for nav dots
+        navDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = dot.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
         // ============ CUSTOM CURSOR ============
         const customCursor = document.getElementById('customCursor');
@@ -1492,7 +1981,7 @@
         });
 
         // Hover effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .letter-block, .spec-card, .beacon-button');
+        const interactiveElements = document.querySelectorAll('a, button, .letter-block, .mastery-card, .metric-card, .comparison-card, .beacon-button');
 
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
