@@ -954,67 +954,213 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
+            /* Mission Header - compacter op mobile */
             .mission-header {
-                padding: 1rem 1.5rem;
+                padding: 0.8rem 1rem;
+                width: auto;
+                left: 1rem;
+                right: 1rem;
+                transform: none;
             }
 
             .mission-status {
-                gap: 1.5rem;
-                font-size: 0.65rem;
-            }
-
-            .coordinates {
+                gap: 1rem;
                 font-size: 0.6rem;
-                padding: 0.8rem;
+                flex-wrap: wrap;
             }
 
-            .coord-bl, .coord-br {
-                display: none;
+            .mission-logo {
+                height: 18px;
             }
 
+            .status-item {
+                min-width: 60px;
+            }
+
+            .status-label {
+                font-size: 0.55rem;
+            }
+
+            .status-value {
+                font-size: 0.7rem;
+            }
+
+            /* Coordinate corners - kleinere tekst, betere positioning */
+            .coordinates {
+                font-size: 0.5rem;
+                padding: 0.5rem 0.6rem;
+            }
+
+            .coord-label {
+                font-size: 0.45rem;
+                margin-bottom: 0.1rem;
+            }
+
+            /* Top left */
+            .coord-tl {
+                top: 0.5rem;
+                left: 0.5rem;
+            }
+
+            /* Top right */
+            .coord-tr {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            /* Bottom corners - verberg op zeer kleine schermen */
+            .coord-bl {
+                bottom: 0.5rem;
+                left: 0.5rem;
+                font-size: 0.5rem;
+            }
+
+            .coord-br {
+                bottom: 0.5rem;
+                right: 0.5rem;
+                font-size: 0.5rem;
+            }
+
+            /* Hero */
             .hero-title {
                 font-size: clamp(3rem, 12vw, 8rem);
             }
 
+            /* CDMX Breakdown */
             .cdmx-breakdown {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
+            /* Specs Grid */
             .specs-grid {
                 grid-template-columns: 1fr;
             }
 
+            /* Multiplied Depth - FIX voor overlappende cirkels */
+            .depth-section {
+                min-height: 150vh;
+            }
+
             .multiplied-container {
                 width: 100%;
-                max-width: 400px;
-                height: 350px;
+                max-width: 350px;
+                height: 400px;
             }
 
             .mastery-orb {
-                width: 180px;
-                height: 180px;
-                font-size: 0.75rem;
+                width: 140px;
+                height: 140px;
+                font-size: 0.7rem;
+                padding: 0.5rem;
             }
 
+            /* Initiële posities - verder uit elkaar op mobile */
+            .orb-1 {
+                top: -80px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .orb-2 {
+                bottom: -50px;
+                left: -50px;
+            }
+
+            .orb-3 {
+                bottom: -50px;
+                right: -50px;
+            }
+
+            /* Convergeerde posities - beter overlap op mobile */
+            .depth-stage.active .orb-1 {
+                top: 20px;
+            }
+
+            .depth-stage.active .orb-2 {
+                bottom: 20px;
+                left: 30px;
+            }
+
+            .depth-stage.active .orb-3 {
+                bottom: 20px;
+                right: 30px;
+            }
+
+            /* Convergence point - kleiner op mobile */
             .convergence-point {
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
+                border: 4px solid var(--yellow);
             }
 
             .convergence-point img {
-                width: 45px;
-                height: 45px;
+                width: 35px;
+                height: 35px;
             }
 
+            /* CTA Beacon */
             .cta-beacon {
                 bottom: 1rem;
                 right: 1rem;
+                left: 1rem;
             }
 
             .beacon-button {
                 padding: 1rem 2rem;
                 font-size: 0.8rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Action Section - beter op mobile */
+            .action-section {
+                padding: 6rem 1.5rem;
+                min-height: 80vh;
+            }
+
+            .action-title {
+                font-size: clamp(2.5rem, 8vw, 5rem);
+            }
+
+            .action-cta {
+                padding: 1.5rem 3rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra kleine schermen */
+        @media (max-width: 480px) {
+            /* Verberg bottom coordinates op zeer kleine schermen */
+            .coord-bl,
+            .coord-br {
+                display: none;
+            }
+
+            /* Mission header nog compacter */
+            .mission-header {
+                padding: 0.6rem 0.8rem;
+            }
+
+            .mission-status {
+                gap: 0.8rem;
+            }
+
+            /* Nog kleinere orbs */
+            .mastery-orb {
+                width: 120px;
+                height: 120px;
+                font-size: 0.65rem;
+            }
+
+            .convergence-point {
+                width: 80px;
+                height: 80px;
+            }
+
+            .convergence-point img {
+                width: 28px;
+                height: 28px;
             }
         }
     </style>
