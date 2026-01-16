@@ -585,7 +585,7 @@
         }
 
         .timeline {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
@@ -601,7 +601,7 @@
 
         .timeline-items {
             position: relative;
-            padding-left: 0;
+            padding-left: 3rem;
         }
 
         .timeline-items::before {
@@ -610,98 +610,68 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 1px;
+            width: 2px;
             background: rgba(255,255,255,0.1);
         }
 
         .timeline-item {
             position: relative;
-            padding: 2rem 0 2rem 4rem;
+            padding: 1.5rem 0;
             display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px) saturate(180%);
-            -webkit-backdrop-filter: blur(10px) saturate(180%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
+            gap: 2rem;
+            align-items: center;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(135deg, var(--yellow) 0%, rgba(255,229,125,0.3) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .timeline-item:hover {
-            background: rgba(0,0,0,0.5);
-            border-color: rgba(255,255,255,0.2);
-            transform: translateX(8px);
-        }
-
-        .timeline-item:hover::before {
-            opacity: 1;
-        }
-
-        .timeline-item.completed {
-            border-left-color: rgba(57,255,20,0.3);
+            left: -3.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border: 2px solid var(--yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(0,0,0,1);
         }
 
         .timeline-item.completed::before {
-            background: linear-gradient(135deg, var(--green) 0%, rgba(57,255,20,0.3) 100%);
-            opacity: 0.6;
-        }
-
-        .timeline-item.completed:hover::before {
-            opacity: 1;
-            box-shadow: 0 0 20px rgba(57,255,20,0.4);
-        }
-
-        .timeline-item.future {
-            opacity: 0.5;
-            border-color: rgba(255,255,255,0.05);
+            background: var(--green);
+            border-color: var(--green);
+            box-shadow: 0 0 0 4px rgba(0,0,0,1), 0 0 20px rgba(57,255,20,0.4);
         }
 
         .timeline-item.future::before {
-            background: rgba(255,255,255,0.1);
+            background: var(--gray-mid);
+            border-color: var(--gray-mid);
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+            75%, 100% {
+                transform: translateY(-50%) scale(2);
+                opacity: 0;
+            }
         }
 
         .timeline-year {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--yellow);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            opacity: 0.7;
-        }
-
-        .timeline-item.completed .timeline-year {
-            color: var(--green);
-        }
-
-        .timeline-item.future .timeline-year {
-            color: var(--gray-mid);
+            min-width: 80px;
         }
 
         .timeline-text {
-            font-size: 1.2rem;
-            color: var(--white);
+            font-size: 1.1rem;
+            color: var(--gray-light);
             line-height: 1.6;
-            font-weight: 500;
         }
 
+        .timeline-item.future .timeline-year,
         .timeline-item.future .timeline-text {
-            color: var(--gray-light);
+            opacity: 0.5;
         }
 
         /* ==================== PHILOSOPHY SECTION ==================== */
