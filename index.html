@@ -585,7 +585,7 @@
         }
 
         .timeline {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 4rem 2rem;
         }
@@ -601,77 +601,89 @@
 
         .timeline-items {
             position: relative;
-            padding-left: 3rem;
+            padding-left: 2.5rem;
         }
 
         .timeline-items::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(255,255,255,0.1);
+            left: 6px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: rgba(255,255,255,0.15);
         }
 
         .timeline-item {
             position: relative;
-            padding: 1.5rem 0;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+            padding: 1.2rem 0;
+            display: block;
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 14px;
+            height: 14px;
             background: var(--white);
-            border: 2px solid var(--yellow);
+            border: 2px solid var(--white);
             border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(0,0,0,1);
+            z-index: 1;
         }
 
         .timeline-item.completed::before {
-            background: var(--green);
-            border-color: var(--green);
-            box-shadow: 0 0 0 4px rgba(0,0,0,1), 0 0 20px rgba(57,255,20,0.4);
+            background: var(--white);
+            border-color: var(--white);
         }
 
         .timeline-item.future::before {
-            background: var(--gray-mid);
+            background: transparent;
             border-color: var(--gray-mid);
             animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
 
         @keyframes ping {
-            75%, 100% {
-                transform: translateY(-50%) scale(2);
-                opacity: 0;
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
         .timeline-year {
             font-family: var(--font-mono);
-            font-size: 1.2rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--yellow);
-            min-width: 80px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.3rem;
         }
 
         .timeline-text {
-            font-size: 1.1rem;
-            color: var(--gray-light);
+            font-size: 1.05rem;
+            color: var(--white);
             line-height: 1.6;
+            display: block;
         }
 
-        .timeline-item.future .timeline-year,
+        .timeline-item.future .timeline-year {
+            color: var(--gray-mid);
+        }
+
         .timeline-item.future .timeline-text {
-            opacity: 0.5;
+            color: var(--gray-mid);
+            opacity: 0.6;
         }
 
         /* ==================== PHILOSOPHY SECTION ==================== */
