@@ -1149,28 +1149,23 @@
         /* ==================== MANIFEST SECTION ==================== */
         .manifest-section {
             position: relative;
-            min-height: 150vh;
+            min-height: 100vh;
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 20rem 2rem 12rem;
+            padding: 12rem 2rem;
             background: var(--black);
-            perspective: 400px;
-            perspective-origin: 50% 50%;
-            overflow: hidden;
+        }
+
+        .manifest-section .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .manifest-content {
             max-width: 900px;
             margin: 0 auto;
-            text-align: center;
-            transform: rotateX(25deg);
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease-out;
-        }
-
-        .manifest-content .section-header {
-            margin-bottom: 4rem;
             text-align: center;
         }
 
@@ -2019,40 +2014,6 @@
         document.addEventListener('mouseenter', () => {
             customCursor.style.opacity = '1';
         });
-
-        // Star Wars scroll effect for manifest section
-        const manifestSection = document.querySelector('.manifest-section');
-        const manifestContent = document.querySelector('.manifest-content');
-
-        if (manifestSection && manifestContent) {
-            const updateManifestScroll = () => {
-                const rect = manifestSection.getBoundingClientRect();
-                const viewportHeight = window.innerHeight;
-
-                // Calculate scroll progress through the section (0 to 1)
-                const scrollProgress = Math.max(0, Math.min(1,
-                    (viewportHeight - rect.top) / (viewportHeight + rect.height)
-                ));
-
-                // Start at 25deg rotation, gradually reduce to 0 as user scrolls
-                const rotationX = 25 - (scrollProgress * 25);
-
-                // Add subtle fade and scale effect
-                const opacity = Math.max(0.3, Math.min(1, scrollProgress * 2));
-                const scale = 0.8 + (scrollProgress * 0.2);
-
-                manifestContent.style.transform = `
-                    rotateX(${rotationX}deg)
-                    scale(${scale})
-                `;
-                manifestContent.style.opacity = opacity;
-            };
-
-            // Update on scroll
-            window.addEventListener('scroll', updateManifestScroll);
-            // Initial update
-            updateManifestScroll();
-        }
     </script>
 </body>
 </html>
