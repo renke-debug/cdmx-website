@@ -1233,7 +1233,9 @@
         .cta-button {
             display: inline-block;
             padding: 1.8rem 4rem;
-            background: var(--yellow);
+            background: rgba(255,229,125,0.95);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
             color: var(--black);
             font-family: var(--font-mono);
             font-size: 1rem;
@@ -1243,14 +1245,19 @@
             border: 2px solid var(--yellow);
             border-radius: 16px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 40px rgba(255,229,125,0.3);
+            box-shadow: 0 0 40px rgba(255,229,125,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.2);
             margin-bottom: 6rem;
         }
 
         .cta-button:hover {
-            background: transparent;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             color: var(--yellow);
-            box-shadow: 0 0 80px rgba(255,229,125,0.5);
+            border-color: var(--yellow);
+            box-shadow: 0 0 80px rgba(255,229,125,0.5),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
             transform: translateY(-3px);
         }
 
@@ -1300,27 +1307,35 @@
         }
 
         .beacon-button {
-            background: var(--yellow);
+            background: rgba(255,229,125,0.95);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
             color: var(--black);
             padding: 1.3rem 3rem;
             font-family: var(--font-mono);
             font-size: 0.9rem;
             font-weight: 700;
             text-decoration: none;
-            border: none;
+            border: 2px solid var(--yellow);
             border-radius: 16px;
             display: flex;
             align-items: center;
             gap: 1rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6),
+                        inset 0 1px 0 rgba(255,255,255,0.2);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             letter-spacing: 0.05em;
         }
 
         .beacon-button:hover {
-            background: var(--white);
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            color: var(--yellow);
+            border-color: var(--yellow);
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
         .beacon-pulse {
@@ -1577,10 +1592,6 @@
         <div class="coord-label">MISSION TIME</div>
         <div id="mission-elapsed">T+0d 00:00:00</div>
     </div>
-    <div class="coordinates coord-br">
-        <div class="coord-label">DEPTH FACTOR</div>
-        <div>×<span id="depth-factor">3</span></div>
-    </div>
 
     <!-- Mission Control Header -->
     <div class="mission-header">
@@ -1684,14 +1695,14 @@
     <section id="philosophy" class="philosophy-section section">
         <div class="philosophy-container">
             <div class="section-header">// THE MULTIPLIER MODEL</div>
-            <h2 class="philosophy-title">the multiplier effect is real.</h2>
-            <p class="philosophy-intro">three domains. infinite depth.</p>
+            <h2 class="philosophy-title">The multiplier effect is real.</h2>
+            <p class="philosophy-intro">Three domains. Infinite depth.</p>
 
             <div class="cdmx-breakdown">
                 <div class="letter-block">
                     <img src="Brand/FullPackage/LogoPackage/C.png" alt="C" class="letter-symbol">
                     <h3 class="letter-title">Curiosity</h3>
-                    <p class="letter-desc">The spark. Following interest into new domains. Where others stop at surface patterns, we ask: what's underneath?</p>
+                    <p class="letter-desc">The spark. Following interest into new domains. Where others stop at surface patterns, I ask: what's underneath?</p>
                 </div>
 
                 <div class="letter-block">
@@ -1779,7 +1790,7 @@
                     <li>Father of two</li>
                     <li>Someone who'd rather build than talk</li>
                 </ul>
-                <p class="about-motto">I move what stands still.</p>
+                <p class="about-motto">Building what others only plan.</p>
             </div>
         </div>
     </section>
@@ -1821,8 +1832,8 @@
         </div>
 
         <div style="text-align: center;">
-            <a href="mailto:renke@cdmx.be?subject=CDMX%20Partnership%20Inquiry" class="cta-button">
-                START A CONVERSATION
+            <a href="mailto:renke@cdmx.be?subject=CDMX%20Waitlist%20Request" class="cta-button">
+                JOIN MISSION WAITLIST
             </a>
         </div>
 
