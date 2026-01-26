@@ -482,25 +482,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .mastery-points {
-            list-style: none;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--gray-light);
-        }
-
-        .mastery-points li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .mastery-points li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--yellow);
-        }
 
         .mastery-card::before {
             content: '';
@@ -1153,57 +1134,62 @@
         }
 
         .about-content {
-            max-width: 1000px;
-            margin: 4rem auto 0;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 6rem;
-            align-items: center;
-        }
-
-        .about-photo {
-            position: relative;
-        }
-
-        .about-photo img {
-            width: 100%;
-            height: auto;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            max-width: 800px;
+            margin: 6rem auto 0;
+            text-align: center;
         }
 
         .about-text h3 {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
         }
 
         .about-role {
             font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--gray-light);
-            letter-spacing: 0.1em;
+            font-size: 1rem;
+            color: var(--yellow);
+            letter-spacing: 0.15em;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
         }
 
         .about-location {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--gray-mid);
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
-        .about-bio {
+        .mastery-points {
+            list-style: none;
             font-size: 1.1rem;
-            line-height: 1.8;
+            line-height: 2;
             color: var(--gray-light);
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            padding: 0;
+        }
+
+        .mastery-points li {
+            margin-bottom: 1rem;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .mastery-points li::before {
+            content: '×';
+            color: var(--green);
+            margin-right: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .about-motto {
-            font-size: 1.6rem;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
             font-weight: 700;
             color: var(--yellow);
             font-style: italic;
+            line-height: 1.4;
         }
 
         /* ==================== MANIFEST SECTION ==================== */
@@ -1420,14 +1406,8 @@
             }
 
             .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-
-            .about-photo {
-                max-width: 400px;
-                margin: 0 auto;
+                margin: 4rem auto 0;
+                padding: 0 1rem;
             }
         }
 
@@ -1858,9 +1838,6 @@
         </div>
 
         <div class="about-content">
-            <div class="about-photo">
-                <img src="images/renke-pieters.jpg" alt="Renke Pieters">
-            </div>
             <div class="about-text">
                 <h3>Renke Pieters</h3>
                 <p class="about-role">Growth & Innovation Manager @ KIXX</p>
