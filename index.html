@@ -1223,6 +1223,59 @@
             color: var(--white);
         }
 
+        /* ==================== OPERATOR VISUAL ==================== */
+        .operator-visual {
+            position: relative;
+            padding: 0;
+            background: var(--black);
+            overflow: hidden;
+        }
+
+        .operator-image-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+            max-height: 900px;
+            overflow: hidden;
+        }
+
+        .operator-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: grayscale(40%) contrast(1.1) brightness(0.85);
+            transition: all 0.6s ease;
+        }
+
+        .operator-image:hover {
+            filter: grayscale(20%) contrast(1.15) brightness(0.9);
+            transform: scale(1.02);
+        }
+
+        .operator-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.3) 0%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.7) 100%
+            );
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .operator-image-container {
+                height: 60vh;
+                min-height: 400px;
+            }
+        }
+
         /* ==================== CONTACT SECTION ==================== */
         .contact-section {
             position: relative;
@@ -1846,6 +1899,14 @@
                 Not consultancy.<br>
                 A multiplier for companies ready to grow different.
             </p>
+        </div>
+    </section>
+
+    <!-- OPERATOR VISUAL -->
+    <section class="operator-visual section">
+        <div class="operator-image-container">
+            <img src="images/LJ9A2363.jpg" alt="CDMX Operator" class="operator-image">
+            <div class="operator-overlay"></div>
         </div>
     </section>
 
