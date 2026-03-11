@@ -180,7 +180,7 @@
 
         ::selection { background: var(--accent); color: var(--bg); }
 
-        /* Film grain overlay for depth */
+        /* Film grain overlay for depth — disabled on mobile for performance */
         body::after {
             content: '';
             position: fixed;
@@ -192,6 +192,9 @@
             background-repeat: repeat;
             background-size: 256px 256px;
             mix-blend-mode: overlay;
+        }
+        @media (max-width: 768px) {
+            body::after { display: none; }
         }
 
         a { color: inherit; text-decoration: none; }
@@ -310,6 +313,106 @@
             will-change: filter, opacity;
         }
         /* ============================================================
+           UNLOCK GATE
+           ============================================================ */
+        .unlock-gate {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .unlock-typed {
+            display: flex;
+            gap: 0.8rem;
+            min-height: clamp(2rem, 5vw, 3.5rem);
+        }
+        .unlock-slot {
+            font-family: var(--mono);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            width: 1.2em;
+            text-align: center;
+            color: transparent;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .unlock-slot.revealed {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            text-shadow: 0 0 30px var(--accent), 0 0 60px rgba(185, 255, 0, 0.3);
+        }
+        .unlock-slot.wrong {
+            animation: unlockShake 0.4s ease;
+            border-bottom-color: rgba(255, 80, 80, 0.4);
+        }
+        @keyframes unlockShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+        .unlock-cursor {
+            font-family: var(--mono);
+            font-size: 1.5rem;
+            color: var(--accent);
+            animation: cursorBlink 1s step-end infinite;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .unlock-hint {
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--muted);
+            opacity: 0;
+            transition: opacity 2s ease 4s;
+        }
+        .unlock-hint-2 {
+            font-family: var(--mono);
+            font-size: 0.45rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.06);
+            opacity: 0;
+            transition: opacity 3s ease 8s;
+        }
+        .unlock-gate.waiting .unlock-hint,
+        .unlock-gate.waiting .unlock-hint-2 {
+            opacity: 1;
+        }
+        .unlock-gate.waiting {
+            pointer-events: auto;
+        }
+        .unlock-input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            pointer-events: none;
+        }
+        .unlock-flash {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .unlock-flash.flash {
+            opacity: 1;
+        }
+
+        /* ============================================================
            NAV
            ============================================================ */
         .nav {
@@ -328,6 +431,7 @@
             left: 2.5rem;
             display: flex;
             align-items: center;
+            padding: 0.5rem 0.75rem;
         }
         .nav-logo svg {
             fill: #ffffff;
@@ -466,8 +570,8 @@
             letter-spacing: 0.35em;
             text-transform: uppercase;
             color: var(--accent);
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 1.5rem;
@@ -483,11 +587,11 @@
         }
 
         .hero-title {
-            font-size: clamp(2.8rem, 7vw, 6.5rem);
+            font-size: clamp(2.8rem, 6.5vw, 5.8rem);
             font-weight: 800;
             letter-spacing: -0.05em;
             line-height: 0.95;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
         .hero-title .line { display: block; overflow: hidden; padding: 0.05em 0; }
         .hero-title .line-inner { display: block; transform: translateY(115%); }
@@ -612,6 +716,10 @@
             color: var(--fg);
             opacity: 0.7;
             transition: opacity 0.3s ease;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
         }
         .mobile-menu-links a:hover { opacity: 1; }
         .mobile-menu-cta {
@@ -635,7 +743,10 @@
             font-weight: 500;
             color: var(--fg-dim);
             border-bottom: 1px solid var(--border);
-            padding-bottom: 2px;
+            padding: 0.75rem 0.5rem;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: 0.03em;
         }
@@ -960,19 +1071,21 @@
             display: grid;
             grid-template-areas: 'stack';
             place-items: center;
-            margin-top: 5rem;
+            margin-top: 2rem;
             min-height: 420px;
         }
 
         .expertise-card {
             grid-area: stack;
             position: relative;
-            width: min(34rem, 90vw);
+            width: min(50rem, 90vw);
             padding: 1.5rem 2rem;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            transform: skewY(-6deg);
+            --tiltX: 0px;
+            --tiltY: 0px;
+            transform: skewY(-6deg) translate(var(--tiltX), var(--tiltY));
             transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
             cursor: pointer;
@@ -1025,29 +1138,29 @@
         /* Card 1: back — slides up on hover, stays behind */
         .expertise-card:nth-child(1) { z-index: 1; }
         .expertise-card:nth-child(1):hover {
-            transform: skewY(-6deg) translateY(-3rem);
+            transform: skewY(-6deg) translate(var(--tiltX), calc(-3rem + var(--tiltY)));
             border-color: var(--accent-line);
         }
 
         /* Card 2: middle — slides up on hover, stays between */
         .expertise-card:nth-child(2) {
             z-index: 2;
-            transform: skewY(-6deg) translate(3rem, 4.5rem);
+            transform: skewY(-6deg) translate(calc(3rem + var(--tiltX)), calc(4.5rem + var(--tiltY)));
         }
         .expertise-card:nth-child(2):hover {
-            transform: skewY(-6deg) translate(3rem, 1.5rem);
+            transform: skewY(-6deg) translate(calc(3rem + var(--tiltX)), calc(1.5rem + var(--tiltY)));
             border-color: var(--accent-line);
         }
 
         /* Card 3: front (active) */
         .expertise-card:nth-child(3) {
             z-index: 3;
-            transform: skewY(-6deg) translate(6rem, 9rem);
+            transform: skewY(-6deg) translate(calc(6rem + var(--tiltX)), calc(9rem + var(--tiltY)));
             border-color: var(--accent-line);
         }
         .expertise-card:nth-child(3)::after { opacity: 0.15; }
         .expertise-card:nth-child(3):hover {
-            transform: skewY(-6deg) translate(6rem, 6rem);
+            transform: skewY(-6deg) translate(calc(6rem + var(--tiltX)), calc(6rem + var(--tiltY)));
         }
 
         .expertise-card.is-open { z-index: 20 !important; border-color: var(--accent-line); }
@@ -1156,8 +1269,8 @@
         .orbital-node-dot {
             width: 44px; height: 44px;
             border-radius: 50%;
-            background: var(--bg-card);
-            border: 2px solid var(--border);
+            background: var(--bg);
+            border: 2px solid rgba(255,255,255,0.15);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1185,7 +1298,7 @@
             font-weight: 600;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--muted);
+            color: var(--fg-dim);
             transition: color 0.3s ease;
         }
         .orbital-node:hover .orbital-node-label,
@@ -1273,6 +1386,18 @@
         }
         .about-image:hover img {
             filter: grayscale(0%) contrast(1);
+        }
+        /* Live FlickerX canvas overlay on photo */
+        .about-image canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.65;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .about-image:hover canvas {
+            opacity: 0;
         }
 
         .about-content {
@@ -1659,9 +1784,7 @@
             text-align: center;
             line-height: 1.6;
         }
-        @media (max-width: 480px) {
-            .cta-form-row { grid-template-columns: 1fr; }
-        }
+        /* form-row now handled in 768px breakpoint */
         .cta-scarcity {
             font-family: var(--mono);
             font-size: 0.6rem;
@@ -1684,20 +1807,19 @@
            FOOTER
            ============================================================ */
         .footer {
-            padding: 3rem 3rem;
             border-top: 1px solid var(--border);
             max-width: 1400px;
             margin: 0 auto;
+            padding: 4rem 3rem;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            flex-direction: column;
+            gap: 3rem;
         }
         .footer-top {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 0.6rem;
-            margin-bottom: 2rem;
         }
         .footer-badge {
             display: inline-flex;
@@ -1717,12 +1839,20 @@
         .footer-badge-sep { width: 1px; height: 12px; background: var(--border); }
         .footer-badge-val { color: var(--fg); font-weight: 600; }
         .footer-badge.accent .footer-badge-val { color: var(--accent); }
+        .footer-mid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .footer-mid svg { flex-shrink: 0; }
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
         }
-        .footer-left { display: flex; flex-direction: column; gap: 0.6rem; }
         .footer-text {
             font-family: var(--mono);
             font-size: 0.6rem;
@@ -1742,6 +1872,10 @@
             color: var(--muted);
             text-decoration: none;
             transition: color 0.3s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 0;
         }
         .footer-links a:hover { color: var(--accent); }
 
@@ -1811,9 +1945,18 @@
         @media (max-width: 1024px) {
             .mobile-cta-bar { display: block; }
             .expertise-stack { min-height: auto; display: flex; flex-direction: column; gap: 1rem; }
-            .expertise-card { transform: none !important; width: 100%; }
+            .expertise-card { transform: none !important; width: 100%; --tiltX: 0px !important; --tiltY: 0px !important; }
             .expertise-card::after { display: none; }
             .expertise-card:hover { transform: none !important; }
+            /* P1 #13: expand indicator on mobile */
+            .expertise-card h3::after {
+                content: '+';
+                float: right;
+                font-weight: 400;
+                color: var(--muted);
+                transition: transform 0.3s ease;
+            }
+            .expertise-card.is-open h3::after { content: '\2212'; color: var(--accent); }
             .about-split { grid-template-columns: 1fr; }
             .about-image { min-height: 400px; }
             .fit-grid { grid-template-columns: 1fr; }
@@ -1822,31 +1965,118 @@
             .nav-hamburger { display: block; }
             .nav { justify-content: space-between; }
             .nav-logo { position: static; }
-            .mobile-menu { display: flex; }
+            .mobile-menu { display: flex; z-index: 1001; }
             .impact-axis { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 0; }
             .impact-axis-line-v, .impact-axis::after, .impact-axis-dot { display: none; }
             .about-stats { grid-template-columns: repeat(2, 1fr); }
-            .footer { padding-bottom: 5rem; }
+            .footer { padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+            .inline-cta { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .inline-cta .btn-primary { width: 100%; justify-content: center; }
+            .section { padding: 8rem 2rem; }
+            .process-section { padding: 8rem 2rem; }
         }
 
         @media (max-width: 768px) {
-            .section { padding: 6rem 1.5rem; }
-            .hero { padding: 6rem 1.5rem; }
+            /* P0 #3: reduce section padding */
+            .section { padding: 4.5rem 1.5rem; }
+            .hero { padding: 5rem 1.5rem; }
             .nav { padding: 1rem 1.5rem; }
-            .manifesto { padding: 8rem 1.5rem; }
-            .cta-section { padding: 8rem 1.5rem; }
+            .manifesto { padding: 6rem 1.5rem; }
+            .cta-section { padding: 6rem 1.5rem; }
+            .process-section { padding: 5rem 1.5rem; }
             .hero-scroll { display: none; }
             .hero-actions { flex-direction: column; align-items: flex-start; }
-            .inline-cta { flex-direction: column; text-align: center; }
+            /* P1 #11: full-width hero CTA on mobile */
+            .hero-actions .btn-primary { width: 100%; justify-content: center; }
             .cta-links { flex-direction: column; gap: 1rem; }
-            .footer-bottom { flex-direction: column; gap: 1.5rem; align-items: center; text-align: center; }
+            .footer { padding: 3rem 1.5rem; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; align-items: center; text-align: center; }
+            .footer-links { gap: 1.5rem; }
             .process-header { padding: 0 1.5rem; }
             .about-content { padding: 2.5rem 1.5rem; }
+            /* P0 #1: iOS form zoom fix */
+            .cta-form input,
+            .cta-form textarea,
+            .cta-form select { font-size: 16px; }
+            /* P1 #12: form row single column earlier */
+            .cta-form-row { grid-template-columns: 1fr; }
+            /* P1 #6: disable backdrop-filter on mobile */
+            .impact-stat {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: rgba(10, 10, 10, 0.95);
+            }
+            /* P2 #17: hero title line-height */
+            .hero-title { line-height: 1.0; letter-spacing: -0.03em; }
+            .hero-sub { font-size: 1rem; line-height: 1.75; }
+            /* P2 #16: about image smaller */
+            .about-image { min-height: 300px; }
+            .about-image img { object-position: center 25%; }
+            /* Stronger focus states on mobile */
+            .cta-form input:focus,
+            .cta-form textarea:focus,
+            .cta-form select:focus {
+                box-shadow: 0 0 0 3px rgba(185, 255, 0, 0.2), 0 0 0 1px var(--accent);
+            }
+            /* P2 #23: improve small text contrast */
+            .footer-badge,
+            .orbital-card-time,
+            .about-ticker-item,
+            .expertise-proof,
+            .impact-context { color: var(--fg-dim); }
+            .footer-badge { font-size: 0.6rem; }
+            .faq-a-text { font-size: 0.95rem; }
+            .faq-q { font-size: 0.95rem; }
+            /* Manifesto mobile text */
+            .manifesto .btn-primary { width: 100%; justify-content: center; }
         }
 
         @media (max-width: 480px) {
+            /* P0 #2: tighter padding on small screens */
+            .section { padding: 3.5rem 1rem; }
+            .hero { padding: 4.5rem 1rem 3rem; min-height: auto; }
+            .manifesto { padding: 4rem 1rem; }
+            .cta-section { padding: 4rem 1rem; }
+            .process-section { padding: 4rem 1rem; }
+            .nav { padding: 0.8rem 1rem; }
             .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
             .about-stats { grid-template-columns: 1fr 1fr; }
+            .about-content { padding: 2rem 1rem; }
+            .about-image { min-height: 250px; }
+            .process-header { padding: 0; }
+            /* P2 #18: consistent horizontal padding */
+            .inline-cta { padding: 1.5rem 1.25rem; }
+            /* Manifesto mobile closer text */
+            .manifesto-closer-reveal-mobile {
+                font-size: clamp(1.6rem, 8vw, 2.5rem);
+                text-wrap: balance;
+                line-height: 1.1;
+            }
+            .manifesto-text { font-size: clamp(1.25rem, 5vw, 1.8rem); line-height: 1.55; }
+            /* Orbital: smaller on tiny screens */
+            .orbital-container { max-width: 280px; }
+            .orbital-card {
+                width: min(200px, 80vw);
+                padding: 0.8rem;
+                position: fixed;
+                top: auto;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+            }
+            .orbital-node-dot { width: 44px; height: 44px; font-size: 0.6rem; }
+            .orbital-node-label { top: 50px; font-size: 0.5rem; }
+        }
+
+        /* P0 #2: extra small screens */
+        @media (max-width: 375px) {
+            .hero-title { font-size: clamp(2rem, 11vw, 3rem); }
+            .section-heading { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+            .cta-headline { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+            .impact-number { font-size: clamp(2rem, 10vw, 3rem); }
+            .about-name { font-size: clamp(1.6rem, 7vw, 2rem); }
+            .fit-col { padding: 2rem 1.2rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1863,10 +2093,14 @@
             .glow { display: none; }
             .marquee-section { display: none; }
             .orbital-center-ping { display: none; }
+            .scroll-progress { display: none; }
+            .about-ticker { animation: none; }
             /* Preserve functional transitions */
             a, button, .faq-a, .faq-plus::before, .faq-plus::after,
             .nav-cta, .btn-primary, .btn-ghost, .cta-pulse-btn,
-            .expertise-card, .expertise-card::before {
+            .expertise-card, .expertise-card::before,
+            .impact-stat, .orbital-node-dot, .orbital-card,
+            .about-image img, .mobile-cta-bar {
                 transition-duration: 0.2s !important;
             }
         }
@@ -1903,12 +2137,26 @@
             <span id="morph1" class="loader-text">Curiosity</span>
             <span id="morph2" class="loader-text" style="opacity:0;">Depth</span>
         </div>
+        <!-- Unlock gate: appears after morph, waiting for CDMX keystrokes -->
+        <div class="unlock-gate" id="unlockGate">
+            <div class="unlock-typed" id="unlockTyped">
+                <span class="unlock-slot"></span>
+                <span class="unlock-slot"></span>
+                <span class="unlock-slot"></span>
+                <span class="unlock-slot"></span>
+            </div>
+            <div class="unlock-cursor" id="unlockCursor">_</div>
+            <div class="unlock-hint" id="unlockHint">Type the capitals of the capital.</div>
+            <div class="unlock-hint-2">Four letters. One city.</div>
+            <input class="unlock-input" id="unlockMobileInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text">
+        </div>
+        <canvas id="unlockFlash" class="unlock-flash"></canvas>
     </div>
 
     <!-- NAV -->
     <nav class="nav" aria-label="Main navigation">
         <a href="#hero" class="nav-logo" aria-label="CDMX home">
-            <svg width="90" height="19" viewBox="0 0 776.9 160.5" aria-hidden="true"><use href="#cdmx-logo"/></svg>
+            <svg width="104" height="22" viewBox="0 0 776.9 160.5" aria-hidden="true"><use href="#cdmx-logo"/></svg>
         </a>
         <ul class="nav-links">
             <li><a href="#impact">Impact</a></li>
@@ -1955,7 +2203,7 @@
                 <span class="line"><span class="line-inner"><span class="accent">growth system.</span></span></span>
             </h1>
             <div class="hero-eyebrow">For B2B founders &amp; commercial leaders</div>
-            <p class="hero-sub">One operator across digital growth, business strategy, and AI &mdash; embedded in your team, not advising from the outside. One client at a time.</p>
+            <p class="hero-sub">One operator across digital growth, business strategy, and AI &mdash; embedded in your team, not advising from the outside.</p>
             <div class="hero-actions">
                 <a href="#contact" class="btn-primary">Apply for the slot <span class="arr">&rarr;</span></a>
                 <a href="#process" class="btn-ghost">See how it works</a>
@@ -2017,8 +2265,9 @@
     </section>
 
     <!-- MANIFESTO -->
-    <section class="manifesto" id="manifesto" aria-label="Why an embedded growth operator">
-        <div class="manifesto-content">
+    <section class="manifesto" id="manifesto" aria-label="Why an embedded growth operator" style="overflow:hidden;">
+        <div class="process-flicker"><canvas id="flickerD"></canvas></div>
+        <div class="manifesto-content" style="position:relative;z-index:2;">
             <h2 class="sr-only">Why B2B companies need an embedded growth operator</h2>
             <p class="manifesto-text">
                 <span class="line"><span class="line-inner">Your growth team doesn't speak AI.</span></span>
@@ -2035,8 +2284,10 @@
                 </div>
                 <span class="manifesto-closer-reveal-mobile">I close that gap.</span>
             </div>
-            <div class="manifesto-sig">&mdash; Renke Pieters, CDMX</div>
-            <a href="#contact" class="manifesto-cta">See if there's a fit <span class="arr">&rarr;</span></a>
+            <!-- removed sig -->
+            <div style="margin-top:2.5rem;">
+                <a href="#contact" class="btn-primary" style="background:var(--bg);color:var(--accent);">See if there's a fit <span class="arr">&rarr;</span></a>
+            </div>
         </div>
     </section>
 
@@ -2151,6 +2402,7 @@
             <div class="about-split">
                 <div class="about-image" id="aboutImage" data-cursor="view">
                     <img src="../../images/renke-pieters.jpg" alt="Renke Pieters, founder of CDMX growth consultancy" loading="lazy" width="600" height="900" decoding="async">
+                    <canvas id="aboutFlickerCanvas"></canvas>
                 </div>
                 <div class="about-content">
                     <h3 class="about-name">Renke Pieters</h3>
@@ -2238,9 +2490,9 @@
             <div class="section-label">FAQ</div>
             <h2 class="section-heading">Before you ask.</h2>
             <div class="faq-list">
-                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How is this different from a marketing agency?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Agencies spread attention across dozens of clients and stay in their lane. I embed with one client and operate across three domains. When growth, strategy, and AI reinforce each other, you get compound results. That cross-domain leverage is what agencies, fractional CMOs, and separate specialists structurally cannot offer.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How does the engagement work?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Retainer-only with a 1-year commitment. No hourly billing, no scope creep. One client at a time means you get a full operator, not a vendor splitting attention across accounts. Pricing is discussed during the intake conversation.</p></div></div></div>
-                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>You also work at another agency &mdash; how?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">A Belgian full-service agency is where the operator model was built and validated: &euro;1M+ in new revenue, 5 AI products shipped, audit cycles cut 3x. That engagement is now in a maintenance phase, which is why capacity has opened for one external client. You get the same depth of focus &mdash; because there is only ever one active engagement at a time.</p></div></div></div>
+                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Why one client at a time?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Because depth beats breadth. When I split attention across multiple clients, the compound effect disappears. One client means I learn your business deeply, spot cross-domain patterns faster, and build systems that reinforce each other. That depth is what creates outsized results.</p></div></div></div>
+                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What kind of results can I expect?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">That depends on where you are. But the operator model has generated &euro;1M+ in new revenue through channels that didn't exist before, shipped 5 AI products to production, and cut audit review cycles by 3x. The first 90 days focus on quick wins and building the foundation. After that, results compound quarter over quarter.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What happens after the 1-year commitment?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">After the initial year, the engagement can be renewed or concluded. You keep everything that was built &mdash; the systems, the tools, the strategy. Most clients renew because by then, the compound effect is fully accelerating. But there is no lock-in beyond the year. If you decide to stop, you walk away with everything.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What does the application process look like?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">One slot at a time. Apply with your company name and biggest growth challenge. You'll hear back within 48 hours with an honest assessment of fit. If the slot is filled, you get first priority when capacity opens.</p></div></div></div>
             </div>
@@ -2248,7 +2500,8 @@
     </section>
 
     <!-- CTA — PULSE BEAMS -->
-    <section class="cta-section" id="contact">
+    <section class="cta-section" id="contact" style="overflow:hidden;">
+        <div class="process-flicker"><canvas id="flickerX"></canvas></div>
         <div class="cta-glow"></div>
 
         <!-- Pulse beam SVG lines flowing toward center -->
@@ -2359,10 +2612,11 @@
                 <span class="footer-badge-val">1-year retainer</span>
             </span>
         </div>
+        <div class="footer-mid">
+            <svg width="80" height="17" viewBox="0 0 776.9 160.5" aria-hidden="true" style="fill:var(--fg);opacity:0.15;"><use href="#cdmx-logo"/></svg>
+        </div>
         <div class="footer-bottom">
-            <div class="footer-left">
-                <span class="footer-text">&copy; 2026 CDMX</span>
-            </div>
+            <span class="footer-text">&copy; CDMX 2026</span>
             <div class="footer-links">
                 <a href="mailto:renke@cdmx.be">renke@cdmx.be</a>
                 <a href="https://linkedin.com/in/renkepieters" target="_blank" rel="noopener noreferrer">LinkedIn &rarr;</a>
@@ -2456,31 +2710,40 @@
             });
         }
 
-        // ============ SCROLL PROGRESS ============
+        // ============ SCROLL PROGRESS (P2 #15: rAF debounced) ============
         const scrollProg = document.getElementById('scrollProgress');
         if (scrollProg) {
+            let progRaf;
             const updateProgress = () => {
                 const scrollTop = window.scrollY;
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
                 scrollProg.style.width = progress + '%';
             };
-            window.addEventListener('scroll', updateProgress, { passive: true });
+            window.addEventListener('scroll', () => {
+                if (progRaf) return;
+                progRaf = requestAnimationFrame(() => { updateProgress(); progRaf = null; });
+            }, { passive: true });
             updateProgress();
         }
 
-        // ============ NAV — HIDE ON SCROLL DOWN, SHOW ON SCROLL UP ============
+        // ============ NAV — HIDE ON SCROLL DOWN, SHOW ON SCROLL UP (P2 #15: rAF debounced) ============
         const nav = document.querySelector('.nav');
         if (nav) {
             let lastScrollY = window.scrollY;
+            let navRaf;
             window.addEventListener('scroll', () => {
-                const currentY = window.scrollY;
-                if (currentY > lastScrollY && currentY > 100) {
-                    nav.classList.add('nav-hidden');
-                } else {
-                    nav.classList.remove('nav-hidden');
-                }
-                lastScrollY = currentY;
+                if (navRaf) return;
+                navRaf = requestAnimationFrame(() => {
+                    const currentY = window.scrollY;
+                    if (currentY > lastScrollY && currentY > 100) {
+                        nav.classList.add('nav-hidden');
+                    } else {
+                        nav.classList.remove('nav-hidden');
+                    }
+                    lastScrollY = currentY;
+                    navRaf = null;
+                });
             }, { passive: true });
         }
 
@@ -2533,19 +2796,70 @@
             window.addEventListener('resize', updateInnerSize);
         })();
 
-        // ============ GLOW FOLLOW + CLICK TO EXPAND ON CARDS ============
-        document.querySelectorAll('.expertise-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const r = card.getBoundingClientRect();
-                card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-                card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+        // ============ GLOW FOLLOW + MOUSE TILT + CLICK TO EXPAND ON CARDS ============
+        (function() {
+            var stack = document.querySelector('.expertise-stack');
+            var cards = document.querySelectorAll('.expertise-card');
+            if (!stack || !cards.length) return;
+
+            // Per-card glow follow + click
+            cards.forEach(function(card) {
+                card.addEventListener('mousemove', function(e) {
+                    var r = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+                    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+                });
+                card.addEventListener('click', function() {
+                    var wasOpen = card.classList.contains('is-open');
+                    document.querySelectorAll('.expertise-card.is-open').forEach(function(c) { c.classList.remove('is-open'); });
+                    if (!wasOpen) card.classList.add('is-open');
+                });
             });
-            card.addEventListener('click', () => {
-                const wasOpen = card.classList.contains('is-open');
-                document.querySelectorAll('.expertise-card.is-open').forEach(c => c.classList.remove('is-open'));
-                if (!wasOpen) card.classList.add('is-open');
+
+            // Section-level mouse follow: all cards shift toward cursor
+            var tiltX = 0, tiltY = 0, targetX = 0, targetY = 0, rafId = 0;
+            function lerp(a, b, t) { return a + (b - a) * t; }
+            function animate() {
+                tiltX = lerp(tiltX, targetX, 0.08);
+                tiltY = lerp(tiltY, targetY, 0.08);
+                cards.forEach(function(card) {
+                    if (!card.classList.contains('is-open')) {
+                        card.style.setProperty('--tiltX', tiltX + 'px');
+                        card.style.setProperty('--tiltY', tiltY + 'px');
+                    }
+                });
+                rafId = requestAnimationFrame(animate);
+            }
+            stack.addEventListener('mouseenter', function() { rafId = requestAnimationFrame(animate); });
+            stack.addEventListener('mouseleave', function() {
+                cancelAnimationFrame(rafId);
+                targetX = 0; targetY = 0;
+                // Ease back to zero
+                rafId = requestAnimationFrame(function easeBack() {
+                    tiltX = lerp(tiltX, 0, 0.08);
+                    tiltY = lerp(tiltY, 0, 0.08);
+                    cards.forEach(function(card) {
+                        card.style.setProperty('--tiltX', tiltX + 'px');
+                        card.style.setProperty('--tiltY', tiltY + 'px');
+                    });
+                    if (Math.abs(tiltX) > 0.1 || Math.abs(tiltY) > 0.1) {
+                        rafId = requestAnimationFrame(easeBack);
+                    } else {
+                        cards.forEach(function(card) {
+                            card.style.setProperty('--tiltX', '0px');
+                            card.style.setProperty('--tiltY', '0px');
+                        });
+                    }
+                });
             });
-        });
+            stack.addEventListener('mousemove', function(e) {
+                var r = stack.getBoundingClientRect();
+                var cx = r.left + r.width / 2;
+                var cy = r.top + r.height / 2;
+                targetX = (e.clientX - cx) * 0.04; // max ~20px shift
+                targetY = (e.clientY - cy) * 0.04;
+            });
+        })();
 
         // ============ MOBILE MENU ============
         const hamburger = document.getElementById('navHamburger');
@@ -2608,8 +2922,9 @@
             gsap.registerPlugin(ScrollTrigger);
             ScrollTrigger.config({ fastScrollEnd: true });
 
-            // Lenis only when motion is allowed
-            if (!prefersReduced) {
+            // Lenis only when motion is allowed AND not on mobile/touch (P1 #8)
+            const isMobileDevice = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+            if (!prefersReduced && !isMobileDevice) {
                 const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
                 lenis.on('scroll', ScrollTrigger.update);
                 gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -2635,8 +2950,16 @@
             const loader = document.getElementById('loader');
             const morphWords = ['Curiosity', 'Depth', 'Mastery', 'Multiplied'];
             const isReturning = sessionStorage.getItem('cdmx-visited');
+
+            // Safety: clear loader if GSAP/Lenis CDN fails (but NOT if unlock gate is active)
+            setTimeout(() => {
+                if (loader && loader.style.display !== 'none' && !document.getElementById('unlockGate')?.classList.contains('waiting')) {
+                    loader.style.display = 'none';
+                    gsap.set('.nav', { autoAlpha: 1 });
+                    heroIn();
+                }
+            }, 6000);
             if (!prefersReduced && !isReturning) {
-                sessionStorage.setItem('cdmx-visited', '1');
                 const m1 = document.getElementById('morph1');
                 const m2 = document.getElementById('morph2');
                 const morphTime = 1;
@@ -2701,16 +3024,17 @@
                                     morphDone = true;
 
                                     const textWrap = document.getElementById('loaderTextWrap');
+                                    const unlockGate = document.getElementById('unlockGate');
 
-                                    const exitTl = gsap.timeline();
-                                    exitTl
+                                    // Fade out morph text, then show unlock gate
+                                    const gateTl = gsap.timeline();
+                                    gateTl
                                       .to({}, { duration: 0.3 })
                                       .to(textWrap, { autoAlpha: 0, filter: 'blur(12px)', duration: 0.5, ease: 'power2.in' })
-                                      .to(loader, { autoAlpha: 0, duration: 0.4, ease: 'power2.inOut',
+                                      .to(unlockGate, { autoAlpha: 1, duration: 0.6, ease: 'power2.out',
                                           onComplete: () => {
-                                              loader.style.display = 'none';
-                                              gsap.to('.nav', { autoAlpha: 1, duration: 0.4, ease: 'power2.out' });
-                                              heroIn();
+                                              unlockGate.classList.add('waiting');
+                                              startUnlockGate(loader);
                                           }
                                       });
                                     return;
@@ -2739,6 +3063,183 @@
                     .to('.hero-eyebrow', { autoAlpha: 1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
                     .to('.hero-sub', { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
                     .to('.hero-actions', { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5');
+            }
+
+            // ============ UNLOCK GATE — type CDMX to enter ============
+            function startUnlockGate(loaderEl) {
+                const sequence = ['C', 'D', 'M', 'X'];
+                const slots = document.querySelectorAll('.unlock-slot');
+                const cursorEl = document.getElementById('unlockCursor');
+                const mobileInput = document.getElementById('unlockMobileInput');
+                const flashCanvas = document.getElementById('unlockFlash');
+                const flashCtx = flashCanvas ? flashCanvas.getContext('2d') : null;
+                let currentIndex = 0;
+
+                // Setup flash canvas
+                if (flashCanvas && flashCtx) {
+                    const dpr = Math.min(window.devicePixelRatio, 2);
+                    flashCanvas.width = window.innerWidth * dpr;
+                    flashCanvas.height = window.innerHeight * dpr;
+                    flashCanvas.style.width = window.innerWidth + 'px';
+                    flashCanvas.style.height = window.innerHeight + 'px';
+                }
+
+                // Focus hidden input on mobile for keyboard
+                const isMobile = window.matchMedia('(pointer: coarse)').matches;
+                if (isMobile && mobileInput) {
+                    mobileInput.style.pointerEvents = 'auto';
+                    setTimeout(() => mobileInput.focus(), 800);
+                    // Tap anywhere to re-focus
+                    document.getElementById('unlockGate').addEventListener('click', () => {
+                        mobileInput.focus();
+                    });
+                }
+
+                function flashLetter(letterKey) {
+                    if (!flashCtx || !CDMX_LETTERS[letterKey]) return;
+                    const letter = CDMX_LETTERS[letterKey];
+                    const w = flashCanvas.width, h = flashCanvas.height;
+                    const dpr = Math.min(window.devicePixelRatio, 2);
+                    const scale = Math.min(w * 0.7 / letter.w, h * 0.7 / letter.h);
+                    const ox = (w - letter.w * scale) / 2 - letter.ox * scale;
+                    const oy = (h - letter.h * scale) / 2;
+
+                    const tmpC = document.createElement('canvas');
+                    tmpC.width = w; tmpC.height = h;
+                    const tmp = tmpC.getContext('2d');
+
+                    const sq = 5 * dpr, gap = 8 * dpr;
+                    const cols = Math.ceil(w / (sq + gap));
+                    const rows = Math.ceil(h / (sq + gap));
+                    for (let i = 0; i < cols; i++) {
+                        for (let j = 0; j < rows; j++) {
+                            const op = Math.random() * 0.6 + 0.2;
+                            tmp.fillStyle = 'rgba(185, 255, 0, ' + op + ')';
+                            tmp.fillRect(i * (sq + gap), j * (sq + gap), sq, sq);
+                        }
+                    }
+                    tmp.globalCompositeOperation = 'destination-in';
+                    tmp.save();
+                    tmp.translate(ox, oy);
+                    tmp.scale(scale, scale);
+                    tmp.fill(new Path2D(letter.path));
+                    tmp.restore();
+
+                    flashCtx.clearRect(0, 0, w, h);
+                    flashCtx.drawImage(tmpC, 0, 0);
+                    flashCanvas.classList.add('flash');
+
+                    setTimeout(() => {
+                        flashCanvas.classList.remove('flash');
+                        setTimeout(() => flashCtx.clearRect(0, 0, w, h), 300);
+                    }, 400);
+                }
+
+                function revealSlot(index) {
+                    const slot = slots[index];
+                    slot.textContent = sequence[index];
+                    slot.classList.add('revealed');
+                }
+
+                function resetSequence() {
+                    slots.forEach(s => {
+                        s.classList.remove('revealed');
+                        s.classList.add('wrong');
+                        s.textContent = '';
+                    });
+                    setTimeout(() => {
+                        slots.forEach(s => s.classList.remove('wrong'));
+                        currentIndex = 0;
+                    }, 500);
+                    if (mobileInput) mobileInput.value = '';
+                }
+
+                function unlockSite() {
+                    if (cursorEl) cursorEl.style.display = 'none';
+                    const hint = document.getElementById('unlockHint');
+                    if (hint) hint.style.display = 'none';
+                    const hint2 = document.querySelector('.unlock-hint-2');
+                    if (hint2) hint2.style.display = 'none';
+
+                    // Final flash: all 4 letters composited as full CDMX logo
+                    if (flashCtx) {
+                        const w = flashCanvas.width, h = flashCanvas.height;
+                        const dpr = Math.min(window.devicePixelRatio, 2);
+                        flashCtx.clearRect(0, 0, w, h);
+                        sequence.forEach(key => {
+                            const letter = CDMX_LETTERS[key];
+                            const scale = Math.min(w * 0.7 / 776.9, h * 0.7 / 160.5);
+                            const ox = (w - 776.9 * scale) / 2;
+                            const oy = (h - 160.5 * scale) / 2;
+                            const sq = 4 * dpr, gap = 7 * dpr;
+                            const cols = Math.ceil(w / (sq + gap));
+                            const rows = Math.ceil(h / (sq + gap));
+
+                            const tmpC = document.createElement('canvas');
+                            tmpC.width = w; tmpC.height = h;
+                            const tmp = tmpC.getContext('2d');
+                            for (let i = 0; i < cols; i++) {
+                                for (let j = 0; j < rows; j++) {
+                                    const op = Math.random() * 0.8 + 0.2;
+                                    tmp.fillStyle = 'rgba(185, 255, 0, ' + op + ')';
+                                    tmp.fillRect(i * (sq + gap), j * (sq + gap), sq, sq);
+                                }
+                            }
+                            tmp.globalCompositeOperation = 'destination-in';
+                            tmp.save();
+                            tmp.translate(ox, oy);
+                            tmp.scale(scale, scale);
+                            tmp.fill(new Path2D(letter.path));
+                            tmp.restore();
+                            flashCtx.drawImage(tmpC, 0, 0);
+                        });
+                        flashCanvas.classList.add('flash');
+                    }
+
+                    sessionStorage.setItem('cdmx-visited', '1');
+
+                    gsap.timeline()
+                        .to('.unlock-typed', { scale: 1.1, duration: 0.3, ease: 'power2.out' })
+                        .to('.unlock-typed', { autoAlpha: 0, filter: 'blur(20px)', duration: 0.5, ease: 'power2.in' }, '+=0.3')
+                        .to(flashCanvas, { autoAlpha: 0, duration: 0.5 }, '-=0.3')
+                        .to(loaderEl, { autoAlpha: 0, duration: 0.5, ease: 'power2.inOut',
+                            onComplete: () => {
+                                loaderEl.style.display = 'none';
+                                gsap.to('.nav', { autoAlpha: 1, duration: 0.4, ease: 'power2.out' });
+                                heroIn();
+                            }
+                        });
+
+                    document.removeEventListener('keydown', onKey);
+                    if (mobileInput) mobileInput.removeEventListener('input', onMobileInput);
+                }
+
+                function handleKey(key) {
+                    if (key === sequence[currentIndex]) {
+                        revealSlot(currentIndex);
+                        flashLetter(sequence[currentIndex]);
+                        currentIndex++;
+                        if (currentIndex >= sequence.length) {
+                            setTimeout(unlockSite, 600);
+                        }
+                    } else if (key.length === 1 && /[A-Z]/.test(key)) {
+                        resetSequence();
+                    }
+                }
+
+                function onKey(e) {
+                    handleKey(e.key.toUpperCase());
+                }
+
+                function onMobileInput(e) {
+                    const val = mobileInput.value.toUpperCase();
+                    const lastChar = val.slice(-1);
+                    if (lastChar) handleKey(lastChar);
+                    mobileInput.value = '';
+                }
+
+                document.addEventListener('keydown', onKey);
+                if (mobileInput) mobileInput.addEventListener('input', onMobileInput);
             }
 
             // SCROLL REVEALS (using autoAlpha)
@@ -2828,16 +3329,30 @@
                 });
             }
 
+            let orbitalRafId;
+            let orbitalVisible = false;
             function orbitalRotateLoop() {
-                if (orbitalAutoRotate) {
+                if (orbitalAutoRotate && orbitalVisible) {
                     orbitalAngle = (orbitalAngle + 0.15) % 360;
                     positionOrbitalNodes();
                 }
-                requestAnimationFrame(orbitalRotateLoop);
+                if (orbitalVisible) orbitalRafId = requestAnimationFrame(orbitalRotateLoop);
             }
             if (orbitalContainer) {
                 positionOrbitalNodes();
-                orbitalRotateLoop();
+                // P1 #9: IntersectionObserver for orbital — only animate when visible
+                const orbitalObs = new IntersectionObserver(entries => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting && !orbitalVisible) {
+                            orbitalVisible = true;
+                            orbitalRafId = requestAnimationFrame(orbitalRotateLoop);
+                        } else if (!e.isIntersecting && orbitalVisible) {
+                            orbitalVisible = false;
+                            cancelAnimationFrame(orbitalRafId);
+                        }
+                    });
+                }, { threshold: 0.05 });
+                orbitalObs.observe(orbitalContainer);
 
                 orbitalNodes.forEach((node, i) => {
                     node.addEventListener('click', (e) => {
@@ -2869,25 +3384,43 @@
                 window.addEventListener('resize', positionOrbitalNodes);
             }
 
-            // FLICKERING GRID X — reusable for hero + process
+            // FLICKERING GRID — reusable for any CDMX letter
+            var CDMX_LETTERS = {
+                C: { path: 'M160.3,96.4v32.1h-41c4.3,0,8-2.6,9.6-6.3h0c2.9-14.7,15.9-25.8,31.4-25.8ZM131.9,32.2c-2.1,0-3.9-1.7-3.9-3.9h0C126.1,12.5,112.6.2,96.2.2h-32.1c-16.5,0-30.1,12.5-31.9,28.5h0c0,2-1.6,3.6-3.7,3.7C12.5,34.2,0,47.8,0,64.3v32.1c0,16.6,12.6,30.2,28.7,31.9,1.8.2,3.2,1.5,3.5,3.3,1.6,16.2,15.3,28.9,31.9,28.9h32.1c16.4,0,29.9-12.3,31.8-28.2h0c0-2.1,1.7-3.8,3.9-3.8H42.5c-5.8,0-10.5-4.7-10.5-10.5V42.7c0-5.8,4.7-10.5,10.5-10.5h76.7c4.3,0,8,2.6,9.6,6.3h0c2.9,14.7,15.9,25.8,31.4,25.8v-32.1h-28.4Z', w: 160.3, h: 160.5, ox: 0 },
+                D: { path: 'M320.5,128.4s3,0,0,0h0c-2,0-3.7,1.6-3.8,3.6-1.8,16-15.4,28.5-31.8,28.5h-64.1s-32.1,0-32.1,0V.2h96.2c16.5,0,30.1,12.5,31.9,28.6.1,2,1.7,3.6,3.7,3.7,16.1,1.8,28.5,15.3,28.5,31.9v64.1h-28.5ZM306.3,128.4c-5.9,0,0,0,0,0h0c5.8,0,10.5-4.7,10.5-10.5h0c0,0,0-76.3,0-76.3-.5-5.3-5-9.4-10.4-9.4h-75.4c-5.4,0-9.8,4.1-10.4,9.3v76.4c0,5.8,4.7,10.5,10.5,10.5h0s75.2,0,75.2,0h0Z', w: 161, h: 160.5, ox: 188 },
+                M: { path: 'M549.6,32.5h0c-1.9,0-3.5-1.4-3.8-3.3-1.5-16.3-15.2-29-31.9-29h-52.7v28.3c-1.8-16-15.4-28.5-31.8-28.5h-52.3v32.1h0s0,0,0,0h0v128.2h32.1V42.5c0-5.8,4.7-10.5,10.5-10.5h0s11.4,0,0,0h31.2c5.8,0,10.5,4.7,10.5,10.5v117.9h32.1V41.6c.6-5.3,5-9.4,10.4-9.4h31.5c5.8,0,10.5,4.7,10.5,10.5h0v117.1h32.1v-95.5c0-16.4-12.4-30-28.3-31.8Z', w: 205, h: 160.5, ox: 377 },
+                X: { path: 'M737.1,103.5c-3.2-4.6-8.4-7.3-14-7.3h-23.3c-5.5-.2-6-3.2-4.2-5.8L768,.2h-41.1l-45.7,57c-2.9,2.6-7.3,2.6-10.2,0l-35.2-50c-3.1-4.4-8.1-7-13.5-7h-32.5l40.6,57.3c2.7,4,7.2,6.5,12.1,6.5h24,0c6.1,0,6.5,3.5,4.3,6.2l-72,89.6h41.1l45.5-56.6c2.9-2.8,7.5-2.8,10.5,0l35.7,50.3c2.7,4,7.2,6.5,12.1,6.5h33.3l-39.8-56.5Z', w: 178, h: 160.5, ox: 590 }
+            };
             var FlickerX = (function() {
-                var X_PATH = 'M737.1,103.5c-3.2-4.6-8.4-7.3-14-7.3h-23.3c-5.5-.2-6-3.2-4.2-5.8L768,.2h-41.1l-45.7,57c-2.9,2.6-7.3,2.6-10.2,0l-35.2-50c-3.1-4.4-8.1-7-13.5-7h-32.5l40.6,57.3c2.7,4,7.2,6.5,12.1,6.5h24,0c6.1,0,6.5,3.5,4.3,6.2l-72,89.6h41.1l45.5-56.6c2.9-2.8,7.5-2.8,10.5,0l35.7,50.3c2.7,4,7.2,6.5,12.1,6.5h33.3l-39.8-56.5Z';
-                var ORIG_W = 178, ORIG_H = 160.5, ORIG_X = 590;
 
                 return function(canvasId, opts) {
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
                     var canvas = document.getElementById(canvasId);
                     if (!canvas) return;
                     var ctx = canvas.getContext('2d');
                     if (!ctx) return;
                     var container = opts.container || canvas.parentElement;
 
+                    var letter = CDMX_LETTERS[opts.letter || 'X'];
+                    var LETTER_PATH = letter.path;
+                    var ORIG_W = letter.w, ORIG_H = letter.h, ORIG_X = letter.ox;
+
                     var SQ = opts.sq || 4, GAP = opts.gap || 6;
                     var FLICKER = opts.flicker || 0.3, MAX_OP = opts.maxOp || 0.4;
                     var BG_OP = opts.bgOp || 0.08, X_OP = opts.xOp || 0.7;
-                    var COLOR = '185, 255, 0';
+                    var COLOR = opts.color || '185, 255, 0';
                     var xScale = opts.xScale || 0.8;
 
-                    var cols, rows, squares, dpr, w, h, maskCanvas;
+                    // P1 #7: Mobile optimization — larger grid, skip letter mask, throttle
+                    var isMobileCanvas = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+                    if (isMobileCanvas) {
+                        SQ = Math.max(SQ, 6);
+                        GAP = Math.max(GAP, 10);
+                        FLICKER = FLICKER * 0.5;
+                        X_OP = 0; // skip expensive letter mask on mobile
+                    }
+
+                    var cols, rows, squares, dpr, w, h, maskCanvas, tmpCanvas, tmpCtx;
                     var mx = -1, my = -1, MOUSE_R = 200;
 
                     function buildMask() {
@@ -2901,7 +3434,7 @@
                         mc.save();
                         mc.translate(ox, oy);
                         mc.scale(scale, scale);
-                        mc.fill(new Path2D(X_PATH));
+                        mc.fill(new Path2D(LETTER_PATH));
                         mc.restore();
                     }
 
@@ -2917,13 +3450,24 @@
                         rows = Math.floor(h / (SQ + GAP));
                         squares = new Float32Array(cols * rows);
                         for (var i = 0; i < squares.length; i++) squares[i] = Math.random() * MAX_OP;
-                        buildMask();
+                        if (X_OP > 0) {
+                            buildMask();
+                            tmpCanvas = document.createElement('canvas');
+                            tmpCanvas.width = w * dpr;
+                            tmpCanvas.height = h * dpr;
+                            tmpCtx = tmpCanvas.getContext('2d');
+                        }
                     }
 
-                    var rafId, lastTime = 0, active = false;
+                    var rafId, lastTime = 0, active = false, frameCount = 0;
 
                     function render(time) {
                         if (!active) return;
+                        rafId = requestAnimationFrame(render);
+
+                        // P1 #7: throttle to ~30fps on mobile
+                        if (isMobileCanvas && ++frameCount % 2 !== 0) return;
+
                         var dt = Math.min((time - lastTime) / 1000, 0.1);
                         lastTime = time;
 
@@ -2934,11 +3478,12 @@
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                         // Background grid
+                        var hasMouse = mx >= 0 && !isMobileCanvas;
                         for (var i = 0; i < cols; i++) {
                             for (var j = 0; j < rows; j++) {
                                 var op = squares[i * rows + j] * BG_OP;
-                                // Mouse proximity boost
-                                if (mx >= 0) {
+                                // Mouse proximity boost (skip on mobile)
+                                if (hasMouse) {
                                     var px = (i * (SQ + GAP) + SQ / 2);
                                     var py = (j * (SQ + GAP) + SQ / 2);
                                     var dd = Math.sqrt((px - mx) * (px - mx) + (py - my) * (py - my));
@@ -2952,33 +3497,29 @@
                             }
                         }
 
-                        // X shape: brighter flickering inside mask
-                        // Draw full bright grid into temp
-                        var tmpCanvas = document.createElement('canvas');
-                        tmpCanvas.width = canvas.width;
-                        tmpCanvas.height = canvas.height;
-                        var tc = tmpCanvas.getContext('2d');
-                        for (var i = 0; i < cols; i++) {
-                            for (var j = 0; j < rows; j++) {
-                                var op = squares[i * rows + j] * (X_OP / MAX_OP);
-                                if (mx >= 0) {
-                                    var px = (i * (SQ + GAP) + SQ / 2);
-                                    var py = (j * (SQ + GAP) + SQ / 2);
-                                    var dd = Math.sqrt((px - mx) * (px - mx) + (py - my) * (py - my));
-                                    if (dd < MOUSE_R) op = Math.min(op + (1 - dd / MOUSE_R) * 0.6, 1);
+                        // Letter shape: brighter flickering inside mask (skip if xOp is 0)
+                        if (X_OP > 0) {
+                            tmpCtx.clearRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+                            tmpCtx.globalCompositeOperation = 'source-over';
+                            for (var i = 0; i < cols; i++) {
+                                for (var j = 0; j < rows; j++) {
+                                    var op = squares[i * rows + j] * (X_OP / MAX_OP);
+                                    if (hasMouse) {
+                                        var px = (i * (SQ + GAP) + SQ / 2);
+                                        var py = (j * (SQ + GAP) + SQ / 2);
+                                        var dd = Math.sqrt((px - mx) * (px - mx) + (py - my) * (py - my));
+                                        if (dd < MOUSE_R) op = Math.min(op + (1 - dd / MOUSE_R) * 0.6, 1);
+                                    }
+                                    tmpCtx.fillStyle = 'rgba(' + COLOR + ',' + Math.min(op, 0.9) + ')';
+                                    tmpCtx.fillRect(i * (SQ + GAP) * dpr, j * (SQ + GAP) * dpr, SQ * dpr, SQ * dpr);
                                 }
-                                tc.fillStyle = 'rgba(' + COLOR + ',' + Math.min(op, 0.9) + ')';
-                                tc.fillRect(i * (SQ + GAP) * dpr, j * (SQ + GAP) * dpr, SQ * dpr, SQ * dpr);
                             }
+                            // Mask to letter shape
+                            tmpCtx.globalCompositeOperation = 'destination-in';
+                            tmpCtx.drawImage(maskCanvas, 0, 0);
+                            // Composite onto main
+                            ctx.drawImage(tmpCanvas, 0, 0);
                         }
-                        // Mask to X shape
-                        tc.globalCompositeOperation = 'destination-in';
-                        tc.drawImage(maskCanvas, 0, 0);
-
-                        // Composite onto main
-                        ctx.drawImage(tmpCanvas, 0, 0);
-
-                        rafId = requestAnimationFrame(render);
                     }
 
                     // Mouse tracking
@@ -2996,6 +3537,7 @@
                             if (e.isIntersecting && !active) {
                                 active = true;
                                 lastTime = performance.now();
+                                frameCount = 0;
                                 rafId = requestAnimationFrame(render);
                             } else if (!e.isIntersecting && active) {
                                 active = false;
@@ -3004,22 +3546,49 @@
                         });
                     }, { threshold: 0.05 });
                     obs.observe(container);
-                    window.addEventListener('resize', setup);
+                    // P2 #14: debounce resize handler
+                    var resizeTimeout;
+                    window.addEventListener('resize', function() {
+                        clearTimeout(resizeTimeout);
+                        resizeTimeout = setTimeout(setup, 250);
+                    });
                 };
             })();
 
-            // Process section — subtle background grid only (no X shape)
-            FlickerX('flickerGrid', {
-                container: document.querySelector('.process-section'),
-                sq: 3, gap: 6, flicker: 0.2, maxOp: 0.3,
-                bgOp: 0.04, xOp: 0, xScale: 0.75
-            });
-
-            // Hero section X (right side)
+            // C — Hero
             FlickerX('heroXCanvas', {
                 container: document.querySelector('.hero'),
-                sq: 3, gap: 5, flicker: 0.25, maxOp: 0.35,
-                bgOp: 0.03, xOp: 0.5, xScale: 0.9
+                letter: 'C', sq: 4, gap: 7, flicker: 0.2, maxOp: 0.3,
+                bgOp: 0.02, xOp: 0.25, xScale: 0.8
+            });
+
+            // D — Manifesto (dark squares on green bg)
+            FlickerX('flickerD', {
+                container: document.querySelector('.manifesto'),
+                letter: 'D', sq: 4, gap: 7, flicker: 0.2, maxOp: 0.3,
+                bgOp: 0.02, xOp: 0.25, xScale: 0.8,
+                color: '5, 5, 5'
+            });
+
+            // M — Process section
+            FlickerX('flickerGrid', {
+                container: document.querySelector('.process-section'),
+                letter: 'M', sq: 4, gap: 7, flicker: 0.2, maxOp: 0.3,
+                bgOp: 0.02, xOp: 0.25, xScale: 0.8
+            });
+
+            // X — CTA section
+            FlickerX('flickerX', {
+                container: document.querySelector('.cta-section'),
+                letter: 'X', sq: 4, gap: 7, flicker: 0.2, maxOp: 0.3,
+                bgOp: 0.02, xOp: 0.25, xScale: 0.8
+            });
+
+            // About photo — grid-only overlay (no letter mask)
+            FlickerX('aboutFlickerCanvas', {
+                container: document.getElementById('aboutImage'),
+                letter: 'X', sq: 3, gap: 8, flicker: 0.15, maxOp: 0.5,
+                bgOp: 0.35, xOp: 0, xScale: 0
             });
 
             // HERO GLOW PARALLAX
@@ -3032,7 +3601,19 @@
                 scrollTrigger: { trigger: '.cta-section', start: 'top 70%', end: 'top 30%', scrub: true }
             });
 
-            // MOBILE CTA BAR — show after scrolling past hero
+            // P2 #20: pause hero shimmer when off-screen
+            const heroAccent = document.querySelector('.hero-title .accent');
+            if (heroAccent) {
+                ScrollTrigger.create({
+                    trigger: '.hero',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    onLeave: () => heroAccent.style.animationPlayState = 'paused',
+                    onEnterBack: () => heroAccent.style.animationPlayState = 'running',
+                });
+            }
+
+            // MOBILE CTA BAR — show after scrolling past hero, hide near contact
             const mobileCta = document.querySelector('.mobile-cta-bar');
             if (mobileCta) {
                 ScrollTrigger.create({
@@ -3040,6 +3621,14 @@
                     start: 'bottom top',
                     onEnter: () => mobileCta.classList.add('visible'),
                     onLeaveBack: () => mobileCta.classList.remove('visible'),
+                });
+                // P2 #22: hide when contact section is in view
+                ScrollTrigger.create({
+                    trigger: '#contact',
+                    start: 'top 80%',
+                    end: 'bottom top',
+                    onEnter: () => mobileCta.classList.remove('visible'),
+                    onLeaveBack: () => mobileCta.classList.add('visible'),
                 });
             }
         }
