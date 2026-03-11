@@ -3322,7 +3322,6 @@
                 scrollTrigger: { trigger: '.expertise-stack', start: 'top 75%', once: true }
             });
             gsap.utils.toArray('.expertise-card').forEach((el, i) => {
-                gsap.set(el, { autoAlpha: 0 });
                 expertiseTl.from(el, {
                     autoAlpha: 0,
                     y: 120 + (i * 40),
