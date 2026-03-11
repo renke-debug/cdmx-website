@@ -811,6 +811,7 @@
            SECTIONS
            ============================================================ */
         .section { padding: 10rem 3rem; position: relative; }
+        #expertise.section { padding: 6rem 3rem 7rem; }
         .section-inner { max-width: 1400px; margin: 0 auto; }
 
         .section-label {
@@ -1071,24 +1072,30 @@
             display: grid;
             grid-template-areas: 'stack';
             place-items: center;
-            margin-top: 2rem;
-            min-height: 420px;
+            margin-top: 3rem;
+            min-height: 520px;
         }
 
         .expertise-card {
             grid-area: stack;
             position: relative;
-            width: min(50rem, 90vw);
-            padding: 1.5rem 2rem;
+            width: min(48rem, 88vw);
+            padding: 2rem 2.5rem 2.5rem;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
             --tiltX: 0px;
             --tiltY: 0px;
-            transform: skewY(-6deg) translate(var(--tiltX), var(--tiltY));
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: skewY(-3deg) translate(var(--tiltX), var(--tiltY));
+            transition:
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease,
+                opacity 0.4s ease,
+                padding 0.4s ease;
             overflow: hidden;
             cursor: pointer;
+            will-change: transform;
         }
 
         /* Glow follow on hover */
@@ -1122,7 +1129,7 @@
         .expertise-card-body {
             display: grid;
             grid-template-rows: 0fr;
-            transition: grid-template-rows 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .expertise-card-body-inner {
             overflow: hidden;
@@ -1131,56 +1138,94 @@
             grid-template-rows: 1fr;
         }
         .expertise-card.is-open {
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 2.5rem 2.5rem;
         }
         .expertise-card.is-open::after { opacity: 0; }
 
-        /* Card 1: back — slides up on hover, stays behind */
+        /* Card 1: back */
         .expertise-card:nth-child(1) { z-index: 1; }
         .expertise-card:nth-child(1):hover {
-            transform: skewY(-6deg) translate(var(--tiltX), calc(-3rem + var(--tiltY)));
+            transform: skewY(-1.5deg) translate(calc(-2rem + var(--tiltX)), calc(-2.5rem + var(--tiltY)));
             border-color: var(--accent-line);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        /* Card 2: middle — slides up on hover, stays between */
+        /* Card 2: middle */
         .expertise-card:nth-child(2) {
             z-index: 2;
-            transform: skewY(-6deg) translate(calc(3rem + var(--tiltX)), calc(4.5rem + var(--tiltY)));
+            transform: skewY(-3deg) translate(calc(2rem + var(--tiltX)), calc(3.5rem + var(--tiltY)));
         }
         .expertise-card:nth-child(2):hover {
-            transform: skewY(-6deg) translate(calc(3rem + var(--tiltX)), calc(1.5rem + var(--tiltY)));
+            transform: skewY(-1.5deg) translate(calc(2rem + var(--tiltX)), calc(2rem + var(--tiltY)));
             border-color: var(--accent-line);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         /* Card 3: front (active) */
         .expertise-card:nth-child(3) {
             z-index: 3;
-            transform: skewY(-6deg) translate(calc(6rem + var(--tiltX)), calc(9rem + var(--tiltY)));
+            transform: skewY(-3deg) translate(calc(6rem + var(--tiltX)), calc(8rem + var(--tiltY)));
             border-color: var(--accent-line);
         }
         .expertise-card:nth-child(3)::after { opacity: 0.15; }
         .expertise-card:nth-child(3):hover {
-            transform: skewY(-6deg) translate(calc(6rem + var(--tiltX)), calc(6rem + var(--tiltY)));
+            transform: skewY(-1.5deg) translate(calc(6rem + var(--tiltX)), calc(6.5rem + var(--tiltY)));
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .expertise-card.is-open { z-index: 20 !important; border-color: var(--accent-line); }
+        /* Open state: straighten, lift, glow */
+        .expertise-card.is-open {
+            z-index: 20 !important;
+            transform: skewY(0deg) translate(2rem, 3.5rem) !important;
+            border-color: var(--accent-line);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-line);
+        }
+
+        /* Dim siblings when one card is focused */
+        .expertise-stack:has(.is-open) .expertise-card:not(.is-open) {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* Card header: number + title + proof teaser on one row */
+        .expertise-card-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+        }
 
         .expertise-num {
             font-family: var(--mono);
-            font-size: 0.65rem;
-            color: var(--muted);
+            font-size: 0.7rem;
+            color: var(--accent);
             letter-spacing: 0.2em;
-            margin-bottom: 0.8rem;
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        .expertise-proof-teaser {
+            margin-left: auto;
+            font-family: var(--mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            opacity: 0.3;
+            white-space: nowrap;
+            transition: opacity 0.4s ease;
+        }
+        .expertise-card.is-open .expertise-proof-teaser {
+            opacity: 0;
         }
 
         .expertise-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             letter-spacing: -0.02em;
             margin-bottom: 0;
-            transition: margin 0.5s ease;
+            margin-top: 0.8rem;
+            transition: margin 0.4s ease;
         }
-        .expertise-card.is-open h3 { margin-bottom: 1rem; }
+        .expertise-card.is-open h3 { margin-bottom: 1.2rem; }
 
         .expertise-card p {
             font-size: 0.85rem;
@@ -1191,7 +1236,7 @@
 
         .expertise-proof {
             font-family: var(--mono);
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             color: var(--accent);
             letter-spacing: 0.05em;
             padding-top: 1rem;
@@ -1944,10 +1989,13 @@
 
         @media (max-width: 1024px) {
             .mobile-cta-bar { display: block; }
+            #expertise.section { padding: 6rem 2rem; }
             .expertise-stack { min-height: auto; display: flex; flex-direction: column; gap: 1rem; }
-            .expertise-card { transform: none !important; width: 100%; --tiltX: 0px !important; --tiltY: 0px !important; }
+            .expertise-card { transform: none !important; width: 100%; --tiltX: 0px !important; --tiltY: 0px !important; box-shadow: none !important; }
             .expertise-card::after { display: none; }
-            .expertise-card:hover { transform: none !important; }
+            .expertise-card:hover { transform: none !important; box-shadow: none !important; }
+            .expertise-stack:has(.is-open) .expertise-card:not(.is-open) { opacity: 1; pointer-events: auto; }
+            .expertise-proof-teaser { display: none; }
             /* P1 #13: expand indicator on mobile */
             .expertise-card h3::after {
                 content: '+';
@@ -2300,7 +2348,10 @@
 
             <div class="expertise-stack">
                 <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-num">01</div>
+                    <div class="expertise-card-header">
+                        <div class="expertise-num">01</div>
+                        <span class="expertise-proof-teaser">&euro;1M+ attributed revenue</span>
+                    </div>
                     <h3>Digital Growth</h3>
                     <div class="expertise-card-body"><div class="expertise-card-body-inner">
                         <p>Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments that teach you something win or lose.</p>
@@ -2308,7 +2359,10 @@
                     </div></div>
                 </div>
                 <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-num">02</div>
+                    <div class="expertise-card-header">
+                        <div class="expertise-num">02</div>
+                        <span class="expertise-proof-teaser">Board sign-off in weeks</span>
+                    </div>
                     <h3>Business Strategy</h3>
                     <div class="expertise-card-body"><div class="expertise-card-body-inner">
                         <p>From business model to execution plan in weeks. The kind of clarity that gets board sign-off and team alignment in a single meeting.</p>
@@ -2316,7 +2370,10 @@
                     </div></div>
                 </div>
                 <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-num">03</div>
+                    <div class="expertise-card-header">
+                        <div class="expertise-num">03</div>
+                        <span class="expertise-proof-teaser">5 AI products shipped</span>
+                    </div>
                     <h3>AI &amp; Automation</h3>
                     <div class="expertise-card-body"><div class="expertise-card-body-inner">
                         <p>Not slide decks &mdash; working systems. An audit tool that cut review time by 3x. A content engine that does in hours what used to take weeks.</p>
@@ -2325,10 +2382,6 @@
                 </div>
             </div>
 
-            <div class="inline-cta">
-                <span class="inline-cta-text"><strong>Think this applies to your company?</strong> Tell me your biggest bottleneck &mdash; I'll tell you if I can help.</span>
-                <a href="#contact" class="btn-primary">Tell me your bottleneck <span class="arr">&rarr;</span></a>
-            </div>
         </div>
     </section>
 
@@ -2820,13 +2873,16 @@
             var tiltX = 0, tiltY = 0, targetX = 0, targetY = 0, rafId = 0;
             function lerp(a, b, t) { return a + (b - a) * t; }
             function animate() {
-                tiltX = lerp(tiltX, targetX, 0.08);
-                tiltY = lerp(tiltY, targetY, 0.08);
+                // Skip tilt when any card is expanded
+                if (document.querySelector('.expertise-card.is-open')) {
+                    cancelAnimationFrame(rafId);
+                    return;
+                }
+                tiltX = lerp(tiltX, targetX, 0.12);
+                tiltY = lerp(tiltY, targetY, 0.12);
                 cards.forEach(function(card) {
-                    if (!card.classList.contains('is-open')) {
-                        card.style.setProperty('--tiltX', tiltX + 'px');
-                        card.style.setProperty('--tiltY', tiltY + 'px');
-                    }
+                    card.style.setProperty('--tiltX', tiltX + 'px');
+                    card.style.setProperty('--tiltY', tiltY + 'px');
                 });
                 rafId = requestAnimationFrame(animate);
             }
@@ -2854,10 +2910,10 @@
             });
             stack.addEventListener('mousemove', function(e) {
                 var r = stack.getBoundingClientRect();
-                var cx = r.left + r.width / 2;
-                var cy = r.top + r.height / 2;
-                targetX = (e.clientX - cx) * 0.04; // max ~20px shift
-                targetY = (e.clientY - cy) * 0.04;
+                var cx = (e.clientX - r.left) / r.width - 0.5;
+                var cy = (e.clientY - r.top) / r.height - 0.5;
+                targetX = cx * 16;  // max ±8px
+                targetY = cy * 12;  // max ±6px
             });
         })();
 
@@ -3261,11 +3317,20 @@
                 scrollTrigger: { trigger: '.impact-axis', start: 'top 70%', once: true }
             });
 
-            // EXPERTISE CARDS — stagger reveal
+            // EXPERTISE CARDS — fan-in entrance
+            const expertiseTl = gsap.timeline({
+                scrollTrigger: { trigger: '.expertise-stack', start: 'top 75%', once: true }
+            });
             gsap.utils.toArray('.expertise-card').forEach((el, i) => {
-                gsap.from(el, { y: 80, autoAlpha: 0, duration: 1, delay: i * 0.15, ease: 'power3.out',
-                    scrollTrigger: { trigger: '.expertise-stack', start: 'top 80%', once: true }
-                });
+                gsap.set(el, { autoAlpha: 0 });
+                expertiseTl.from(el, {
+                    autoAlpha: 0,
+                    y: 120 + (i * 40),
+                    x: -60 + (i * 30),
+                    rotateZ: -8 + (i * 2),
+                    duration: 0.9,
+                    ease: 'power3.out'
+                }, i * 0.12);
             });
 
             // FIT COLS
