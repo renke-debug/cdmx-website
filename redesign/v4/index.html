@@ -3317,19 +3317,11 @@
                 scrollTrigger: { trigger: '.impact-axis', start: 'top 70%', once: true }
             });
 
-            // EXPERTISE CARDS — fan-in entrance
-            const expertiseTl = gsap.timeline({
-                scrollTrigger: { trigger: '.expertise-stack', start: 'top 75%', once: true }
-            });
+            // EXPERTISE CARDS — stagger reveal
             gsap.utils.toArray('.expertise-card').forEach((el, i) => {
-                expertiseTl.from(el, {
-                    autoAlpha: 0,
-                    y: 120 + (i * 40),
-                    x: -60 + (i * 30),
-                    rotateZ: -8 + (i * 2),
-                    duration: 0.9,
-                    ease: 'power3.out'
-                }, i * 0.12);
+                gsap.from(el, { y: 80, opacity: 0, duration: 1, delay: i * 0.15, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.expertise-stack', start: 'top 80%', once: true }
+                });
             });
 
             // FIT COLS
