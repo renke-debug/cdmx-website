@@ -205,6 +205,14 @@
                 "@type": "Answer",
                 "text": "Renew or conclude. Your call. You keep everything built: systems, tools, strategy. No lock-in beyond the year."
               }
+            },
+            {
+              "@type": "Question",
+              "name": "What if something happens to you?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Every system gets documented as it's built. Runbooks live inside your stack, not in my head. IP-transfer is baked into the contract: everything built is yours from day one. If the year gets interrupted, a successor operator from the network can step in on 30 days' notice. Embedded doesn't mean dependent."
+              }
             }
           ]
         }
@@ -1777,7 +1785,106 @@
         .about-stat-val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
         .about-stat-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.4; }
 
+        /* ============================================================
+           ALTERNATIVES — category comparison
+           ============================================================ */
+        .alts-section { padding: 8rem 2rem; border-bottom: 1px solid var(--border); position: relative; }
+        .alts-section .section-inner { max-width: 1200px; margin: 0 auto; }
+        .alts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+        .alts-item {
+            padding: 2rem 1.75rem;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+        .alts-item:last-child { border-right: 0; }
+        .alts-item-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--copper, #D4915E);
+            display: block;
+            margin-bottom: 1.1rem;
+        }
+        .alts-item-label::before {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 1px;
+            background: var(--copper, #D4915E);
+            vertical-align: middle;
+            margin-right: 10px;
+            transform: translateY(-2px);
+        }
+        .alts-item-desc {
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: var(--fg-dim);
+            margin: 0 0 1.5rem;
+        }
+        .alts-item-gap {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: var(--accent);
+            font-weight: 600;
+            margin: 0;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+        }
+        @media (max-width: 1024px) {
+            .alts-grid { grid-template-columns: repeat(2, 1fr); }
+            .alts-item { border-right: 1px solid var(--border); }
+            .alts-item:nth-child(2n) { border-right: 0; }
+        }
+        @media (max-width: 640px) {
+            .alts-section { padding: 5rem 1.5rem; }
+            .alts-grid { grid-template-columns: 1fr; }
+            .alts-item { border-right: 0 !important; padding: 1.75rem 1.25rem; }
+        }
+
         /* CDMX name explanation */
+        .about-origin {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .about-origin-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--copper, #D4915E);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.9rem;
+        }
+        .about-origin-label::before {
+            content: '';
+            width: 22px;
+            height: 1px;
+            background: var(--copper, #D4915E);
+        }
+        .about-origin-text {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: var(--fg-dim);
+            max-width: 520px;
+            font-style: italic;
+        }
+        .about-origin-text strong {
+            color: var(--fg);
+            font-style: normal;
+            font-weight: 600;
+        }
         /* ============================================================
            FIT
            ============================================================ */
@@ -2914,6 +3021,7 @@
         <ul class="nav-links">
             <li><a href="#impact">Impact</a></li>
             <li><a href="#expertise">Domains</a></li>
+            <li><a href="#alternatives">Vs.</a></li>
             <li><a href="#connect">Connect</a></li>
             <li><a href="#about">Operator</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2928,6 +3036,7 @@
         <ul class="mobile-menu-links">
             <li><a href="#impact">Impact</a></li>
             <li><a href="#expertise">Domains</a></li>
+            <li><a href="#alternatives">Vs.</a></li>
             <li><a href="#connect">Connect</a></li>
             <li><a href="#about">Operator</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -3178,6 +3287,37 @@
         </div>
     </section>
 
+    <!-- ALTERNATIVES — vs. adjacent categories -->
+    <section class="section alts-section" id="alternatives" aria-label="Comparison against alternatives">
+        <div class="section-inner">
+            <div class="section-label">Not one of these</div>
+            <h2 class="section-heading">Adjacent, but <span class="accent">different.</span></h2>
+            <p class="section-intro">The embedded-operator model lives in the gap between four common alternatives. Here's why it's not them.</p>
+            <div class="alts-grid">
+                <article class="alts-item">
+                    <span class="alts-item-label">Growth agency</span>
+                    <p class="alts-item-desc">Team of specialists. Multiple clients. Delivery hours sold, coordination spread across pods, attention splits.</p>
+                    <p class="alts-item-gap">One brain beats three pods.</p>
+                </article>
+                <article class="alts-item">
+                    <span class="alts-item-label">Fractional CMO</span>
+                    <p class="alts-item-desc">One role, strategic-only. Owns the deck. Doesn't touch the stack.</p>
+                    <p class="alts-item-gap">Embedded operator ships, not advises.</p>
+                </article>
+                <article class="alts-item">
+                    <span class="alts-item-label">Three separate hires</span>
+                    <p class="alts-item-desc">Growth marketer, strategist, AI consultant. Each deep in one lane. Coordination tax eats momentum.</p>
+                    <p class="alts-item-gap">One head across three domains, zero translation loss.</p>
+                </article>
+                <article class="alts-item">
+                    <span class="alts-item-label">In-house senior hire</span>
+                    <p class="alts-item-desc">Full-time, full burden. 18 months of ramp. Salary, benefits, tools.</p>
+                    <p class="alts-item-gap">One year embedded, less than a senior hire, outcomes in 90 days.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- Connect-the-dots puzzle — ported from Claude Design, brand-styled -->
     <section class="puzzle-section" id="connect" aria-label="Connect the dots — interactive">
       <div class="process-flicker"><canvas id="puzzleFlicker" aria-hidden="true"></canvas></div>
@@ -3349,6 +3489,11 @@
                         <div><div class="about-stat-val">1</div><div class="about-stat-lbl">Ironman finished</div></div>
                     </div>
 
+                    <aside class="about-origin" aria-label="Origin of the name CDMX">
+                        <div class="about-origin-label">Origin</div>
+                        <p class="about-origin-text"><strong>CDMX.</strong> Named after Ciudad de M&eacute;xico. A city built in layers, on layers, on layers. Topography as infrastructure. Three domains compound the same way.</p>
+                    </aside>
+
                 </div>
             </div>
         </div>
@@ -3402,6 +3547,7 @@
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Why one client at a time?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Depth beats breadth. Split attention across multiple clients and the compound effect disappears. One client means I learn your business deeply, spot cross-domain patterns faster, and build systems that reinforce each other. Depth is what creates outsized results.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What kind of results can I expect?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Depends on where you start. What the model has produced so far: &euro;2M+ in new revenue through channels that didn't exist before, production AI systems shipped inside live workflows, and audit review cycles cut by 3x. First 90 days focus on quick wins and building the foundation. After that, results compound quarter over quarter.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What happens after the one-year commitment?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Renew or conclude. Your call. You keep everything that was built: the systems, the tools, the strategy. Most would renew because the compound effect is accelerating by then. No lock-in beyond the year.</p></div></div></div>
+                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What if something happens to you?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Every system gets documented as it's built. Runbooks live inside your stack, not in my head. IP-transfer is baked into the contract: everything built is yours from day one. If the year gets interrupted, a successor operator from the network can step in on 30 days' notice. Embedded doesn't mean dependent.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What does the application process look like?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">One slot at a time. Apply with your company name and biggest growth challenge. You'll hear back within 48 hours with an honest assessment of fit. If the slot is filled, you get first priority when capacity opens.</p></div></div></div>
             </div>
         </div>
