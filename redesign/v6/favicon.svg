@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#F8F6F1"/>
-  <text x="16" y="22" font-family="Hanken Grotesk, sans-serif" font-weight="700"
-        font-size="16" text-anchor="middle" fill="#0A0A0A">×</text>
+  <rect width="32" height="32" fill="#0A0A0A"/>
+  <text x="16" y="23" font-family="Hanken Grotesk, Arial, sans-serif" font-weight="900"
+        font-size="22" text-anchor="middle" fill="#F5C800">x</text>
 </svg>

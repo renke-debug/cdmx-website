@@ -1,12 +1,17 @@
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { min-height: 100%; }
-html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-img, svg, canvas { display: block; max-width: 100%; }
-button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);   /* prevents white flash during load */
+}
+img, svg, canvas, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: 0; }
 a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
 
-/* Font face — self-hosted variable Hanken Grotesk */
+/* Font face — self-hosted Hanken Grotesk variable */
 @font-face {
   font-family: 'Hanken Grotesk';
   src: url('../fonts/HankenGrotesk-Variable.woff2') format('woff2-variations');
@@ -15,10 +20,11 @@ a { color: inherit; text-decoration: none; }
   font-display: swap;
 }
 
-/* Body */
+/* Body — dark-first */
 body {
   font-family: var(--font-body);
   font-size: var(--type-base);
+  font-weight: var(--w-body);
   line-height: var(--lh-normal);
   background: var(--bg);
   color: var(--fg);
@@ -26,24 +32,24 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-/* Selection */
-::selection { background: var(--emphasis); color: var(--fg); }
+/* Selection — yellow on ink */
+::selection { background: var(--emphasis); color: var(--bg); }
 
-/* Film grain — cream-calibrated. Darker noise, multiply blend, very low opacity. */
+/* Film grain — calibrated for dark base (monochrome luminance noise) */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.04 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
-  mix-blend-mode: multiply;
+  mix-blend-mode: overlay;
 }
 
-/* Accessibility helpers */
+/* Accessibility */
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;
@@ -56,11 +62,87 @@ body::after {
   position: absolute;
   top: -100px; left: var(--space-4);
   padding: var(--space-3) var(--space-6);
-  background: var(--emphasis); color: var(--fg);
-  font-weight: 700; z-index: 10001;
+  background: var(--emphasis); color: var(--bg);
+  font-weight: var(--w-heading); z-index: 10001;
   transition: top var(--dur-fast) var(--ease-snap);
 }
 .skip-link:focus { top: var(--space-4); }
+
+/* Focus ring — yellow on dark */
+:focus-visible {
+  outline: 2px solid var(--emphasis);
+  outline-offset: 3px;
+}
+
+/* Layout container */
+.container {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+@media (min-width: 768px) {
+  .container { padding-inline: var(--space-12); }
+}
+
+/* MONO LABELS — bracketed meta tags, route chrome, timestamps */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+  font-weight: 400;
+}
+
+/* SECTION LABEL — copper prefix line + mono label (brand signature per §14 do-rules) */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: var(--space-8);
+}
+.section-label::before {
+  content: '';
+  width: var(--space-8);
+  height: 1px;
+  background: var(--signal);
+}
+
+/* BRACKETED META TAG — [LAB] [EST. 2024] style */
+.bracket-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-bracket);
+  color: var(--fg-subtle);
+}
+.bracket-tag::before { content: '['; color: var(--signal); }
+.bracket-tag::after { content: ']'; color: var(--signal); }
+
+/* Topographic pattern layer helper */
+.pattern-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('../patterns/BG-Pattern-LightBlue.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+}
+.pattern-layer--yellow {
+  background-image: url('../patterns/BG-Pattern-LightYellow.png');
+  opacity: 0.15;
+}
 
 /* Site chrome (persistent mono label bottom-right) */
 .site-chrome {
@@ -70,31 +152,32 @@ body::after {
   font-family: var(--font-mono);
   font-size: var(--type-xs);
   letter-spacing: var(--ls-mono-label);
-  color: var(--gray-500);
+  color: var(--fg-subtle);
   z-index: 50;
-  mix-blend-mode: multiply;
+  display: flex;
+  gap: var(--space-1);
 }
 .site-chrome .route { color: var(--signal); }
 
-/* Focus ring — accessible, brand-aligned */
-:focus-visible {
-  outline: 2px solid var(--emphasis);
-  outline-offset: 3px;
+/* YELLOW PILL BUTTON — primary CTA per brand (no rounded > 3px rule) */
+.btn-yellow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-6);
+  background: var(--emphasis);
+  color: var(--bg);
+  font-weight: var(--w-heading);
+  font-size: var(--type-sm);
+  border-radius: 999px;
+  transition: transform var(--dur-fast) var(--ease-snap);
 }
+.btn-yellow:hover { transform: translateY(-2px); }
 
-/* Layout container */
-.container {
-  width: 100%;
-  max-width: 62rem;
-  margin-inline: auto;
-  padding-inline: var(--space-6);
-}
-
-/* Mono micro-labels */
-.mono-label {
-  font-family: var(--font-mono);
-  font-size: var(--type-xs);
-  letter-spacing: var(--ls-mono-label);
-  text-transform: uppercase;
-  color: var(--gray-500);
+/* HERO-EXCLUSIVE TYPOGRAPHIC CLASS — weight 900 restricted by brand */
+.hero-display {
+  font-family: var(--font-display);
+  font-weight: var(--w-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
 }

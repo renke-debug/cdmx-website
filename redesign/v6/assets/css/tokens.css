@@ -1,49 +1,65 @@
 :root {
-  /* Palette — CDMX brand (source: Brand/CDMX-Merkpaspoort.html) */
-  --color-cream: #F8F6F1;
+  /* Palette — CDMX brand (source: Brand/CDMX-Merkpaspoort.html §06) */
   --color-ink: #0A0A0A;
+  --color-warm-white: #F8F6F1;
   --color-yellow: #F5C800;
   --color-mint: #C5E0D8;
   --color-copper: #D4915E;
 
-  --gray-300: #C9C5BC;
-  --gray-400: #9E9A91;
-  --gray-500: #918D85;
+  --gray-800: #1A1A1A;
+  --gray-700: #2A2A2A;
   --gray-600: #3D3A35;
+  --gray-500: #918D85;
+  --gray-400: #9E9A91;
+  --gray-300: #C9C5BC;
 
-  /* Functional aliases — v6 usage (see spec §6) */
-  --bg: var(--color-cream);
-  --fg: var(--color-ink);
-  --emphasis: var(--color-yellow);
-  --organism: var(--color-mint);
-  --signal: var(--color-copper);
+  /* Functional aliases (dark-first) */
+  --bg: var(--color-ink);
+  --bg-alt: var(--gray-800);
+  --fg: var(--color-warm-white);
+  --fg-muted: var(--gray-400);
+  --fg-subtle: var(--gray-500);
+  --emphasis: var(--color-yellow);   /* accent that jumps, x-marker */
+  --organism: var(--color-mint);     /* pattern highlights, soft accents */
+  --signal: var(--color-copper);     /* decorative prefix lines, status signals */
 
-  /* Typography */
+  /* Typography — Hanken Grotesk variable (400–900) */
   --font-display: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', -apple-system, system-ui, sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', 'Courier New', monospace;
 
-  /* Type scale — modular, base 16px, ratio 1.333 */
-  --type-xs: 0.75rem;
-  --type-sm: 0.875rem;
-  --type-base: 1rem;
-  --type-md: 1.25rem;
-  --type-lg: 1.75rem;
-  --type-xl: 2.5rem;
-  --type-2xl: 3.5rem;
-  --type-3xl: 5rem;
-  --type-4xl: 7rem;
+  /* Weights — per brand rules (weight 900 exclusive to hero) */
+  --w-body: 400;
+  --w-label: 600;
+  --w-heading: 700;
+  --w-display: 800;
+  --w-hero: 900;
+
+  /* Type scale */
+  --type-xs: 0.75rem;      /* 12 */
+  --type-sm: 0.875rem;     /* 14 */
+  --type-base: 1rem;       /* 16 */
+  --type-md: 1.25rem;      /* 20 */
+  --type-lg: 1.75rem;      /* 28 */
+  --type-xl: 2.5rem;       /* 40 */
+  --type-2xl: 3.5rem;      /* 56 */
+  --type-3xl: 5rem;        /* 80 */
+  --type-4xl: 7rem;        /* 112 */
+  --type-5xl: 10rem;       /* 160 — hero / footer wordmark */
+  --type-6xl: 14rem;       /* 224 — extreme display */
 
   /* Line heights */
-  --lh-tight: 1.05;
-  --lh-snug: 1.2;
+  --lh-tight: 0.95;
+  --lh-snug: 1.1;
   --lh-normal: 1.55;
   --lh-loose: 1.8;
 
   /* Letter spacing */
+  --ls-display: -0.03em;
   --ls-tight: -0.02em;
   --ls-normal: 0;
   --ls-mono-label: 0.12em;
+  --ls-mono-bracket: 0.08em;
 
   /* Spacing (4px base) */
   --space-1: 0.25rem;
@@ -56,13 +72,18 @@
   --space-16: 4rem;
   --space-24: 6rem;
   --space-32: 8rem;
+  --space-48: 12rem;
 
-  /* Motion */
-  --ease-organism: cubic-bezier(.22, 1, .36, 1);
-  --ease-snap: cubic-bezier(.2, .9, .3, 1.2);
+  /* Motion — precision easing per merkpaspoort §12 */
+  --ease-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
   --dur-fast: 180ms;
   --dur-med: 420ms;
   --dur-slow: 900ms;
+
+  /* Layout */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.12);
 }
 
 @media (prefers-reduced-motion: reduce) {
