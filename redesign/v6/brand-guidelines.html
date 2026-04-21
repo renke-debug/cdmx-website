@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDMX / Brand Guidelines</title>
+  <meta name="description" content="The v6 design system for CDMX — tokens, components, logo usage, patterns, typography, voice. Where digital works.">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    /* Local page styles — keep brand-consistent */
+    body { display: grid; grid-template-columns: 1fr; min-height: 100vh; background: var(--bg); color: var(--fg); }
+    @media (min-width: 1024px) {
+      body { grid-template-columns: 18rem 1fr; }
+    }
+
+    /* Side nav */
+    .bg-nav {
+      position: sticky; top: 0; align-self: start;
+      padding: var(--space-12) var(--space-6);
+      border-right: 1px solid var(--border-subtle);
+      max-height: 100vh; overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: var(--type-xs);
+      letter-spacing: var(--ls-mono-label);
+      text-transform: uppercase;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .bg-nav h1 { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-md); color: var(--fg); text-transform: none; letter-spacing: var(--ls-tight); margin-bottom: var(--space-8); line-height: var(--lh-snug); }
+    .bg-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+    .bg-nav a { color: var(--fg-muted); text-decoration: none; transition: color var(--dur-fast) var(--ease-expo); }
+    .bg-nav a:hover { color: var(--emphasis); }
+    .bg-nav-logo { height: 1.5rem; width: auto; filter: invert(1) brightness(2); margin-bottom: var(--space-6); display: block; }
+
+    /* Main */
+    .bg-main { padding: var(--space-16) var(--space-6) var(--space-24); max-width: 72rem; }
+    @media (min-width: 768px) { .bg-main { padding: var(--space-24) var(--space-12) var(--space-32); } }
+    .bg-section { padding-block: var(--space-16); border-bottom: 1px solid var(--border-subtle); scroll-margin-top: var(--space-8); }
+    .bg-section:first-of-type { padding-top: 0; }
+    .bg-section:last-of-type { border-bottom: none; }
+
+    .bg-label { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-8); font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-muted); }
+    .bg-label::before { content:''; width: var(--space-8); height: 1px; background: var(--signal); }
+
+    h2.bg-heading { font-family: var(--font-display); font-weight: var(--w-display); font-size: clamp(2rem, 5vw, 3.5rem); line-height: var(--lh-tight); letter-spacing: var(--ls-display); margin-bottom: var(--space-6); color: var(--fg); }
+    .bg-sub { color: var(--fg-muted); font-size: var(--type-md); line-height: var(--lh-normal); max-width: 60ch; margin-bottom: var(--space-8); }
+    .bg-body { color: var(--fg); font-size: var(--type-base); line-height: var(--lh-normal); max-width: 62ch; margin-bottom: var(--space-4); }
+    .bg-body strong { color: var(--emphasis); font-weight: var(--w-heading); }
+
+    /* Essence grid */
+    .essence-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+    @media (min-width: 640px) { .essence-grid { grid-template-columns: 1fr 1fr; gap: var(--space-12); } }
+    .essence-item { padding-top: var(--space-6); border-top: 1px solid var(--border-subtle); }
+    .essence-key { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-subtle); margin-bottom: var(--space-3); }
+    .essence-val { font-size: var(--type-md); line-height: var(--lh-normal); font-weight: 500; color: var(--fg); }
+
+    /* Swatches grid */
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+    .swatch { padding: var(--space-12) var(--space-6) var(--space-4); min-height: 12rem; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid var(--border-subtle); }
+    .swatch-name { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; }
+    .swatch-hex { font-family: var(--font-mono); font-size: var(--type-xs); margin-top: var(--space-1); opacity: 0.7; }
+    .swatch-use { margin-top: var(--space-2); font-size: var(--type-xs); opacity: 0.85; line-height: var(--lh-normal); }
+    .swatch--dark { color: var(--fg); }
+    .swatch--light { color: var(--bg); }
+
+    /* Type scale */
+    .type-row { display: grid; grid-template-columns: 1fr; gap: var(--space-2); padding-block: var(--space-4); border-bottom: 1px solid var(--border-subtle); align-items: baseline; }
+    @media (min-width: 640px) { .type-row { grid-template-columns: 10rem 1fr; gap: var(--space-6); } }
+    .type-meta { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-subtle); }
+    .type-sample { color: var(--fg); }
+    .type-w900 { font-weight: 900; font-size: clamp(2.5rem, 6vw, 5rem); line-height: var(--lh-tight); letter-spacing: var(--ls-display); }
+    .type-w800 { font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); line-height: var(--lh-snug); letter-spacing: var(--ls-tight); }
+    .type-w700 { font-weight: 700; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: var(--ls-tight); }
+    .type-w600 { font-weight: 600; font-size: var(--type-base); letter-spacing: 0.04em; text-transform: uppercase; }
+    .type-w400 { font-weight: 400; font-size: var(--type-md); line-height: var(--lh-normal); color: var(--fg-muted); max-width: 48ch; }
+    .type-mono { font-family: var(--font-mono); font-weight: 400; font-size: var(--type-sm); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-muted); }
+
+    /* Logos grid */
+    .logo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+    .logo-cell { background: var(--bg-alt); border: 1px solid var(--border-subtle); aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: var(--space-8); position: relative; }
+    .logo-cell img { max-width: 80%; max-height: 80%; width: auto; height: auto; filter: invert(1) brightness(2); }
+    .logo-cell--letters { gap: var(--space-4); }
+    .logo-cell--letters img { max-width: 2.5rem; max-height: 2.5rem; }
+    .logo-cell--baseline { flex-direction: column; gap: var(--space-4); }
+    .logo-cell--baseline .logo-baseline-text { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-muted); }
+    .logo-cell--profile img { max-width: 50%; max-height: 50%; filter: none; border-radius: 50%; }
+    .logo-cell-label { position: absolute; bottom: var(--space-3); left: var(--space-3); font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-subtle); }
+    .logo-rules { margin-top: var(--space-6); color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); max-width: 60ch; }
+
+    /* Patterns grid */
+    .pattern-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-4); margin-top: var(--space-6); }
+    .pattern-cell { aspect-ratio: 3 / 2; position: relative; overflow: hidden; background: var(--bg-alt); border: 1px solid var(--border-subtle); }
+    .pattern-cell img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+    .pattern-cell-label { position: absolute; bottom: var(--space-3); left: var(--space-3); z-index: 2; background: rgba(10,10,10,0.8); padding: var(--space-1) var(--space-3); font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg); }
+    .pattern-usage { margin-top: var(--space-6); color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); max-width: 60ch; }
+
+    /* Philosophy cards */
+    .phil-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-6); }
+    @media (min-width: 640px) { .phil-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .phil-grid { grid-template-columns: repeat(4, 1fr); } }
+    .phil-card { background: var(--bg-alt); padding: var(--space-8) var(--space-6); border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: var(--space-4); min-height: 14rem; }
+    .phil-card img { height: 4rem; width: auto; filter: invert(1) brightness(2); align-self: flex-start; }
+    .phil-card--x img { filter: invert(78%) sepia(95%) saturate(1452%) hue-rotate(5deg) brightness(101%) contrast(103%); }
+    .phil-name { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-lg); color: var(--fg); }
+    .phil-card--x .phil-name { color: var(--emphasis); }
+    .phil-desc { color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); }
+    .phil-text { margin-top: var(--space-8); color: var(--fg-muted); font-size: var(--type-base); line-height: var(--lh-normal); max-width: 60ch; }
+
+    /* Tagline showcase */
+    .tagline-showcase { text-align: left; padding: var(--space-12) 0; }
+    .tagline-main { font-family: var(--font-display); font-weight: var(--w-hero); font-size: clamp(2.5rem, 8vw, 7rem); line-height: 0.9; letter-spacing: var(--ls-display); color: var(--fg); }
+    .tagline-baseline { color: var(--fg-muted); font-family: var(--font-mono); font-size: var(--type-sm); letter-spacing: var(--ls-mono-label); text-transform: uppercase; margin-top: var(--space-6); }
+
+    /* Manifesto bloc */
+    .manifesto-bloc { background: var(--emphasis); color: var(--bg); padding: var(--space-16); margin-top: var(--space-6); }
+    @media (max-width: 640px) { .manifesto-bloc { padding: var(--space-8); } }
+    .manifesto-opening { font-family: var(--font-display); font-weight: var(--w-hero); font-size: clamp(1.75rem, 4vw, 3rem); line-height: var(--lh-tight); letter-spacing: var(--ls-display); margin-bottom: var(--space-8); color: var(--bg); }
+    .manifesto-body { font-size: var(--type-md); line-height: var(--lh-loose); margin-bottom: var(--space-6); max-width: 60ch; color: #1A1A1A; }
+    .manifesto-body strong { font-weight: var(--w-heading); color: var(--bg); }
+    .manifesto-statement { font-family: var(--font-display); font-weight: var(--w-display); font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: var(--ls-display); margin-top: var(--space-12); color: var(--bg); }
+
+    /* Archetype cards */
+    .arch-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-6); }
+    @media (min-width: 768px) { .arch-grid { grid-template-columns: repeat(2, 1fr); } }
+    .arch-card { background: var(--bg-alt); border: 1px solid var(--border-subtle); padding: var(--space-8); }
+    .arch-card--sec { border-color: var(--signal); }
+    .arch-badge { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--emphasis); margin-bottom: var(--space-4); }
+    .arch-card--sec .arch-badge { color: var(--signal); }
+    .arch-name { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-xl); margin-bottom: var(--space-4); color: var(--fg); letter-spacing: var(--ls-tight); }
+    .arch-desc { color: var(--fg-muted); font-size: var(--type-base); line-height: var(--lh-normal); margin-bottom: var(--space-6); }
+    .arch-traits { list-style: none; padding: 0; margin: 0; }
+    .arch-traits li { padding-block: var(--space-2); border-bottom: 1px solid var(--border-subtle); font-size: var(--type-sm); color: var(--fg); }
+    .arch-traits li::before { content: '→ '; color: var(--signal); margin-right: var(--space-1); }
+
+    /* Domains */
+    .dom-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-6); }
+    @media (min-width: 768px) { .dom-grid { grid-template-columns: repeat(3, 1fr); } }
+    .dom-card { background: var(--bg-alt); padding: var(--space-8); border: 1px solid var(--border-subtle); }
+    .dom-num { font-family: var(--font-mono); font-size: var(--type-sm); color: var(--signal); letter-spacing: var(--ls-mono-label); }
+    .dom-name { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-lg); margin-top: var(--space-3); margin-bottom: var(--space-4); color: var(--fg); letter-spacing: var(--ls-tight); }
+    .dom-desc { color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); }
+
+    /* Tone of voice */
+    .tov-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); margin-top: var(--space-6); }
+    @media (min-width: 768px) { .tov-grid { grid-template-columns: repeat(2, 1fr); } }
+    .tov-item { padding: var(--space-6); border: 1px solid var(--border-subtle); background: var(--bg-alt); }
+    .tov-principle { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-md); margin-bottom: var(--space-3); color: var(--fg); }
+    .tov-desc { color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); margin-bottom: var(--space-4); }
+    .tov-example { font-family: var(--font-mono); font-size: var(--type-sm); color: var(--emphasis); padding-left: var(--space-4); border-left: 2px solid var(--emphasis); line-height: var(--lh-normal); }
+
+    /* Visual principles */
+    .vis-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-6); }
+    @media (min-width: 640px) { .vis-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .vis-grid { grid-template-columns: repeat(4, 1fr); } }
+    .vis-card { padding: var(--space-6) 0 var(--space-6); border-top: 2px solid var(--emphasis); }
+    .vis-card-title { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-md); margin-bottom: var(--space-3); color: var(--fg); }
+    .vis-card-desc { color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); }
+
+    /* Do/Don't rules */
+    .rules-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-8); margin-top: var(--space-6); }
+    @media (min-width: 768px) { .rules-grid { grid-template-columns: repeat(2, 1fr); } }
+    .rules-col h3 { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-xl); padding-bottom: var(--space-3); border-bottom: 2px solid var(--emphasis); margin-bottom: var(--space-4); letter-spacing: var(--ls-tight); }
+    .rules-col--dont h3 { border-color: var(--signal); color: var(--signal); }
+    .rules-col--do h3 { color: var(--emphasis); }
+    .rules-list { list-style: none; padding: 0; margin: 0; }
+    .rules-list li { padding-block: var(--space-3); border-bottom: 1px solid var(--border-subtle); color: var(--fg); font-size: var(--type-sm); line-height: var(--lh-normal); padding-left: var(--space-6); position: relative; }
+    .rules-list li::before { position: absolute; left: 0; font-weight: 700; }
+    .rules-col--do .rules-list li::before { content: '+'; color: var(--emphasis); }
+    .rules-col--dont .rules-list li::before { content: '−'; color: var(--signal); }
+
+    /* Components list */
+    .comp-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-6); }
+    @media (min-width: 768px) { .comp-grid { grid-template-columns: repeat(2, 1fr); } }
+    .comp-card { background: var(--bg-alt); border: 1px solid var(--border-subtle); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3); text-decoration: none; color: var(--fg); transition: border-color var(--dur-fast) var(--ease-expo); }
+    .comp-card:hover { border-color: var(--emphasis); }
+    .comp-num { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); color: var(--signal); text-transform: uppercase; }
+    .comp-name { font-family: var(--font-display); font-weight: var(--w-heading); font-size: var(--type-md); color: var(--fg); letter-spacing: var(--ls-tight); }
+    .comp-desc { color: var(--fg-muted); font-size: var(--type-sm); line-height: var(--lh-normal); }
+    .comp-link { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--emphasis); margin-top: auto; }
+
+    /* Footer / close */
+    .bg-close {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: var(--space-16);
+      margin-top: var(--space-16);
+    }
+    .bg-close-wordmark { font-family: var(--font-display); font-weight: var(--w-hero); font-size: clamp(3rem, 14vw, 10rem); line-height: 0.8; letter-spacing: -0.05em; color: var(--fg); }
+    .bg-close-baseline { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-muted); margin-top: var(--space-4); }
+    .bg-close-contact { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; color: var(--fg-subtle); margin-top: var(--space-8); }
+    .bg-close-contact a { color: var(--emphasis); text-decoration: none; }
+    .bg-close-final { font-family: var(--font-display); font-style: italic; font-size: var(--type-md); color: var(--fg-muted); margin-top: var(--space-6); line-height: var(--lh-normal); }
+  </style>
+</head>
+<body>
+  <aside class="bg-nav" aria-label="Brand guidelines navigation">
+    <a href="/"><img class="bg-nav-logo" src="assets/logos/CDMX-Logo.svg" alt="CDMX"></a>
+    <h1>Brand Guidelines<br>v6 — 2026</h1>
+    <ul>
+      <li><a href="#cover">00 — Intro</a></li>
+      <li><a href="#essence">01 — Essence</a></li>
+      <li><a href="#philosophy">02 — C·D·M·x</a></li>
+      <li><a href="#archetypes">03 — Archetypes</a></li>
+      <li><a href="#tagline">04 — Tagline</a></li>
+      <li><a href="#manifesto">05 — Manifesto</a></li>
+      <li><a href="#palette">06 — Palette</a></li>
+      <li><a href="#typography">07 — Typography</a></li>
+      <li><a href="#logo">08 — Logo</a></li>
+      <li><a href="#patterns">09 — Patterns</a></li>
+      <li><a href="#domains">10 — Domains</a></li>
+      <li><a href="#voice">11 — Voice</a></li>
+      <li><a href="#principles">12 — Principles</a></li>
+      <li><a href="#rules">13 — Do · Don't</a></li>
+      <li><a href="#components">14 — Components</a></li>
+      <li><a href="#close">15 — Close</a></li>
+    </ul>
+  </aside>
+
+  <main class="bg-main">
+
+    <!-- 00 COVER -->
+    <section class="bg-section" id="cover">
+      <div class="bg-label">00 — Intro</div>
+      <h2 class="bg-heading">Brand Guidelines</h2>
+      <p class="bg-sub">The CDMX v6 design system, in one document. Pulled from the original merkpaspoort, implemented in code, and shown live where possible. This is the reference for anyone building, writing, or designing under CDMX.</p>
+      <p class="bg-body">Where the merkpaspoort is the philosophy, this is the machine. Every token, component and rule you see below is the same set the production website runs on.</p>
+    </section>
+
+    <!-- 01 ESSENCE -->
+    <section class="bg-section" id="essence">
+      <div class="bg-label">01 — Brand Essence</div>
+      <h2 class="bg-heading">What is CDMX</h2>
+      <p class="bg-sub">A one-person growth consultancy that combines Digital Growth, Business Strategy, and AI &amp; Automation. One operator. Three domains deep. Retainer-only. One client at a time.</p>
+      <div class="essence-grid">
+        <div class="essence-item">
+          <div class="essence-key">Positionering</div>
+          <div class="essence-val">De multiplier waar drie domeinen samenkomen</div>
+        </div>
+        <div class="essence-item">
+          <div class="essence-key">Belofte</div>
+          <div class="essence-val">Waarde creëren die compound. Geen uren verkopen, geen rapporten.</div>
+        </div>
+        <div class="essence-item">
+          <div class="essence-key">Oprichter</div>
+          <div class="essence-val">Renke Pieters — Brugge, BE</div>
+        </div>
+        <div class="essence-item">
+          <div class="essence-key">Model</div>
+          <div class="essence-val">Retainer-based. Eén klant tegelijk. Waitlist.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PHILOSOPHY -->
+    <section class="bg-section" id="philosophy">
+      <div class="bg-label">02 — Filosofie</div>
+      <h2 class="bg-heading">C · D · M · <span style="color:var(--emphasis)">x</span></h2>
+      <p class="bg-sub">Four letters. One operating system. The x is where the other three compound into something no single specialist can replicate.</p>
+      <div class="phil-grid">
+        <div class="phil-card">
+          <img src="assets/logos/C.png" alt="C">
+          <div class="phil-name">Curiosity</div>
+          <div class="phil-desc">Stel de vraag die niemand stelt</div>
+        </div>
+        <div class="phil-card">
+          <img src="assets/logos/D.png" alt="D">
+          <div class="phil-name">Depth</div>
+          <div class="phil-desc">Ga verder dan comfortabel</div>
+        </div>
+        <div class="phil-card">
+          <img src="assets/logos/M.png" alt="M">
+          <div class="phil-name">Mastery</div>
+          <div class="phil-desc">Weet genoeg om te weten wat je kunt overslaan</div>
+        </div>
+        <div class="phil-card phil-card--x">
+          <img src="assets/logos/x.png" alt="x">
+          <div class="phil-name">Multiplier</div>
+          <div class="phil-desc">Waar de drie samenkomen</div>
+        </div>
+      </div>
+      <p class="phil-text">Vier letters. Eén besturingssysteem. De x is waar de andere drie compounderen tot iets dat geen specialist alleen kan repliceren.</p>
+    </section>
+
+    <!-- 03 ARCHETYPES -->
+    <section class="bg-section" id="archetypes">
+      <div class="bg-label">03 — Archetypen</div>
+      <h2 class="bg-heading">Explorer + Sage</h2>
+      <p class="bg-sub">Two archetypes, woven together. Explorer drives forward; Sage grounds in evidence.</p>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <div class="arch-badge">Primair</div>
+          <div class="arch-name">The Explorer</div>
+          <div class="arch-desc">Gedreven door nieuwsgierigheid. Altijd op zoek naar nieuwe verbindingen, onverkende paden, en onverwachte combinaties.</div>
+          <ul class="arch-traits">
+            <li>Onafhankelijk &amp; autonoom</li>
+            <li>Niet bang voor het onbekende</li>
+            <li>Zoekt mogelijkheden waar anderen muren zien</li>
+            <li>Bouwt liever dan praat</li>
+          </ul>
+        </div>
+        <div class="arch-card arch-card--sec">
+          <div class="arch-badge">Secundair</div>
+          <div class="arch-name">The Sage</div>
+          <div class="arch-desc">Kennis is geen doel maar een instrument. Diepgang in drie domeinen creëert het overzicht dat generalisten en specialisten missen.</div>
+          <ul class="arch-traits">
+            <li>Gaat dieper dan comfortabel</li>
+            <li>Data-gedreven, niet mening-gedreven</li>
+            <li>Deelt inzichten, geen oppervlakkig advies</li>
+            <li>Vertrouwt op bewezen resultaten</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 TAGLINE -->
+    <section class="bg-section" id="tagline">
+      <div class="bg-label">04 — Tagline &amp; Baseline</div>
+      <div class="tagline-showcase">
+        <div class="tagline-main">CONNECT<br>THE DOTS.<br><span style="color:var(--emphasis)">COMPOUND<br>THE RESULTS.</span></div>
+        <div class="tagline-baseline">Where digital works</div>
+      </div>
+    </section>
+
+    <!-- 05 MANIFESTO -->
+    <section class="bg-section" id="manifesto">
+      <div class="bg-label">05 — Manifesto</div>
+      <h2 class="bg-heading">The compound effect</h2>
+      <div class="manifesto-bloc">
+        <p class="manifesto-opening">I connect dots that don't want to be connected.</p>
+        <p class="manifesto-body">
+          Growth people don't speak AI.<br>
+          AI people don't think in business models.<br>
+          Strategists rarely get their hands dirty enough to <strong>know what actually works</strong>.
+        </p>
+        <p class="manifesto-body">
+          I speak all three.<br>
+          Start from <strong>business outcomes</strong>. Always. Then figure out which combination of growth, strategy, and AI gets us there — and build it.
+        </p>
+        <p class="manifesto-statement">The compound effect.</p>
+      </div>
+    </section>
+
+    <!-- 06 PALETTE -->
+    <section class="bg-section" id="palette">
+      <div class="bg-label">06 — Kleurenpalet</div>
+      <h2 class="bg-heading">Palette</h2>
+      <p class="bg-sub">Five brand colours plus a six-step warm neutral scale. Dark is the default canvas; warm white carries body copy; yellow is the accent that jumps.</p>
+      <div class="swatch-grid">
+        <div class="swatch swatch--dark" style="background:#0A0A0A; border-color: var(--border-hover);">
+          <div class="swatch-name">Background</div>
+          <div class="swatch-hex">#0A0A0A</div>
+          <div class="swatch-use">Default canvas. Dark-first across surfaces.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#F8F6F1;">
+          <div class="swatch-name">Foreground</div>
+          <div class="swatch-hex">#F8F6F1</div>
+          <div class="swatch-use">Warm white for all body text on dark.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#F5C800;">
+          <div class="swatch-name">Yellow</div>
+          <div class="swatch-hex">#F5C800</div>
+          <div class="swatch-use">Emphasis / x-marker — never background for body copy.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#C5E0D8;">
+          <div class="swatch-name">Mint</div>
+          <div class="swatch-hex">#C5E0D8</div>
+          <div class="swatch-use">Organism / pattern highlights, soft accents.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#D4915E;">
+          <div class="swatch-name">Copper</div>
+          <div class="swatch-hex">#D4915E</div>
+          <div class="swatch-use">Decorative prefix lines, status signals.</div>
+        </div>
+      </div>
+      <div class="swatch-grid" style="margin-top: var(--space-4);">
+        <div class="swatch swatch--dark" style="background:#1A1A1A;">
+          <div class="swatch-name">Gray 800</div>
+          <div class="swatch-hex">#1A1A1A</div>
+          <div class="swatch-use">Alt surface, card background.</div>
+        </div>
+        <div class="swatch swatch--dark" style="background:#2A2A2A;">
+          <div class="swatch-name">Gray 700</div>
+          <div class="swatch-hex">#2A2A2A</div>
+          <div class="swatch-use">Elevated surface, dividers.</div>
+        </div>
+        <div class="swatch swatch--dark" style="background:#3D3A35;">
+          <div class="swatch-name">Gray 600</div>
+          <div class="swatch-hex">#3D3A35</div>
+          <div class="swatch-use">Deep neutral, muted UI.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#918D85;">
+          <div class="swatch-name">Gray 500</div>
+          <div class="swatch-hex">#918D85</div>
+          <div class="swatch-use">Subtle text, fg-subtle token.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#9E9A91;">
+          <div class="swatch-name">Gray 400</div>
+          <div class="swatch-hex">#9E9A91</div>
+          <div class="swatch-use">Muted text, fg-muted token.</div>
+        </div>
+        <div class="swatch swatch--light" style="background:#C9C5BC;">
+          <div class="swatch-name">Gray 300</div>
+          <div class="swatch-hex">#C9C5BC</div>
+          <div class="swatch-use">Lightest neutral, quiet copy on dark cards.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 TYPOGRAPHY -->
+    <section class="bg-section" id="typography">
+      <div class="bg-label">07 — Typografie</div>
+      <h2 class="bg-heading">Hanken Grotesk</h2>
+      <p class="bg-sub">One variable typeface carries everything. Weight 900 is exclusive to hero. Mono is reserved for metadata, labels and coordinates.</p>
+      <div class="type-showcase">
+        <div class="type-row">
+          <div class="type-meta">900 — Hero</div>
+          <div class="type-sample type-w900">Connect the dots</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">800 — Section</div>
+          <div class="type-sample type-w800">Three domains</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">700 — Heading</div>
+          <div class="type-sample type-w700">Digital Growth</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">600 — Label</div>
+          <div class="type-sample type-w600">The Operator</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">400 — Body</div>
+          <div class="type-sample type-w400">Waarde creëren die compound. Geen uren verkopen, geen rapporten.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta">Mono</div>
+          <div class="type-sample type-mono">19.4°N 99.1°W — CDMX</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 LOGO -->
+    <section class="bg-section" id="logo">
+      <div class="bg-label">08 — Logo Systeem</div>
+      <h2 class="bg-heading">Logo varianten</h2>
+      <p class="bg-sub">Four logo expressions. Always monochrome — black on light, white on dark. Never coloured.</p>
+      <div class="logo-grid">
+        <div class="logo-cell">
+          <img src="assets/logos/CDMX-Logo.svg" alt="CDMX Wordmark">
+          <div class="logo-cell-label">Wordmark</div>
+        </div>
+        <div class="logo-cell logo-cell--baseline">
+          <img src="assets/logos/CDMX-Logo.svg" alt="CDMX Wordmark with baseline">
+          <div class="logo-baseline-text">Where digital works</div>
+          <div class="logo-cell-label">Met baseline</div>
+        </div>
+        <div class="logo-cell logo-cell--profile">
+          <img src="assets/logos/CDMX-Profile.png" alt="Profile mark">
+          <div class="logo-cell-label">Profielfoto</div>
+        </div>
+        <div class="logo-cell logo-cell--letters">
+          <img src="assets/logos/C.png" alt="C">
+          <img src="assets/logos/D.png" alt="D">
+          <img src="assets/logos/M.png" alt="M">
+          <img src="assets/logos/x.png" alt="x">
+          <div class="logo-cell-label">Individuele letters</div>
+        </div>
+      </div>
+      <p class="logo-rules"><strong style="color:var(--fg)">Rules.</strong> Always on dark — invert for light contexts. Monochrome only — never colour. The individual letters may appear at scale for the C·D·M·x philosophy; the "x" is the only element allowed to carry yellow.</p>
+    </section>
+
+    <!-- 09 PATTERNS -->
+    <section class="bg-section" id="patterns">
+      <div class="bg-label">09 — Brand Patterns</div>
+      <h2 class="bg-heading">Contourlijnen</h2>
+      <p class="bg-sub">Organische topografische lijnen — geïnspireerd op hoogtekaarten. Symboliseren de verbindingen die CDMX legt.</p>
+      <div class="pattern-grid">
+        <div class="pattern-cell">
+          <img src="assets/patterns/BG-Pattern-LightBlue.png" alt="Pattern Light Blue">
+          <div class="pattern-cell-label">Light Blue — Mint</div>
+        </div>
+        <div class="pattern-cell">
+          <img src="assets/patterns/BG-Pattern-LightYellow.png" alt="Pattern Light Yellow">
+          <div class="pattern-cell-label">Light Yellow</div>
+        </div>
+        <div class="pattern-cell">
+          <img src="assets/patterns/BG-Pattern-LightGreen.png" alt="Pattern Light Green">
+          <div class="pattern-cell-label">Light Green</div>
+        </div>
+      </div>
+      <p class="pattern-usage">Gebruik als achtergrondtextuur op donkere vlakken. Altijd op ware verhoudingen — nooit vervormd. Opacity tussen 0.2 en 0.5 afhankelijk van context.</p>
+    </section>
+
+    <!-- 10 DOMAINS -->
+    <section class="bg-section" id="domains">
+      <div class="bg-label">10 — Drie Domeinen</div>
+      <h2 class="bg-heading">Multiplied depth.</h2>
+      <p class="bg-sub">Three domains, one operator. Depth in each unlocks compounding across all.</p>
+      <div class="dom-grid">
+        <div class="dom-card">
+          <div class="dom-num">01</div>
+          <div class="dom-name">Digital Growth</div>
+          <div class="dom-desc">Groei-architectuur die schaalt zonder te breken. Signaal boven ruis. Acquisitie die multiplied, niet lineair groeit.</div>
+        </div>
+        <div class="dom-card">
+          <div class="dom-num">02</div>
+          <div class="dom-name">Business Strategy</div>
+          <div class="dom-desc">De ene zet identificeren die alles verandert. Business model naar executie in weken, niet kwartalen.</div>
+        </div>
+        <div class="dom-card">
+          <div class="dom-num">03</div>
+          <div class="dom-name">AI &amp; Automation</div>
+          <div class="dom-desc">Systemen die laagwaardig menselijk werk elimineren. Praktische AI-implementatie. Operationele hefboom die multiplied.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 VOICE -->
+    <section class="bg-section" id="voice">
+      <div class="bg-label">11 — Tone of Voice</div>
+      <h2 class="bg-heading">Hoe CDMX spreekt</h2>
+      <p class="bg-sub">Four principles. Each one paired with a real line that ships on the site.</p>
+      <div class="tov-grid">
+        <div class="tov-item">
+          <div class="tov-principle">Direct, niet brutaal</div>
+          <div class="tov-desc">Kom to the point. Geen omwegen, geen opvulling. Maar altijd met respect.</div>
+          <div class="tov-example">"No hours sold. No reports filed. Value created. Compounding."</div>
+        </div>
+        <div class="tov-item">
+          <div class="tov-principle">Zelfverzekerd, niet arrogant</div>
+          <div class="tov-desc">Laat resultaten spreken. Claims worden altijd ondersteund door bewijs.</div>
+          <div class="tov-example">"Shipped 5+ AI-powered products into production. Not pilots."</div>
+        </div>
+        <div class="tov-item">
+          <div class="tov-principle">Technisch, niet jargon</div>
+          <div class="tov-desc">Spreek de taal van het vakgebied maar blijf toegankelijk. Complexiteit verbergen, niet tonen.</div>
+          <div class="tov-example">"Start from business outcomes. Always."</div>
+        </div>
+        <div class="tov-item">
+          <div class="tov-principle">Minimaal, niet leeg</div>
+          <div class="tov-desc">Elk woord verdient zijn plek. Witruimte is een bewuste keuze, geen luiheid.</div>
+          <div class="tov-example">"The compound effect."</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 PRINCIPLES -->
+    <section class="bg-section" id="principles">
+      <div class="bg-label">12 — Visuele Principes</div>
+      <h2 class="bg-heading">Visuele taal</h2>
+      <p class="bg-sub">Four non-negotiables that keep the visual language coherent across every surface.</p>
+      <div class="vis-grid">
+        <div class="vis-card">
+          <div class="vis-card-title">Dark-first</div>
+          <div class="vis-card-desc">Donker canvas (#0A0A0A) als basis. Warm wit (#F8F6F1) voor tekst. Geel als accent dat sprongen maakt.</div>
+        </div>
+        <div class="vis-card">
+          <div class="vis-card-title">Bold typography</div>
+          <div class="vis-card-desc">Grote titels (weight 800–900) met strakke letter-spacing. Contrasten in schaal creëren hiërarchie.</div>
+        </div>
+        <div class="vis-card">
+          <div class="vis-card-title">Minimal UI</div>
+          <div class="vis-card-desc">Geen decoratie zonder functie. Subtiele borders (6–8% wit). Witruimte als primair ontwerpelement.</div>
+        </div>
+        <div class="vis-card">
+          <div class="vis-card-title">Precision motion</div>
+          <div class="vis-card-desc">Expo easing voor alles. Scroll-driven animaties. Parallax op brand elementen. Reduced motion altijd gerespecteerd.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 RULES -->
+    <section class="bg-section" id="rules">
+      <div class="bg-label">13 — Do's &amp; Don'ts</div>
+      <h2 class="bg-heading">Merkregels</h2>
+      <p class="bg-sub">The short list. If in doubt, lean on these before shipping.</p>
+      <div class="rules-grid">
+        <div class="rules-col rules-col--do">
+          <h3>Do</h3>
+          <ul class="rules-list">
+            <li>Gebruik het logo altijd op donkere achtergrond (invert voor wit)</li>
+            <li>Behoud de verhoudingen van patterns — nooit stretchen</li>
+            <li>Weight 900 is exclusief voor hero titels</li>
+            <li>Copper altijd voor decoratieve prefix-lijnen</li>
+            <li>Mono font voor metadata en labels</li>
+            <li>Minimaal contrast 4.5:1 voor alle leesbare tekst</li>
+          </ul>
+        </div>
+        <div class="rules-col rules-col--dont">
+          <h3>Don't</h3>
+          <ul class="rules-list">
+            <li>Geen grijstinten op gele achtergrond (contrast faalt)</li>
+            <li>Nooit het logo in kleur gebruiken — altijd zwart of wit</li>
+            <li>Geen gradiënten of schaduwen op tekst</li>
+            <li>Tekst nooit kleiner dan 0.6rem (9.6px)</li>
+            <li>Geen ronde hoeken groter dan 3px</li>
+            <li>Nooit meer dan drie kleuren tegelijk combineren</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 COMPONENTS -->
+    <section class="bg-section" id="components">
+      <div class="bg-label">14 — Components</div>
+      <h2 class="bg-heading">Components in use</h2>
+      <p class="bg-sub">The production homepage assembles these seven components. Each links back to the live section on /.</p>
+      <div class="comp-grid">
+        <a class="comp-card" href="/#hero">
+          <div class="comp-num">01</div>
+          <div class="comp-name">Hero + topographic parallax</div>
+          <div class="comp-desc">Full-viewport wordmark with layered BG pattern and scroll-driven parallax. Expo easing, reduced-motion aware.</div>
+          <div class="comp-link">/ → hero</div>
+        </a>
+        <a class="comp-card" href="/#philosophy">
+          <div class="comp-num">02</div>
+          <div class="comp-name">C·D·M·x pillars grid</div>
+          <div class="comp-desc">Four-column philosophy grid with individual letter marks. The "x" card is the only yellow-tinted card in the layout.</div>
+          <div class="comp-link">/ → philosophy</div>
+        </a>
+        <a class="comp-card" href="/#reveal">
+          <div class="comp-num">03</div>
+          <div class="comp-name">Text-reveal card</div>
+          <div class="comp-desc">Scroll-triggered gooey word reveal for the manifesto opener. Single-fire animation — respects prefers-reduced-motion.</div>
+          <div class="comp-link">/ → reveal</div>
+        </a>
+        <a class="comp-card" href="/#proof">
+          <div class="comp-num">04</div>
+          <div class="comp-name">Proof + LLM quote</div>
+          <div class="comp-desc">Stat block paired with a generated-by-AI quote card. Validates claims with evidence, per the self-confidence voice rule.</div>
+          <div class="comp-link">/ → proof</div>
+        </a>
+        <a class="comp-card" href="/lab">
+          <div class="comp-num">05</div>
+          <div class="comp-name">CPU lab diagram</div>
+          <div class="comp-desc">ASCII-inspired signal-flow diagram showing how the three domains route into one operator. Mono-first visual.</div>
+          <div class="comp-link">/lab</div>
+        </a>
+        <a class="comp-card" href="/#marquee">
+          <div class="comp-num">06</div>
+          <div class="comp-name">Marquee strip</div>
+          <div class="comp-desc">Edge-to-edge horizontal ticker for tags and taglines. Constant-velocity, copper-bordered top and bottom.</div>
+          <div class="comp-link">/ → marquee</div>
+        </a>
+        <a class="comp-card" href="/#footer">
+          <div class="comp-num">07</div>
+          <div class="comp-name">Footer wordmark</div>
+          <div class="comp-desc">Massive CDMX wordmark clipped at the viewport edge, with baseline "Where digital works". Closes every page.</div>
+          <div class="comp-link">/ → footer</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 15 CLOSE -->
+    <section class="bg-section" id="close">
+      <div class="bg-label">15 — Close</div>
+      <div class="bg-close">
+        <div class="bg-close-wordmark">CDMX</div>
+        <div class="bg-close-baseline">Where digital works</div>
+        <div class="bg-close-contact"><a href="mailto:renke@cdmx.be">renke@cdmx.be</a> · Brugge, BE · MMXXVI</div>
+        <div class="bg-close-final">Connect the dots. Compound the results.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Smooth anchor scroll
+    document.querySelectorAll('.bg-nav a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
