@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "codename": "BEACON",
+    "kind": "embedded-system",
+    "status": "shipping",
+    "started": "2024-08",
+    "last_signal": "2026-04-19",
+    "depth": 4,
+    "public_summary": "Audit-automation in a domain where compliance is expensive and slow.",
+    "techniques": ["LLM pipeline", "structured extraction", "document vision"],
+    "links": []
+  },
+  {
+    "codename": "HEARTH",
+    "kind": "experiment",
+    "status": "maintained",
+    "started": "2025-02",
+    "last_signal": "2026-04-10",
+    "depth": 3,
+    "public_summary": "A local-first inference setup for domains where data cannot leave the building.",
+    "techniques": ["local inference", "quantisation", "privacy-first architecture"],
+    "links": []
+  },
+  {
+    "codename": "CHISEL",
+    "kind": "tool",
+    "status": "exploring",
+    "started": "2025-09",
+    "last_signal": "2026-04-21",
+    "depth": 2,
+    "public_summary": "A voice-first interface for a workflow that has only ever been keyboard-and-mouse.",
+    "techniques": ["speech-to-text", "command grammar", "real-time UI"],
+    "links": []
+  },
+  {
+    "codename": "GLYPH",
+    "kind": "essay",
+    "status": "dormant",
+    "started": "2025-06",
+    "last_signal": "2026-01-12",
+    "depth": 1,
+    "public_summary": "Notes toward a theory of taste in the age of infinitely cheap production.",
+    "techniques": ["writing"],
+    "links": []
+  }
+]
