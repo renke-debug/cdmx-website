@@ -153,6 +153,52 @@
             { "@type": "Country", "name": "Belgium" },
             { "@type": "Continent", "name": "Europe" }
           ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://cdmx.be/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does a CDMX engagement work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Retainer-only. 1-year commitment. No hourly billing, no scope creep. One client at a time means a full operator, not a vendor splitting attention."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why one client at a time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depth beats breadth. One client means learning the business deeply, spotting cross-domain patterns faster, and building systems that reinforce each other."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What results can I expect?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The operator model has generated €2M+ in new revenue through channels that did not exist before, shipped production AI systems in live workflows, and cut audit review cycles by 3x. First 90 days focus on quick wins; results compound quarter over quarter."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens after the 1-year commitment?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Renew or conclude — your call. You keep everything built: systems, tools, strategy. No lock-in beyond the year."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is CDMX an agency?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. CDMX is one operator covering digital growth, business strategy, and AI & automation — so growth compounds instead of fragmenting across vendors. Not the typical growth agency. Not for everyone."
+              }
+            }
+          ]
         }
       ]
     }
@@ -402,6 +448,31 @@
         .unlock-gate.waiting .unlock-hint-2 {
             opacity: 1;
         }
+        .unlock-skip {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--fg-dim);
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 10;
+        }
+        .unlock-skip.is-visible {
+            opacity: 0.7;
+            pointer-events: auto;
+        }
+        .unlock-skip:hover { opacity: 1; color: var(--accent); border-color: var(--accent); }
         .unlock-gate.waiting {
             pointer-events: auto;
         }
@@ -671,6 +742,38 @@
         .js-ready .hero-sub {
             opacity: 0;
             transform: translateY(20px);
+        }
+
+        .hero-credibility {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.9rem;
+            margin: 1.5rem 0 2.25rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--fg-dim);
+            max-width: 54rem;
+            line-height: 1.4;
+        }
+        .hero-credibility-item { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+        .hero-credibility-num {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            text-transform: none;
+        }
+        .hero-credibility-divider { color: var(--border); }
+        .js-ready .hero-credibility {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        @media (max-width: 700px) {
+            .hero-credibility-divider { display: none; }
+            .hero-credibility-item { flex-basis: 100%; }
         }
 
         .hero-actions {
@@ -2226,7 +2329,7 @@
                 animation-iteration-count: 1 !important;
             }
             .hero-title .line-inner { transform: none; }
-            .hero-sub, .hero-actions, .hero-eyebrow { opacity: 1; transform: none; }
+            .hero-sub, .hero-actions, .hero-eyebrow, .hero-credibility { opacity: 1; transform: none; }
             .loader { display: none; }
             .cursor { display: none; }
             body, a, button { cursor: auto; }
@@ -2755,7 +2858,7 @@
         </symbol>
     </svg>
 
-    <noscript><style>.loader{display:none !important}.hero-eyebrow,.hero-sub,.hero-actions{opacity:1 !important;transform:none !important}.hero-title .line-inner{transform:none !important}</style></noscript>
+    <noscript><style>.loader{display:none !important}.hero-eyebrow,.hero-sub,.hero-credibility,.hero-actions{opacity:1 !important;transform:none !important}.hero-title .line-inner{transform:none !important}</style></noscript>
     <a href="#hero" class="skip-link">Skip to main content</a>
     <div class="cursor" id="cursor"></div>
     <div class="scroll-progress" id="scrollProgress"></div>
@@ -2788,6 +2891,7 @@
             <div class="unlock-cursor" id="unlockCursor">_</div>
             <div class="unlock-hint" id="unlockHint">Type the capitals of the capital.</div>
             <div class="unlock-hint-2">Four letters. One city.</div>
+            <button type="button" class="unlock-skip" data-unlock-skip aria-label="Skip intro">Skip intro &rarr;</button>
             <input class="unlock-input" id="unlockMobileInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" inputmode="text">
         </div>
         <canvas id="unlockFlash" class="unlock-flash"></canvas>
@@ -2840,13 +2944,20 @@
 
         <div class="hero-content">
             <h1 class="hero-title">
-                <span class="line"><span class="line-inner">You have the</span></span>
-                <span class="line"><span class="line-inner">solution.</span></span>
-                <span class="line"><span class="line-inner"><span class="accent">Now build the</span></span></span>
-                <span class="line"><span class="line-inner"><span class="accent">growth system.</span></span></span>
+                <span class="line"><span class="line-inner">Not the usual</span></span>
+                <span class="line"><span class="line-inner"><span class="accent">growth agency.</span></span></span>
+                <span class="line"><span class="line-inner">Not for everyone.</span></span>
+                <span class="line"><span class="line-inner"><span class="accent">One operator.</span></span></span>
             </h1>
-            <div class="hero-eyebrow">For B2B founders &amp; commercial leaders</div>
-            <p class="hero-sub">One operator across digital growth, business strategy, and AI &mdash; embedded in your team, not advising from the outside.</p>
+            <div class="hero-eyebrow">For B2B companies at a growth inflection &middot; 20&ndash;200 people</div>
+            <p class="hero-sub">One operator across digital growth, business strategy, and AI. Three domains, one brain &mdash; so growth compounds instead of fragmenting across vendors.</p>
+            <div class="hero-credibility" aria-label="Credibility signals">
+                <span class="hero-credibility-item"><span class="hero-credibility-num">20+</span>AI sessions delivered at agency and client teams</span>
+                <span class="hero-credibility-divider" aria-hidden="true">&middot;</span>
+                <span class="hero-credibility-item"><span class="hero-credibility-num">International</span>digital growth work for brands across industries</span>
+                <span class="hero-credibility-divider" aria-hidden="true">&middot;</span>
+                <span class="hero-credibility-item"><span class="hero-credibility-num">8+</span>years as an independent operator</span>
+            </div>
             <div class="hero-actions">
                 <a href="#contact" class="btn-primary">Apply for the slot <span class="arr">&rarr;</span></a>
                 <a href="#process" class="btn-ghost">See how it works</a>
@@ -3673,7 +3784,7 @@
             if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
                 if (++initRetries > 100) {
                     // CDN failed — make content visible as fallback
-                    document.querySelectorAll('.hero-eyebrow, .hero-sub, .hero-actions').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+                    document.querySelectorAll('.hero-eyebrow, .hero-sub, .hero-credibility, .hero-actions').forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
                     document.querySelectorAll('.hero-title .line-inner').forEach(el => { el.style.transform = 'none'; });
                     const ldr = document.getElementById('loader');
                     if (ldr) ldr.style.display = 'none';
@@ -3827,6 +3938,7 @@
                     .to('.hero-title .line-inner', { y: 0, duration: 1.2, stagger: 0.08, ease: 'power4.out' })
                     .to('.hero-eyebrow', { autoAlpha: 1, duration: 0.6, ease: 'power3.out' }, '-=0.4')
                     .to('.hero-sub', { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.3')
+                    .to('.hero-credibility', { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.5')
                     .to('.hero-actions', { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5');
             }
 
@@ -4005,6 +4117,22 @@
 
                 document.addEventListener('keydown', onKey);
                 if (mobileInput) mobileInput.addEventListener('input', onMobileInput);
+
+                // Skip-intro button: appears 5s after .waiting state, triggers same unlock flow
+                const skipBtn = document.querySelector('[data-unlock-skip]');
+                if (skipBtn) {
+                    setTimeout(() => skipBtn.classList.add('is-visible'), 5000);
+                    skipBtn.addEventListener('click', () => {
+                        skipBtn.classList.remove('is-visible');
+                        skipBtn.style.display = 'none';
+                        // Reuse the exact same success path as typing CDMX.
+                        // Reveal all remaining slots first so the final flash composites
+                        // the full logo identically to the typed path.
+                        for (let i = currentIndex; i < sequence.length; i++) revealSlot(i);
+                        currentIndex = sequence.length;
+                        unlockSite();
+                    });
+                }
             }
 
             // SCROLL REVEALS (using autoAlpha)

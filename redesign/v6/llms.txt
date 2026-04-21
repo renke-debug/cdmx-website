@@ -1,11 +1,37 @@
-# CDMX
+# CDMX — Embedded Growth Operator
 
-A lab of experiments at the intersection of curiosity, obsession, and AI.
-Run quietly. Built in public.
+> A one-person B2B growth consultancy based in Bruges, Belgium. Founded by Renke Pieters. Operates one client at a time on a retainer-only, 1-year embedded model across digital growth, business strategy, and AI & automation.
 
-## Pages
-- / — a short manifest (6 acts)
-- /lab/ — a constellation of active experiments by codename
-- /contact/ — mailto only
+## What this is
+CDMX is an embedded growth operator for B2B companies with 20–200 employees in Belgium and Europe. Unlike a fractional CMO, a consulting firm, or three separate hires, one operator runs three domains — digital growth, business strategy, and AI & automation — so growth actually compounds instead of fragmenting across vendors. Not the typical growth agency. Not for everyone.
 
-The site does not sell services. It is a showcase.
+## Operator
+- Renke Pieters — Founder. 8+ years in digital growth. Postgraduates in Digital Marketing, AI, and Experience Architecture. Based in Bruges, Belgium.
+- LinkedIn: https://linkedin.com/in/renkepieters
+
+## Services
+- Digital Growth — Growth architecture with trusted attribution, self-reinforcing channels, structured experimentation.
+- Business Strategy — Business model clarity, execution planning, board-ready growth forecasting.
+- AI & Automation — Production-grade AI systems built inside operations, not theoretical decks.
+
+## Engagement model
+- Retainer-only, 1-year commitment.
+- One client at a time.
+- Filter: B2B, 20–200 people, at a growth inflection. Not for every buyer.
+
+## Track record
+- 20+ AI sessions delivered inside agency and client teams.
+- Digital growth work for international brands across multiple industries.
+- €2M+ new revenue attributed through new sales channels in a recent 18-month embed.
+- 3x faster audit cycles via custom AI review tooling.
+- Production AI systems running in live workflows (not pilots).
+
+## Brand
+- Tagline: Connect the dots. Compound the results.
+- Baseline: Where digital works.
+- Manifesto opener: I connect dots that don't want to be connected.
+
+## Contact
+- Website: https://cdmx.be
+- Email: renke@cdmx.be
+- LinkedIn: https://linkedin.com/in/renkepieters
