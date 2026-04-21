@@ -530,20 +530,6 @@
             position: relative;
             overflow: hidden;
         }
-        .hero-pattern {
-            position: absolute;
-            inset: -8% -10% auto auto;
-            width: 70%;
-            height: 120%;
-            background: url('assets/patterns/pattern-yellow.png') no-repeat right top / contain;
-            opacity: 0.18;
-            pointer-events: none;
-            mix-blend-mode: screen;
-            filter: saturate(0.9);
-            z-index: 1;
-        }
-        .hero > *:not(.hero-pattern) { position: relative; z-index: 2; }
-
         /* Glow orbs */
         .glow {
             position: absolute;
@@ -976,7 +962,7 @@
             line-height: 1;
             margin-bottom: 0.8rem;
         }
-        .impact-number .green { color: var(--accent); }
+        .impact-number .accent-mark { color: var(--accent); }
 
         .impact-label {
             font-size: 0.9rem;
@@ -1335,7 +1321,7 @@
             transform: translate(-50%, -50%);
             width: 60px; height: 60px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--accent) 0%, rgba(185,255,0,0.3) 60%, transparent 100%);
+            background: radial-gradient(circle, var(--accent) 0%, rgba(245,200,0,0.3) 60%, transparent 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2432,7 +2418,6 @@
     <main>
     <!-- HERO -->
     <section class="hero" id="hero">
-        <div class="hero-pattern" aria-hidden="true"></div>
         <div class="glow glow-1"></div>
         <div class="glow glow-2"></div>
         <div class="glow glow-3"></div>
@@ -2495,17 +2480,17 @@
                 <div class="impact-axis-line-v"></div>
                 <div class="impact-axis-dot"></div>
                 <div class="impact-stat impact-stat-1">
-                    <div class="impact-number">&euro;1<span class="green">M+</span></div>
+                    <div class="impact-number">&euro;2<span class="accent-mark">M+</span></div>
                     <div class="impact-label">Revenue attributed through new sales channels</div>
                     <div class="impact-context">B2B &middot; 18 months &middot; single engagement</div>
                 </div>
                 <div class="impact-stat impact-stat-2">
-                    <div class="impact-number">3<span class="green">x</span></div>
+                    <div class="impact-number">3<span class="accent-mark">x</span></div>
                     <div class="impact-label">Faster audit cycles via custom AI review tool</div>
                     <div class="impact-context">Built &amp; shipped to production</div>
                 </div>
                 <div class="impact-stat impact-stat-3">
-                    <div class="impact-number">18<span class="green">mo</span></div>
+                    <div class="impact-number">18<span class="accent-mark">mo</span></div>
                     <div class="impact-label">Embedded end-to-end &mdash; operator, not advisor</div>
                     <div class="impact-context">Production AI systems live, not pilots</div>
                 </div>
@@ -2552,12 +2537,12 @@
                 <div class="expertise-card" data-cursor="hover">
                     <div class="expertise-card-header">
                         <div class="expertise-num">01</div>
-                        <span class="expertise-proof-teaser">&euro;1M+ attributed revenue</span>
+                        <span class="expertise-proof-teaser">&euro;2M+ attributed revenue</span>
                     </div>
                     <h3>Digital Growth</h3>
                     <div class="expertise-card-body"><div class="expertise-card-body-inner">
                         <p>Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments that teach you something win or lose.</p>
-                        <div class="expertise-proof">&euro;1M+ attributed through channels that didn't exist before</div>
+                        <div class="expertise-proof">&euro;2M+ attributed through channels that didn't exist before</div>
                     </div></div>
                 </div>
                 <div class="expertise-card" data-cursor="hover">
@@ -2696,7 +2681,7 @@
                             <div class="about-ticker-item">8+ years in digital growth &amp; strategy</div>
                             <div class="about-ticker-item">3 postgraduates: Digital Marketing, AI, Experience Architect</div>
                             <div class="about-ticker-item">Production AI systems shipped</div>
-                            <div class="about-ticker-item">&euro;1M+ revenue generated in a single engagement</div>
+                            <div class="about-ticker-item">&euro;2M+ revenue generated in a single engagement</div>
                             <div class="about-ticker-item">18 months embedded, one organization</div>
                             <div class="about-ticker-item">Audit cycles cut by 3x</div>
                             <div class="about-ticker-item">1 Ironman finished</div>
@@ -2705,7 +2690,7 @@
                             <div class="about-ticker-item">8+ years in digital growth &amp; strategy</div>
                             <div class="about-ticker-item">3 postgraduates: Digital Marketing, AI, Experience Architect</div>
                             <div class="about-ticker-item">Production AI systems shipped</div>
-                            <div class="about-ticker-item">&euro;1M+ revenue generated in a single engagement</div>
+                            <div class="about-ticker-item">&euro;2M+ revenue generated in a single engagement</div>
                             <div class="about-ticker-item">18 months embedded, one organization</div>
                             <div class="about-ticker-item">Audit cycles cut by 3x</div>
                             <div class="about-ticker-item">1 Ironman finished</div>
@@ -2716,14 +2701,14 @@
                     <ul class="about-bullets">
                         <li>Companies keep hiring three specialists that never talk to each other &mdash; growth marketer, strategist, AI consultant. I saw the same pattern break ten times.</li>
                         <li>Good ideas in silos, zero compound effect. One operator across all three domains creates leverage no combination of specialists can match.</li>
-                        <li>Built and validated over 18 months embedded in a single organization. &euro;1M+ new revenue, production AI systems live, audit cycles cut 3x.</li>
+                        <li>Built and validated over 18 months embedded in a single organization. &euro;2M+ new revenue, production AI systems live, audit cycles cut 3x.</li>
                         <li>Now making the same model available externally. One client at a time. Full operator, not a vendor.</li>
                     </ul>
 
                     <div class="about-stats">
                         <div><div class="about-stat-val">8+</div><div class="about-stat-lbl">Years in growth</div></div>
                         <div><div class="about-stat-val">3</div><div class="about-stat-lbl">Postgrad degrees</div></div>
-                        <div><div class="about-stat-val">&euro;1M+</div><div class="about-stat-lbl">Revenue generated</div></div>
+                        <div><div class="about-stat-val">&euro;2M+</div><div class="about-stat-lbl">Revenue generated</div></div>
                         <div><div class="about-stat-val">1</div><div class="about-stat-lbl">Ironman finished</div></div>
                     </div>
 
@@ -2775,7 +2760,7 @@
             <div class="faq-list">
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How does the engagement work?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Retainer-only. 1-year commitment. No hourly billing, no scope creep. One client at a time means a full operator, not a vendor splitting attention. Pricing gets discussed in the intake conversation.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Why one client at a time?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Because depth beats breadth. When I split attention across multiple clients, the compound effect disappears. One client means I learn your business deeply, spot cross-domain patterns faster, and build systems that reinforce each other. That depth is what creates outsized results.</p></div></div></div>
-                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What kind of results can I expect?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">That depends on where you are. But the operator model has generated &euro;1M+ in new revenue through channels that didn't exist before, shipped production AI systems inside live workflows, and cut audit review cycles by 3x. The first 90 days focus on quick wins and building the foundation. After that, results compound quarter over quarter.</p></div></div></div>
+                <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What kind of results can I expect?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">That depends on where you are. But the operator model has generated &euro;2M+ in new revenue through channels that didn't exist before, shipped production AI systems inside live workflows, and cut audit review cycles by 3x. The first 90 days focus on quick wins and building the foundation. After that, results compound quarter over quarter.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What happens after the 1-year commitment?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">Renew or conclude &mdash; your call. You keep everything that was built: the systems, the tools, the strategy. Most clients renew because the compound effect is accelerating by then. No lock-in beyond the year.</p></div></div></div>
                 <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What does the application process look like?</span><span class="faq-plus"></span></button><div class="faq-a"><div class="faq-a-inner"><p class="faq-a-text">One slot at a time. Apply with your company name and biggest growth challenge. You'll hear back within 48 hours with an honest assessment of fit. If the slot is filled, you get first priority when capacity opens.</p></div></div></div>
             </div>
