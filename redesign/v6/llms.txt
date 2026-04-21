@@ -1,0 +1,11 @@
+# CDMX
+
+A lab of experiments at the intersection of curiosity, obsession, and AI.
+Run quietly. Built in public.
+
+## Pages
+- / — a short manifest (6 acts)
+- /lab/ — a constellation of active experiments by codename
+- /contact/ — mailto only
+
+The site does not sell services. It is a showcase.
