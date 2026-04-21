@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDMX — a lab</title>
+  <meta name="description" content="A lab of experiments at the intersection of curiosity, obsession, and AI. Run quietly. Built in public.">
+  <meta name="theme-color" content="#F8F6F1">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://cdmx.be/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CDMX — a lab">
+  <meta property="og:description" content="A lab of experiments at the intersection of curiosity, obsession, and AI. Run quietly. Built in public.">
+  <meta property="og:url" content="https://cdmx.be/">
+  <meta property="og:image" content="https://cdmx.be/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Plausible analytics (EU-hosted, GDPR-clean) -->
+  <script defer data-domain="cdmx.be" src="https://plausible.io/js/script.tagged-events.js"></script>
+  <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/manifest.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CDMX",
+    "url": "https://cdmx.be",
+    "description": "A lab of experiments at the intersection of curiosity, obsession, and AI."
+  }
+  </script>
+</head>
+<body data-page="manifest">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <canvas id="organism" class="organism-canvas" aria-hidden="true"></canvas>
+  <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
+
+  <main id="main">
+    <section class="act act--1" data-act="1">
+      <p class="act-line" id="opening-line">
+        This is a site built by an amateur with AI. It is not worse for it.
+      </p>
+    </section>
+
+    <section class="act act--2" data-act="2">
+      <h2 class="act-heading">Most of what you see with AI is slop.</h2>
+      <p class="act-body">[placeholder copy — Task 15]</p>
+    </section>
+
+    <section class="act act--3" data-act="3">
+      <h2 class="act-heading">The exception has a name.</h2>
+      <p class="act-body">[placeholder copy — Task 15]</p>
+    </section>
+
+    <section class="act act--4" data-act="4">
+      <h2 class="act-heading">Proof, not argument.</h2>
+      <p class="act-body">
+        [placeholder lead-in — Task 15]
+        <span id="llm-slot" class="llm-slot" data-state="idle"></span>
+      </p>
+    </section>
+
+    <section class="act act--5" data-act="5">
+      <h2 class="act-heading">The amateur's advantage.</h2>
+      <p class="act-body">[placeholder copy — Task 15]</p>
+    </section>
+
+    <section class="act act--6" data-act="6">
+      <h2 class="act-heading">What is happening downstairs.</h2>
+      <p class="act-body">[placeholder copy — Task 15]</p>
+      <canvas id="sigil" class="sigil-canvas" aria-hidden="true"></canvas>
+      <a class="lab-door" href="/lab/">Enter the lab →</a>
+    </section>
+  </main>
+
+  <aside class="site-chrome">
+    <span>CDMX / </span><span class="route">MANIFEST</span><span> / BUILD 2026-04-21</span>
+  </aside>
+
+  <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
