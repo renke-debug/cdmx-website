@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CDMX OG</title>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: 'Hanken Grotesk';
+      src: url('assets/fonts/HankenGrotesk-Variable.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-display: block;
+    }
+    html, body { margin: 0; padding: 0; width: 1200px; height: 630px; overflow: hidden; }
+    body {
+      background: #F8F6F1;
+      color: #0A0A0A;
+      font-family: 'Hanken Grotesk', sans-serif;
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 80px 90px;
+      box-sizing: border-box;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.04 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .title {
+      font-size: 132px;
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      max-width: 20ch;
+    }
+    .title .accent { background: #F5C800; padding: 0 8px; }
+    .chrome {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #918D85;
+    }
+    .chrome .right { color: #D4915E; }
+    .sigil {
+      position: absolute;
+      right: 90px;
+      top: 100px;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <svg class="sigil" viewBox="0 0 200 200" fill="none" stroke="#D4915E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 20 100 Q 60 40, 100 90 T 180 80 Q 160 140, 100 130 T 30 150" />
+  </svg>
+  <h1 class="title">A lab.<br>Built in <span class="accent">public</span>.</h1>
+  <div class="chrome">
+    <span>CDMX &middot; cdmx.be</span>
+    <span class="right">CURIOSITY &middot; OBSESSION &middot; AI</span>
+  </div>
+</body>
+</html>
