@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDMX / Lab</title>
+  <meta name="description" content="A non-linear constellation of active experiments, by codename.">
+  <meta name="theme-color" content="#F8F6F1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/lab.css">
+</head>
+<body data-page="lab">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
+
+  <header class="lab-header">
+    <h1 class="mono-label">CDMX / LAB</h1>
+    <p class="lab-tagline">Codenames only. Status is copper.</p>
+  </header>
+
+  <main id="main">
+    <canvas id="constellation" class="constellation-canvas" aria-label="Lab constellation"></canvas>
+    <ul id="lab-list" class="lab-list" aria-label="All projects (list view)"></ul>
+  </main>
+
+  <aside class="site-chrome">
+    <span>CDMX / </span><span class="route">LAB</span><span id="last-signal"></span>
+  </aside>
+
+  <a class="lab-return" href="/">← return to manifest</a>
+
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+body[data-page="lab"] {
+  overflow: hidden;
+  height: 100vh;
+}
+.lab-header {
+  position: fixed;
+  top: var(--space-6);
+  left: var(--space-6);
+  z-index: 10;
+  max-width: 24rem;
+}
+.lab-header h1 { font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; }
+.lab-tagline { margin-top: var(--space-2); font-size: var(--type-sm); color: var(--gray-500); }
+
+.constellation-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: grab;
+  touch-action: none;
+}
+.constellation-canvas:active { cursor: grabbing; }
+
+.lab-list {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: var(--space-24) var(--space-6);
+  overflow-y: auto;
+  list-style: none;
+  opacity: 0;
+  pointer-events: none;
+}
+.lab-list li { max-width: 48rem; margin: 0 auto var(--space-6); }
+.lab-list .lab-list-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--gray-400);
+  font-size: var(--type-md);
+  line-height: var(--lh-normal);
+  color: var(--fg);
+}
+.lab-list .lab-list-item strong {
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-mono-label);
+  color: var(--signal);
+  margin-right: var(--space-2);
+}
+body.lab-list-visible .lab-list { opacity: 1; pointer-events: auto; background: var(--bg); }
+body.lab-list-visible .constellation-canvas { display: none; }
+
+.lab-return {
+  position: fixed;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  color: var(--signal);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--gray-400);
+}
+.lab-return:hover { border-color: var(--signal); }
+
+.node-panel {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  border: 1px solid var(--gray-400);
+  padding: var(--space-6) var(--space-8);
+  max-width: 32rem;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-organism);
+}
+.node-panel[data-open="true"] { opacity: 1; pointer-events: auto; }
+.node-panel .codename { font-size: var(--type-xl); font-weight: 700; }
+.node-panel .summary { margin-top: var(--space-4); color: var(--gray-600); }
+.node-panel .techniques { margin-top: var(--space-4); display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.node-panel .tech { font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); padding: 2px 6px; background: var(--color-mint); color: var(--fg); }
+.node-panel .status { margin-top: var(--space-4); font-family: var(--font-mono); font-size: var(--type-xs); color: var(--signal); letter-spacing: var(--ls-mono-label); text-transform: uppercase; }
+.node-panel .close { position: absolute; top: var(--space-4); right: var(--space-4); font-family: var(--font-mono); color: var(--gray-500); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); }

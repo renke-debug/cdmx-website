@@ -61,3 +61,14 @@ if (page === 'manifest') {
     })
   );
 }
+
+// Lab-only features
+if (page === 'lab') {
+  import('./lab-canvas.js').then(({ startLab }) => {
+    startLab({
+      canvas: document.getElementById('constellation'),
+      listEl: document.getElementById('lab-list'),
+      lastSignalEl: document.getElementById('last-signal'),
+    });
+  });
+}
