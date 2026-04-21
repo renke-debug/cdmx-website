@@ -3,6 +3,11 @@ import { startSubstrate } from './substrate.js';
 import { startOrganism } from './organism.js';
 import { drawSigil } from './sigil.js';
 import { runCompletion } from './llm-completion.js';
+import { startParallax } from './parallax.js';
+import { startTextReveal } from './text-reveal.js';
+import { startServicesModal } from './services-modal.js';
+import { startCpuDiagram } from './cpu-diagram.js';
+import { startMarquee } from './marquee.js';
 
 const page = document.body.dataset.page;
 
@@ -21,30 +26,41 @@ if (page === 'manifest') {
   const llmSlot = document.getElementById('llm-slot');
   const sessionSeed = Math.floor(Math.random() * 1e9);
 
-  // Load GSAP + ScrollTrigger for breach timing + sigil + LLM triggers
+  // 5 new component modules — wire immediately (they self-gate on reduced-motion)
+  startParallax();
+  startTextReveal();
+  startServicesModal();
+  startCpuDiagram();
+  startMarquee();
+
+  // GSAP + ScrollTrigger for scroll-driven moments
   import('https://cdn.skypack.dev/gsap@3.12.7').then(({ gsap }) =>
     import('https://cdn.skypack.dev/gsap@3.12.7/ScrollTrigger').then(({ ScrollTrigger }) => {
       gsap.registerPlugin(ScrollTrigger);
 
       if (organism) {
-        requestAnimationFrame(() => organism.breach(0.1, 0.5, 0.8, 4000));
+        // Opening breach on load (subtle, on hero pattern)
+        requestAnimationFrame(() => organism.breach(0.2, 0.5, 0.6, 4000));
 
+        // Mid breach at pillars section
         ScrollTrigger.create({
-          trigger: '.act--4',
+          trigger: '#philosophy',
           start: 'top 60%',
-          onEnter: () => organism.breach(0.5, 0.5, 0.6, 2500),
+          onEnter: () => organism.breach(0.5, 0.4, 0.5, 2500),
         });
+
+        // Late breach at lab preview
         ScrollTrigger.create({
-          trigger: '.act--6',
-          start: 'top 70%',
-          onEnter: () => organism.breach(0.9, 0.6, 0.7, 3000),
+          trigger: '#lab-preview',
+          start: 'top 65%',
+          onEnter: () => organism.breach(0.8, 0.6, 0.6, 3000),
         });
       }
 
       if (llmSlot) {
         ScrollTrigger.create({
-          trigger: '.act--4',
-          start: 'top 50%',
+          trigger: '#proof',
+          start: 'top 55%',
           once: true,
           onEnter: () => runCompletion(llmSlot),
         });
@@ -52,8 +68,8 @@ if (page === 'manifest') {
 
       if (sigilCanvas) {
         ScrollTrigger.create({
-          trigger: '.act--6',
-          start: 'top 50%',
+          trigger: '.footer',
+          start: 'top 60%',
           once: true,
           onEnter: () => drawSigil(sigilCanvas, sessionSeed),
         });

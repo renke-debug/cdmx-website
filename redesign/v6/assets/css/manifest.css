@@ -446,3 +446,78 @@ section { padding-block: var(--space-24) var(--space-24); position: relative; }
   .marquee-track { animation: none !important; }
   .llm-slot[data-state="streaming"]::after { animation: none; }
 }
+
+/* Services modal — Task 22 companion styles */
+.services-modal {
+  position: absolute;
+  top: 0; left: 0;
+  width: 360px;
+  height: 280px;
+  z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transform-origin: center;
+  transition: opacity var(--dur-med) var(--ease-expo);
+  will-change: transform, opacity;
+  background: var(--bg);
+}
+.services-modal[data-active="true"] { opacity: 1; }
+.services-modal-inner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.services-modal-stage {
+  height: 400%;
+  transition: transform 500ms var(--ease-expo);
+  will-change: transform;
+}
+.services-modal-panel {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  font-family: var(--font-display);
+  color: var(--bg);
+}
+.services-modal-letter {
+  font-weight: var(--w-hero);
+  font-size: 6rem;
+  line-height: 1;
+}
+.services-modal-label {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.services-modal-cursor {
+  position: absolute;
+  top: 0; left: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 101;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-expo);
+  will-change: transform, opacity;
+}
+.services-modal-cursor[data-active="true"] { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .services-modal, .services-modal-cursor { display: none; }
+}
