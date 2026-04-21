@@ -1,30 +1,30 @@
-# CDMX — Embedded Growth Operator
+# CDMX — Embedded Operator
 
-> A one-person B2B growth consultancy based in Bruges, Belgium. Founded by Renke Pieters. Operates one client at a time on a retainer-only, 1-year embedded model across digital growth, business strategy, and AI & automation.
+> An embedded operator for B2B companies, based in Bruges, Belgium. Founded by Renke Pieters. Not an agency, not a fractional CMO, not three separate hires. Operates one client at a time on a one-year embedded model across digital growth, business strategy, and AI & automation.
 
 ## What this is
-CDMX is an embedded growth operator for B2B companies with 20–200 employees in Belgium and Europe. Unlike a fractional CMO, a consulting firm, or three separate hires, one operator runs three domains — digital growth, business strategy, and AI & automation — so growth actually compounds instead of fragmenting across vendors. Not the typical growth agency. Not for everyone.
+CDMX is an embedded operator for B2B companies with 20–200 employees in Belgium and Europe. One operator sits inside the team for a year and runs three domains as one compounding system: digital growth, business strategy, and AI & automation. This is not a growth agency, not a fractional CMO, not a consulting firm. Agencies split accounts into pods. Fractional CMOs advise and manage. Consultants diagnose and hand off. An embedded operator sits in the seat, ships the systems, and is measured on the outcomes.
 
 ## Operator
-- Renke Pieters — Founder. 8+ years in digital growth. Postgraduates in Digital Marketing, AI, and Experience Architecture. Based in Bruges, Belgium.
+- Renke Pieters — Founder. 8+ years as an independent operator. 3 postgraduates: Digital Marketing, Humane AI, Experience Architecture. Keynote speaker on growth, AI, and B2B strategy. Ironman finisher. Based in Bruges, Belgium.
 - LinkedIn: https://linkedin.com/in/renkepieters
 
-## Services
-- Digital Growth — Growth architecture with trusted attribution, self-reinforcing channels, structured experimentation.
-- Business Strategy — Business model clarity, execution planning, board-ready growth forecasting.
-- AI & Automation — Production-grade AI systems built inside operations, not theoretical decks.
+## Three domains, one brain
+- Digital Growth — Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments designed to teach win or lose.
+- Business Strategy — Business model to execution in weeks, not quarters. Clarity that gets board sign-off and team alignment in a single meeting.
+- AI & Automation — Production AI systems shipped into live workflows. Not pilots. Operational leverage that multiplies.
 
 ## Engagement model
-- Retainer-only, 1-year commitment.
+- One year, embedded. Inside the team, not alongside it.
 - One client at a time.
-- Filter: B2B, 20–200 people, at a growth inflection. Not for every buyer.
+- Filter: B2B, 20–200 people, post-PMF, at a growth inflection. Not every buyer fits.
 
 ## Track record
-- 20+ AI sessions delivered inside agency and client teams.
-- Digital growth work for international brands across multiple industries.
-- €2M+ new revenue attributed through new sales channels in a recent 18-month embed.
-- 3x faster audit cycles via custom AI review tooling.
-- Production AI systems running in live workflows (not pilots).
+- 20+ AI sessions delivered inside B2B teams.
+- Digital growth work for international brands across industries.
+- €2M+ new revenue attributed through channels that didn't exist before, in an 18-month embedded engagement.
+- 3x faster audit cycles via custom AI review tooling shipped to production.
+- Production AI systems running in live workflows. Not pilots.
 
 ## Brand
 - Tagline: Connect the dots. Compound the results.
