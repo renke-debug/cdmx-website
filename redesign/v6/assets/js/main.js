@@ -1,6 +1,7 @@
 // Orchestrator — loads per-page modules based on body[data-page].
 import { startSubstrate } from './substrate.js';
 import { startOrganism } from './organism.js';
+import { drawSigil } from './sigil.js';
 
 const page = document.body.dataset.page;
 
@@ -15,15 +16,18 @@ if (page === 'manifest') {
   const organismCanvas = document.getElementById('organism');
   const organism = organismCanvas ? startOrganism(organismCanvas) : null;
 
-  // Load GSAP + ScrollTrigger for breach timing
-  if (organism) {
-    // Fire opening breach on load
-    requestAnimationFrame(() => organism.breach(0.1, 0.5, 0.8, 4000));
+  const sigilCanvas = document.getElementById('sigil');
+  const sessionSeed = Math.floor(Math.random() * 1e9);
 
-    // Wire scroll-driven breaches via GSAP ScrollTrigger (loaded from CDN)
-    import('https://cdn.skypack.dev/gsap@3.12.7').then(({ gsap }) =>
-      import('https://cdn.skypack.dev/gsap@3.12.7/ScrollTrigger').then(({ ScrollTrigger }) => {
-        gsap.registerPlugin(ScrollTrigger);
+  // Load GSAP + ScrollTrigger for breach timing + sigil trigger
+  import('https://cdn.skypack.dev/gsap@3.12.7').then(({ gsap }) =>
+    import('https://cdn.skypack.dev/gsap@3.12.7/ScrollTrigger').then(({ ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (organism) {
+        // Fire opening breach on load
+        requestAnimationFrame(() => organism.breach(0.1, 0.5, 0.8, 4000));
+
         ScrollTrigger.create({
           trigger: '.act--4',
           start: 'top 60%',
@@ -34,7 +38,16 @@ if (page === 'manifest') {
           start: 'top 70%',
           onEnter: () => organism.breach(0.9, 0.6, 0.7, 3000),
         });
-      })
-    );
-  }
+      }
+
+      if (sigilCanvas) {
+        ScrollTrigger.create({
+          trigger: '.act--6',
+          start: 'top 50%',
+          once: true,
+          onEnter: () => drawSigil(sigilCanvas, sessionSeed),
+        });
+      }
+    })
+  );
 }
