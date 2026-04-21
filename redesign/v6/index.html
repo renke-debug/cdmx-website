@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CDMX — a lab</title>
-  <meta name="description" content="A lab of experiments at the intersection of curiosity, obsession, and AI. Run quietly. Built in public.">
-  <meta name="theme-color" content="#F8F6F1">
+  <title>CDMX — Connect the dots. Compound the results.</title>
+  <meta name="description" content="One operator across Digital Growth, Business Strategy, and AI. Brand philosophy C·D·M·x — Curiosity, Depth, Mastery, Multiplier. Where digital works.">
+  <meta name="theme-color" content="#0A0A0A">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://cdmx.be/">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="CDMX — a lab">
-  <meta property="og:description" content="A lab of experiments at the intersection of curiosity, obsession, and AI. Run quietly. Built in public.">
+  <meta property="og:title" content="CDMX — Connect the dots. Compound the results.">
+  <meta property="og:description" content="One operator across Digital Growth, Business Strategy, and AI. C·D·M·x.">
   <meta property="og:url" content="https://cdmx.be/">
   <meta property="og:image" content="https://cdmx.be/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Plausible analytics (EU-hosted, GDPR-clean) -->
+  <!-- Plausible — EU-hosted, GDPR-clean -->
   <script defer data-domain="cdmx.be" src="https://plausible.io/js/script.tagged-events.js"></script>
   <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
 
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/patterns/BG-Pattern-LightBlue.png">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/manifest.css">
@@ -30,82 +31,245 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
     "name": "CDMX",
     "url": "https://cdmx.be",
-    "description": "A lab of experiments at the intersection of curiosity, obsession, and AI."
+    "description": "A one-operator growth consultancy combining Digital Growth, Business Strategy, and AI & Automation.",
+    "founder": { "@type": "Person", "name": "Renke Pieters" },
+    "areaServed": { "@type": "Country", "name": "Belgium" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Brugge", "addressCountry": "BE" },
+    "email": "renke@cdmx.be",
+    "slogan": "Connect the dots. Compound the results."
   }
   </script>
 </head>
 <body data-page="manifest">
   <a href="#main" class="skip-link">Skip to content</a>
 
-  <canvas id="organism" class="organism-canvas" aria-hidden="true"></canvas>
+  <!-- Ambient substrate (existing module from earlier tasks) -->
   <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
+  <!-- Organism breach (existing WebGL module) — repurposed as ambient texture -->
+  <canvas id="organism" class="organism-canvas" aria-hidden="true"></canvas>
 
   <main id="main">
-    <section class="act act--1" data-act="1">
-      <p class="act-line" id="opening-line">
-        This is a site built by an amateur with AI. It is not worse for it.
-      </p>
+
+    <!-- 1. HERO -->
+    <section class="hero" data-hero>
+      <div class="hero-pattern" data-parallax="0.4">
+        <img src="assets/patterns/BG-Pattern-LightBlue.png" alt="" aria-hidden="true">
+      </div>
+
+      <header class="hero-header">
+        <img class="hero-logo" src="assets/logos/CDMX-Logo.svg" alt="CDMX" width="240" height="50">
+        <p class="hero-baseline mono-label">Where digital works</p>
+      </header>
+
+      <div class="hero-meta">
+        <span class="bracket-tag">LAB</span>
+        <span class="bracket-tag">EST. 2024</span>
+        <span class="bracket-tag">BRUGGE · BE</span>
+      </div>
+
+      <h1 class="hero-display hero-headline">
+        I connect dots<br>
+        that don't want<br>
+        to be <span class="accent-yellow">connected</span>.
+      </h1>
+
+      <div class="hero-scroll">
+        <span class="mono-label">SCROLL</span>
+        <span class="hero-scroll-line"></span>
+      </div>
     </section>
 
-    <section class="act act--2" data-act="2">
-      <h2 class="act-heading">Most of what you see with AI is slop.</h2>
-      <p class="act-body">
-        Generic pitches. Recycled frameworks. Landing pages that read like every other landing page. If you have opened five sites this week, you have read the same site five times.
-      </p>
-      <p class="act-body">
-        This is not a tool problem. It is a taste problem.
-      </p>
+    <!-- 2. SLOP CONCESSION -->
+    <section class="slop" id="slop">
+      <div class="container">
+        <div class="section-label">01 &nbsp;—&nbsp; The Exception</div>
+        <p class="slop-lede">
+          Generic pitches. Recycled frameworks. Landing pages that read like every other landing page. If you have opened five sites this week, you have read the same site five times.
+        </p>
+        <p class="slop-lede slop-lede--muted">
+          This is not a tool problem. It is a taste problem.
+        </p>
+      </div>
     </section>
 
-    <section class="act act--3" data-act="3">
-      <h2 class="act-heading">The exception has a name.</h2>
-      <p class="act-body">
-        Curiosity, paid in hours. Obsession, paid in years. Taste, paid in both.
-      </p>
-      <p class="act-body">
-        Everyone gets the same AI. The difference is who was already paying attention before it arrived.
-      </p>
+    <!-- 3. TEXT-REVEAL CARD -->
+    <section class="reveal-section">
+      <div class="container">
+        <div class="reveal-card" data-text-reveal data-text="Most of what you see with AI is slop." data-reveal="The exception has a name.">
+          <p class="reveal-hint mono-label">Hover to reveal</p>
+          <div class="reveal-stage">
+            <p class="reveal-base">Most of what you see with AI is slop.</p>
+            <p class="reveal-hidden">The exception has a name.</p>
+            <span class="reveal-indicator"></span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="act act--4" data-act="4">
-      <h2 class="act-heading">Proof, not argument.</h2>
-      <p class="act-body">
-        The argument about AI has been made. What matters now is what people make with it.
-      </p>
-      <p class="act-body">
-        Most people will produce more mediocre work with AI. A few people will produce work that could not exist without it. The difference is
-        <span id="llm-slot" class="llm-slot" data-state="idle"></span>
-      </p>
+    <!-- 4. C · D · M · x PHILOSOPHY -->
+    <section class="pillars" id="philosophy">
+      <div class="container">
+        <div class="section-label">02 &nbsp;—&nbsp; Operating System</div>
+        <h2 class="pillars-title">
+          C <span class="pillars-dot">·</span> D <span class="pillars-dot">·</span> M <span class="pillars-dot">·</span> <span class="accent-yellow">x</span>
+        </h2>
+        <p class="pillars-subtitle">Four letters. One operating system. The <span class="accent-yellow">x</span> is where the other three compound.</p>
+
+        <div class="pillars-grid">
+          <article class="pillar cdmx-pillar" data-modal-index="0" data-letter="C">
+            <div class="pillar-letter"><img src="assets/logos/C.png" alt="C" loading="lazy"></div>
+            <h3 class="pillar-name">Curiosity</h3>
+            <p class="pillar-desc">Ask the question no one else asks.</p>
+          </article>
+          <article class="pillar cdmx-pillar" data-modal-index="1" data-letter="D">
+            <div class="pillar-letter"><img src="assets/logos/D.png" alt="D" loading="lazy"></div>
+            <h3 class="pillar-name">Depth</h3>
+            <p class="pillar-desc">Go further than is comfortable.</p>
+          </article>
+          <article class="pillar cdmx-pillar" data-modal-index="2" data-letter="M">
+            <div class="pillar-letter"><img src="assets/logos/M.png" alt="M" loading="lazy"></div>
+            <h3 class="pillar-name">Mastery</h3>
+            <p class="pillar-desc">Know enough to know what you can skip.</p>
+          </article>
+          <article class="pillar cdmx-pillar pillar--x" data-modal-index="3" data-letter="x">
+            <div class="pillar-letter"><img src="assets/logos/x.png" alt="x" loading="lazy"></div>
+            <h3 class="pillar-name">Multiplier</h3>
+            <p class="pillar-desc">Where the three converge.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="act act--5" data-act="5">
-      <h2 class="act-heading">The amateur's advantage.</h2>
-      <p class="act-body">
-        Specialists think in conventions. Conventions are how you produce reliable work. They are also how you produce the same work everyone else produces.
-      </p>
-      <p class="act-body">
-        The amateur does not know which conventions to follow, so they reach. Most of what they reach for breaks. A small portion did not exist before.
-      </p>
+    <!-- 5. PROOF — LIVE LLM COMPLETION -->
+    <section class="proof" id="proof">
+      <div class="container">
+        <div class="section-label">03 &nbsp;—&nbsp; Proof</div>
+        <h2 class="proof-title">Proof, not argument.</h2>
+        <p class="proof-body">
+          The argument about AI has been made. What matters now is what people make with it.
+        </p>
+        <p class="proof-body proof-body--climax">
+          Most people will produce more mediocre work with AI. A few people will produce work that could not exist without it. The difference is
+          <span id="llm-slot" class="llm-slot" data-state="idle"></span>
+        </p>
+      </div>
     </section>
 
-    <section class="act act--6" data-act="6">
-      <h2 class="act-heading">What is happening downstairs.</h2>
-      <p class="act-body">
-        This site is one floor. There is a basement.
-      </p>
-      <p class="act-body">
-        Downstairs is a lab. It runs. It ships things. It does not advertise.
-      </p>
-      <canvas id="sigil" class="sigil-canvas" aria-hidden="true"></canvas>
-      <a class="lab-door" href="/lab/">Enter the lab →</a>
+    <!-- 6. LAB PREVIEW -->
+    <section class="lab-preview" id="lab-preview">
+      <div class="container">
+        <div class="section-label">04 &nbsp;—&nbsp; Inside the lab</div>
+        <h2 class="lab-preview-title">Four experiments running.</h2>
+        <p class="lab-preview-body">
+          Codenamed. Running quietly. Each one is a compound bet: a question pursued with depth and mastery, multiplied by AI.
+        </p>
+
+        <!-- CPU-architecture-style SVG placeholder — Task 22 JS animates traveling lights on paths -->
+        <div class="lab-diagram" data-cpu-diagram>
+          <svg class="lab-diagram-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Paths between nodes and central hub -->
+            <g stroke="rgba(248,246,241,0.4)" fill="none" stroke-width="0.3" data-cpu-paths>
+              <path d="M 20 30 h 60 q 5 0 5 5 v 20" data-cpu-path="0"/>
+              <path d="M 180 25 h -60 q -5 0 -5 5 v 25" data-cpu-path="1"/>
+              <path d="M 20 90 h 60 q 5 0 5 -5 v -20" data-cpu-path="2"/>
+              <path d="M 180 95 h -60 q -5 0 -5 -5 v -25" data-cpu-path="3"/>
+            </g>
+            <!-- CPU box (the x multiplier) -->
+            <rect x="85" y="50" width="30" height="20" rx="2" fill="#1A1A1A" stroke="#F5C800" stroke-width="0.5"/>
+            <text x="100" y="64" font-family="Hanken Grotesk, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#F5C800">x</text>
+            <!-- Nodes — 4 codename chips -->
+            <g class="lab-node" data-codename="BEACON">
+              <rect x="8" y="22" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(197,224,216,0.6)" stroke-width="0.3"/>
+              <text x="22" y="33" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#C5E0D8">BEACON</text>
+            </g>
+            <g class="lab-node" data-codename="HEARTH">
+              <rect x="164" y="17" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(197,224,216,0.6)" stroke-width="0.3"/>
+              <text x="178" y="28" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#C5E0D8">HEARTH</text>
+            </g>
+            <g class="lab-node" data-codename="CHISEL">
+              <rect x="8" y="82" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(212,145,94,0.6)" stroke-width="0.3"/>
+              <text x="22" y="93" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#D4915E">CHISEL</text>
+            </g>
+            <g class="lab-node" data-codename="GLYPH">
+              <rect x="164" y="87" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(212,145,94,0.6)" stroke-width="0.3"/>
+              <text x="178" y="98" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#D4915E">GLYPH</text>
+            </g>
+            <!-- Traveling lights (Task 22 animates along paths) -->
+            <circle class="lab-light" r="2.5" fill="#F5C800" opacity="0" data-cpu-light="0"/>
+            <circle class="lab-light" r="2.5" fill="#C5E0D8" opacity="0" data-cpu-light="1"/>
+            <circle class="lab-light" r="2.5" fill="#D4915E" opacity="0" data-cpu-light="2"/>
+            <circle class="lab-light" r="2.5" fill="#F8F6F1" opacity="0" data-cpu-light="3"/>
+          </svg>
+        </div>
+
+        <a class="btn-yellow lab-preview-cta" href="/lab/">Enter the lab &nbsp;→</a>
+      </div>
     </section>
+
+    <!-- 7. MARQUEE — QUESTIONS -->
+    <section class="marquee-section">
+      <div class="section-label container">05 &nbsp;—&nbsp; Ongoing questions</div>
+      <div class="marquee-wrap">
+        <div class="marquee" data-marquee>
+          <div class="marquee-track">
+            <span class="marquee-pill">What breaks if you try to build it alone?</span>
+            <span class="marquee-pill">Who was already paying attention before AI arrived?</span>
+            <span class="marquee-pill">Which conventions are you following because you don't know which ones to break?</span>
+            <span class="marquee-pill">How do you know if your output could not exist without it?</span>
+          </div>
+        </div>
+        <div class="marquee" data-marquee data-marquee-reverse>
+          <div class="marquee-track">
+            <span class="marquee-pill marquee-pill--outline">What question are you avoiding because the answer is obvious?</span>
+            <span class="marquee-pill marquee-pill--outline">Where does your curiosity stop being polite?</span>
+            <span class="marquee-pill marquee-pill--outline">How much of your process could a specialist not replicate?</span>
+            <span class="marquee-pill marquee-pill--outline">Which compound do you have that a generalist doesn't?</span>
+          </div>
+        </div>
+        <div class="marquee" data-marquee>
+          <div class="marquee-track">
+            <span class="marquee-pill">What's the first thing you'd delete from your own workflow?</span>
+            <span class="marquee-pill">When was the last time you were surprised by your own output?</span>
+            <span class="marquee-pill">Where is depth a substitute for taste?</span>
+            <span class="marquee-pill">Who asks the questions you never allow yourself to ask?</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. FOOTER — MASSIVE CDMX WORDMARK -->
+    <footer class="footer" id="contact">
+      <div class="footer-inner">
+        <p class="footer-baseline mono-label">Where digital works</p>
+        <h2 class="footer-wordmark hero-display">CDMX</h2>
+        <canvas id="sigil" class="footer-sigil" aria-hidden="true"></canvas>
+
+        <div class="footer-meta">
+          <a class="footer-mail" href="mailto:renke@cdmx.be">renke@cdmx.be</a>
+          <span class="footer-divider">·</span>
+          <span>Brugge, BE</span>
+          <span class="footer-divider">·</span>
+          <span>MMXXVI</span>
+        </div>
+
+        <p class="footer-tagline">
+          <span>Connect the dots.</span>
+          <span class="accent-yellow">Compound the results.</span>
+        </p>
+      </div>
+    </footer>
+
   </main>
 
   <aside class="site-chrome">
-    <span>CDMX / </span><span class="route">MANIFEST</span><span> / BUILD 2026-04-21</span>
+    <span>CDMX</span>
+    <span> / </span>
+    <span class="route">MANIFEST</span>
+    <span> / </span>
+    <span>BUILD 2026-04-21</span>
   </aside>
 
   <script type="module" src="assets/js/main.js"></script>
