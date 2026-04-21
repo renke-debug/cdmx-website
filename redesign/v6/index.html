@@ -2250,12 +2250,28 @@
           stroke-dasharray: 2 4;
           opacity: 0.35;
         }
-        .puzzle-wrap .puzzle-link {
-          stroke: var(--accent);
-          stroke-width: 1.5;
+        .puzzle-wrap .puzzle-link-shadow {
+          stroke: var(--signal, #D4915E);
+          stroke-width: 1;
           fill: none;
           stroke-linecap: round;
+          stroke-linejoin: round;
+          opacity: 0.5;
+        }
+        .puzzle-wrap .puzzle-link {
+          stroke: var(--accent);
+          stroke-width: 2.5;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 14 4 2 4 2 4;
+          stroke-dashoffset: 0;
           filter: drop-shadow(0 0 6px rgba(245, 200, 0, 0.5));
+          animation: puzzle-link-flow 3s linear infinite;
+        }
+        @keyframes puzzle-link-flow {
+          from { stroke-dashoffset: 0; }
+          to   { stroke-dashoffset: -60; }
         }
         .puzzle-wrap .puzzle-cursor-line {
           stroke: var(--accent);
@@ -2335,6 +2351,118 @@
           .puzzle-wrap { cursor: pointer; }
           .puzzle-wrap .puzzle-reveal-x { opacity: 0.9; }
           .puzzle-wrap.complete { background: rgba(255, 255, 255, 0.01); }
+        }
+
+        /* Easter egg reward — revealed on 8/8 completion */
+        .puzzle-reward {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          pointer-events: none;
+          opacity: 0;
+          z-index: 5;
+          transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .puzzle-wrap.complete .puzzle-reward { opacity: 1; }
+
+        .puzzle-reward-ripple {
+          position: absolute;
+          width: 80%;
+          height: 80%;
+          max-width: 900px;
+          opacity: 0;
+        }
+        .puzzle-wrap.complete .puzzle-reward-ripple { opacity: 1; }
+        .puzzle-reward-ripple .ripple {
+          fill: none;
+          stroke: var(--accent);
+          stroke-width: 0.8;
+          opacity: 0;
+          transform-origin: center;
+          transform-box: fill-box;
+        }
+        .puzzle-wrap.complete .ripple-1 { animation: puzzle-ripple 2.4s cubic-bezier(0.22, 1, 0.36, 1) 300ms forwards; }
+        .puzzle-wrap.complete .ripple-2 { animation: puzzle-ripple 2.4s cubic-bezier(0.22, 1, 0.36, 1) 800ms forwards; }
+        .puzzle-wrap.complete .ripple-3 { animation: puzzle-ripple 2.4s cubic-bezier(0.22, 1, 0.36, 1) 1400ms forwards; }
+        @keyframes puzzle-ripple {
+          0%   { transform: scale(0.2); opacity: 0.9; }
+          70%  { opacity: 0.4; }
+          100% { transform: scale(4);   opacity: 0; }
+        }
+
+        .puzzle-reward-sigil {
+          position: absolute;
+          bottom: 18%;
+          width: 140px;
+          height: 60px;
+          color: var(--signal, #D4915E);
+          opacity: 0;
+        }
+        .puzzle-reward-sigil path {
+          stroke-dasharray: 300;
+          stroke-dashoffset: 300;
+        }
+        .puzzle-wrap.complete .puzzle-reward-sigil {
+          opacity: 0.9;
+          transition: opacity 600ms 1600ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .puzzle-wrap.complete .puzzle-reward-sigil path {
+          animation: puzzle-sigil-draw 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1600ms forwards;
+        }
+        @keyframes puzzle-sigil-draw {
+          to { stroke-dashoffset: 0; }
+        }
+
+        .puzzle-reward-message {
+          position: absolute;
+          bottom: 8%;
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          font-family: var(--mono);
+          font-size: 11px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--fg-dim);
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        .puzzle-wrap.complete .puzzle-reward-message {
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 600ms 2200ms cubic-bezier(0.22, 1, 0.36, 1),
+                      transform 600ms 2200ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .puzzle-reward-prefix {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          border-radius: 999px;
+          background: var(--accent);
+          color: var(--bg);
+          font-family: 'Hanken Grotesk', sans-serif;
+          font-weight: 900;
+          font-size: 14px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .puzzle-reward, .puzzle-reward-ripple, .puzzle-reward-sigil, .puzzle-reward-message {
+            transition: none !important;
+            animation: none !important;
+          }
+          .puzzle-wrap.complete .puzzle-reward {
+            opacity: 1;
+          }
+          .puzzle-wrap.complete .puzzle-reward-sigil path {
+            stroke-dashoffset: 0;
+          }
+          .puzzle-wrap.complete .puzzle-reward-message {
+            opacity: 1;
+            transform: none;
+          }
         }
     </style>
 </head>
@@ -2584,10 +2712,25 @@
           <svg data-puzzle-svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet">
             <text class="puzzle-reveal-x" x="800" y="350">x</text>
             <path class="puzzle-hint"></path>
+            <path class="puzzle-link-shadow"></path>
             <path class="puzzle-link"></path>
             <path class="puzzle-cursor-line"></path>
             <g data-puzzle-dots></g>
           </svg>
+          <div class="puzzle-reward" data-puzzle-reward aria-hidden="true">
+            <svg class="puzzle-reward-ripple" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="20" class="ripple ripple-1"/>
+              <circle cx="100" cy="100" r="20" class="ripple ripple-2"/>
+              <circle cx="100" cy="100" r="20" class="ripple ripple-3"/>
+            </svg>
+            <svg class="puzzle-reward-sigil" viewBox="0 0 140 60">
+              <path d="M 10 40 Q 30 10, 55 30 T 100 25 Q 120 50, 130 35" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <p class="puzzle-reward-message">
+              <span class="puzzle-reward-prefix">x</span>
+              <span>Compound engaged. The multiplier is live.</span>
+            </p>
+          </div>
         </div>
 
         <div class="puzzle-hud">
@@ -3916,6 +4059,7 @@
       const svg = wrap.querySelector('[data-puzzle-svg]');
       const dotsG = svg.querySelector('[data-puzzle-dots]');
       const linkPath = svg.querySelector('.puzzle-link');
+      const linkShadowPath = svg.querySelector('.puzzle-link-shadow');
       const cursorLinePath = svg.querySelector('.puzzle-cursor-line');
       const hintPath = svg.querySelector('.puzzle-hint');
       const progress = document.querySelector('.puzzle-progress');
@@ -3966,8 +4110,10 @@
         if (hit.length) {
           const d = hit.map((idx, i) => (i ? 'L' : 'M') + sx(DOTS[idx]) + ',' + sy(DOTS[idx])).join(' ');
           linkPath.setAttribute('d', d);
+          if (linkShadowPath) linkShadowPath.setAttribute('d', d);
         } else {
           linkPath.removeAttribute('d');
+          if (linkShadowPath) linkShadowPath.removeAttribute('d');
         }
         // Update dot states
         dotsG.querySelectorAll('.dot').forEach((c, i) => {
