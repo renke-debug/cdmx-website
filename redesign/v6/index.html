@@ -405,6 +405,21 @@
         .unlock-gate.waiting {
             pointer-events: auto;
         }
+        /* Hero bleeds through: make the fullscreen loader veil semi-transparent
+           with backdrop blur once the unlock-gate is actively waiting for input.
+           Uses :has() (supported in all current evergreen browsers). */
+        .loader:has(.unlock-gate.waiting) {
+            background: rgba(10, 10, 10, 0.72);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        /* Extra legibility for typed slots + hints against the blurred hero */
+        .loader:has(.unlock-gate.waiting) .unlock-slot,
+        .loader:has(.unlock-gate.waiting) .unlock-hint,
+        .loader:has(.unlock-gate.waiting) .unlock-hint-2,
+        .loader:has(.unlock-gate.waiting) .unlock-cursor {
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+        }
         .unlock-input {
             position: absolute;
             opacity: 0;
@@ -2518,6 +2533,180 @@
         }
         /* GSAP takes over via inline-style override; if GSAP runs first,
            inline-style `transform:translate3d(0,0,0)` wins over this animation */
+
+        /* ============================================================
+           CPU-ARCHITECTURE PROCESS (replaces orbital)
+           ============================================================ */
+        .cpu-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            aspect-ratio: 16 / 9;
+            min-height: 520px;
+            padding: 0;
+            z-index: 1;
+        }
+        .cpu-container .process-flicker {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25;
+        }
+        .cpu-container .process-flicker canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .cpu-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .cpu-core-label {
+            font-family: 'Hanken Grotesk', sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .cpu-node {
+            position: absolute;
+            background: rgba(10, 10, 10, 0.82);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 1.25rem 1.4rem;
+            text-align: left;
+            width: min(30%, 300px);
+            z-index: 3;
+            cursor: pointer;
+            transition: border-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                        background 420ms cubic-bezier(0.22, 1, 0.36, 1);
+            font-family: inherit;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .cpu-node:hover,
+        .cpu-node:focus-visible,
+        .cpu-node.active {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            background: rgba(26, 26, 26, 0.92);
+            outline: none;
+        }
+        .cpu-node--tl { top: 0;    left: 0; }
+        .cpu-node--tr { top: 0;    right: 0; text-align: right; align-items: flex-end; }
+        .cpu-node--bl { bottom: 0; left: 0; }
+        .cpu-node--br { bottom: 0; right: 0; text-align: right; align-items: flex-end; }
+
+        .cpu-node-idx {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--copper, #D4915E);
+            font-weight: 500;
+        }
+        .cpu-node-idx::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 1px;
+            background: var(--copper, #D4915E);
+            vertical-align: middle;
+            margin-right: 8px;
+            transform: translateY(-1px);
+        }
+        .cpu-node--tr .cpu-node-idx::before,
+        .cpu-node--br .cpu-node-idx::before {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+        .cpu-node-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.015em;
+            margin: 0.15rem 0 0.25rem;
+            color: var(--fg);
+        }
+        .cpu-node-desc {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--fg-dim);
+            margin: 0;
+            max-width: 28ch;
+        }
+        .cpu-node-meta {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            margin-top: 0.3rem;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .cpu-node-status {
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+        .cpu-node-status.done   { background: var(--accent); color: var(--bg); }
+        .cpu-node-status.active { background: var(--fg); color: var(--bg); }
+        .cpu-node-status.next   { background: var(--border); color: var(--fg-dim); }
+        .cpu-node-time { color: var(--fg-dim); }
+        .cpu-node-energy {
+            height: 2px;
+            background: var(--border);
+            border-radius: 2px;
+            margin-top: 0.4rem;
+            overflow: hidden;
+            width: 100%;
+        }
+        .cpu-node-energy-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @media (max-width: 820px) {
+            .cpu-container {
+                aspect-ratio: auto;
+                min-height: auto;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            .cpu-svg { display: none; }
+            .cpu-node {
+                position: relative;
+                width: 100%;
+                top: auto; left: auto; right: auto; bottom: auto;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .cpu-node--tr, .cpu-node--br {
+                text-align: left;
+                align-items: flex-start;
+            }
+            .cpu-node--tr .cpu-node-idx::before,
+            .cpu-node--br .cpu-node-idx::before {
+                margin-right: 8px;
+                margin-left: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cpu-light { display: none; }
+            .cpu-paths { stroke: rgba(245,200,0,0.35); }
+        }
     </style>
 </head>
 <body>
@@ -2805,62 +2994,75 @@
 
     <!-- PROCESS — ORBITAL TIMELINE -->
     <section class="process-section" id="process">
-        <div class="process-flicker"><canvas id="flickerGrid"></canvas></div>
         <div class="process-header">
             <div class="section-label">How It Works</div>
             <h2 class="section-heading">From first call to<br><span class="accent">compound results.</span></h2>
             <p class="section-intro">Four phases. One operator. Here's what happens.</p>
         </div>
-        <div class="orbital-container" id="orbitalContainer">
-            <div class="orbital-ring"></div>
-            <div class="orbital-center">
-                <div class="orbital-center-ping"></div>
-                <div class="orbital-center-dot"></div>
-            </div>
 
-            <div class="orbital-node" id="oNode0" data-cursor="hover" data-index="0">
-                <div class="orbital-node-dot">01</div>
-                <div class="orbital-node-label">Diagnose</div>
-                <div class="orbital-card">
-                    <div class="orbital-card-status done">Week 1–2</div>
-                    <h4>Diagnose</h4>
-                    <p>Deep-dive into your growth engine, business model, and tech stack. You get a written assessment with your 3 highest-leverage opportunities — yours to keep, regardless of what happens next.</p>
-                    <div class="orbital-energy"><div class="orbital-energy-fill" style="width:100%"></div></div>
-                </div>
-            </div>
+        <div class="cpu-container" data-cpu-process>
+            <div class="process-flicker"><canvas id="flickerGrid"></canvas></div>
 
-            <div class="orbital-node" id="oNode1" data-cursor="hover" data-index="1">
-                <div class="orbital-node-dot">02</div>
-                <div class="orbital-node-label">Architect</div>
-                <div class="orbital-card">
-                    <div class="orbital-card-status done">Week 3–4</div>
-                    <h4>Architect</h4>
-                    <p>Design the system where digital growth, business strategy, and AI reinforce each other. One plan. Three dimensions. Clear deliverables.</p>
-                    <div class="orbital-energy"><div class="orbital-energy-fill" style="width:75%"></div></div>
-                </div>
-            </div>
+            <svg class="cpu-svg" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <g class="cpu-paths" stroke="rgba(245,200,0,0.35)" fill="none" stroke-width="0.4" stroke-linecap="round">
+                    <path d="M 100 60 L 100 40 Q 100 30 90 30 L 40 30 Q 30 30 30 20 L 30 10" data-cpu-path="0"></path>
+                    <path d="M 100 60 L 100 40 Q 100 30 110 30 L 160 30 Q 170 30 170 20 L 170 10" data-cpu-path="1"></path>
+                    <path d="M 100 60 L 100 80 Q 100 90 90 90 L 40 90 Q 30 90 30 100 L 30 110" data-cpu-path="2"></path>
+                    <path d="M 100 60 L 100 80 Q 100 90 110 90 L 160 90 Q 170 90 170 100 L 170 110" data-cpu-path="3"></path>
+                </g>
 
-            <div class="orbital-node" id="oNode2" data-cursor="hover" data-index="2">
-                <div class="orbital-node-dot">03</div>
-                <div class="orbital-node-label">Build</div>
-                <div class="orbital-card">
-                    <div class="orbital-card-status active">Month 2–3</div>
-                    <h4>Build</h4>
-                    <p>Hands-on implementation. Not decks — working systems shipped into your operations. Measured weekly. Iterated on data.</p>
-                    <div class="orbital-energy"><div class="orbital-energy-fill" style="width:50%"></div></div>
-                </div>
-            </div>
+                <rect class="cpu-core" x="85" y="50" width="30" height="20" rx="1" fill="#1A1A1A" stroke="var(--accent)" stroke-width="0.6"/>
+                <text class="cpu-core-label" x="100" y="64" font-size="10" font-weight="900" text-anchor="middle" fill="var(--accent)">x</text>
 
-            <div class="orbital-node" id="oNode3" data-cursor="hover" data-index="3">
-                <div class="orbital-node-dot">04</div>
-                <div class="orbital-node-label">Multiply</div>
-                <div class="orbital-card">
-                    <div class="orbital-card-status next">Month 3+</div>
-                    <h4>Multiply</h4>
-                    <p>AI speeds up your growth experiments. Growth data sharpens your strategy. Strategy decides where AI gets built next. In the prior engagement, this phase turned a single audit tool into a portfolio of production AI systems running inside daily operations.</p>
-                    <div class="orbital-energy"><div class="orbital-energy-fill" style="width:25%"></div></div>
+                <circle class="cpu-light" r="2" fill="var(--accent)" opacity="0" data-cpu-light="0"></circle>
+                <circle class="cpu-light" r="2" fill="var(--mint, #C5E0D8)" opacity="0" data-cpu-light="1"></circle>
+                <circle class="cpu-light" r="2" fill="var(--copper, #D4915E)" opacity="0" data-cpu-light="2"></circle>
+                <circle class="cpu-light" r="2" fill="var(--accent)" opacity="0" data-cpu-light="3"></circle>
+            </svg>
+
+            <button type="button" class="cpu-node cpu-node--tl" data-cpu-node data-index="0" data-cursor="hover">
+                <span class="cpu-node-idx">01 / Diagnose</span>
+                <h3 class="cpu-node-title">Diagnose</h3>
+                <p class="cpu-node-desc">Deep-dive into your growth engine, business model, and tech stack. You get a written assessment with your 3 highest-leverage opportunities — yours to keep, regardless of what happens next.</p>
+                <div class="cpu-node-meta">
+                    <span class="cpu-node-status done">Complete</span>
+                    <span class="cpu-node-time">Week 1–2</span>
                 </div>
-            </div>
+                <div class="cpu-node-energy"><div class="cpu-node-energy-fill" style="width:100%"></div></div>
+            </button>
+
+            <button type="button" class="cpu-node cpu-node--tr" data-cpu-node data-index="1" data-cursor="hover">
+                <span class="cpu-node-idx">02 / Architect</span>
+                <h3 class="cpu-node-title">Architect</h3>
+                <p class="cpu-node-desc">Design the system where digital growth, business strategy, and AI reinforce each other. One plan. Three dimensions. Clear deliverables.</p>
+                <div class="cpu-node-meta">
+                    <span class="cpu-node-status done">Complete</span>
+                    <span class="cpu-node-time">Week 3–4</span>
+                </div>
+                <div class="cpu-node-energy"><div class="cpu-node-energy-fill" style="width:75%"></div></div>
+            </button>
+
+            <button type="button" class="cpu-node cpu-node--bl" data-cpu-node data-index="2" data-cursor="hover">
+                <span class="cpu-node-idx">03 / Build</span>
+                <h3 class="cpu-node-title">Build</h3>
+                <p class="cpu-node-desc">Hands-on implementation. Not decks — working systems shipped into your operations. Measured weekly. Iterated on data.</p>
+                <div class="cpu-node-meta">
+                    <span class="cpu-node-status active">In Progress</span>
+                    <span class="cpu-node-time">Month 2–3</span>
+                </div>
+                <div class="cpu-node-energy"><div class="cpu-node-energy-fill" style="width:50%"></div></div>
+            </button>
+
+            <button type="button" class="cpu-node cpu-node--br" data-cpu-node data-index="3" data-cursor="hover">
+                <span class="cpu-node-idx">04 / Multiply</span>
+                <h3 class="cpu-node-title">Multiply</h3>
+                <p class="cpu-node-desc">AI speeds up your growth experiments. Growth data sharpens your strategy. Strategy decides where AI gets built next. In the prior engagement, this phase turned a single audit tool into a portfolio of production AI systems running inside daily operations.</p>
+                <div class="cpu-node-meta">
+                    <span class="cpu-node-status next">Next</span>
+                    <span class="cpu-node-time">Month 3+</span>
+                </div>
+                <div class="cpu-node-energy"><div class="cpu-node-energy-fill" style="width:25%"></div></div>
+            </button>
         </div>
     </section>
 
@@ -4246,6 +4448,76 @@
       }
 
       render();
+    })();
+    </script>
+
+    <!-- CPU-architecture process: traveling lights + click-to-activate -->
+    <script>
+    (function initCpuProcess() {
+        const container = document.querySelector('[data-cpu-process]');
+        if (!container) return;
+        const paths = container.querySelectorAll('[data-cpu-path]');
+        const lights = container.querySelectorAll('[data-cpu-light]');
+        if (!paths.length || !lights.length) return;
+
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const travelers = Array.from(lights).map((light, i) => ({
+            light: light,
+            path: paths[i % paths.length],
+            length: paths[i % paths.length].getTotalLength(),
+            offset: i / lights.length,
+            duration: 3.2 + (i * 0.4)
+        }));
+
+        let started = false;
+        let rafId = null;
+        let t0 = 0;
+
+        function tick(now) {
+            const t = (now - t0) / 1000;
+            travelers.forEach(function(tv) {
+                const progress = ((t / tv.duration) + tv.offset) % 1;
+                const p = tv.path.getPointAtLength(progress * tv.length);
+                tv.light.setAttribute('cx', p.x);
+                tv.light.setAttribute('cy', p.y);
+                const fade = Math.sin(progress * Math.PI);
+                tv.light.setAttribute('opacity', (0.9 * fade).toFixed(2));
+            });
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function start() {
+            if (started || reduced) return;
+            started = true;
+            travelers.forEach(function(t) { t.light.setAttribute('opacity', '1'); });
+            t0 = performance.now();
+            rafId = requestAnimationFrame(tick);
+        }
+
+        const io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    start();
+                } else if (started && rafId) {
+                    cancelAnimationFrame(rafId);
+                    rafId = null;
+                    started = false;
+                }
+            });
+        }, { threshold: 0.25 });
+        io.observe(container);
+
+        // Click to toggle active state on a node
+        container.querySelectorAll('[data-cpu-node]').forEach(function(node) {
+            node.addEventListener('click', function() {
+                const wasActive = node.classList.contains('active');
+                container.querySelectorAll('.cpu-node').forEach(function(n) {
+                    n.classList.remove('active');
+                });
+                if (!wasActive) node.classList.add('active');
+            });
+        });
     })();
     </script>
 </body>
