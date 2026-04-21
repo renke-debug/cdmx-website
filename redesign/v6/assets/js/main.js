@@ -1,9 +1,40 @@
 // Orchestrator — loads per-page modules based on body[data-page].
 import { startSubstrate } from './substrate.js';
+import { startOrganism } from './organism.js';
 
 const page = document.body.dataset.page;
 
+// Substrate runs on every page
 if (page === 'manifest' || page === 'lab' || page === 'contact') {
-  const canvas = document.getElementById('substrate');
-  if (canvas) startSubstrate(canvas);
+  const substrateCanvas = document.getElementById('substrate');
+  if (substrateCanvas) startSubstrate(substrateCanvas);
+}
+
+// Manifest-only features
+if (page === 'manifest') {
+  const organismCanvas = document.getElementById('organism');
+  const organism = organismCanvas ? startOrganism(organismCanvas) : null;
+
+  // Load GSAP + ScrollTrigger for breach timing
+  if (organism) {
+    // Fire opening breach on load
+    requestAnimationFrame(() => organism.breach(0.1, 0.5, 0.8, 4000));
+
+    // Wire scroll-driven breaches via GSAP ScrollTrigger (loaded from CDN)
+    import('https://cdn.skypack.dev/gsap@3.12.7').then(({ gsap }) =>
+      import('https://cdn.skypack.dev/gsap@3.12.7/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.create({
+          trigger: '.act--4',
+          start: 'top 60%',
+          onEnter: () => organism.breach(0.5, 0.5, 0.6, 2500),
+        });
+        ScrollTrigger.create({
+          trigger: '.act--6',
+          start: 'top 70%',
+          onEnter: () => organism.breach(0.9, 0.6, 0.7, 3000),
+        });
+      })
+    );
+  }
 }
