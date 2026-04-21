@@ -23,7 +23,7 @@
   <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
 
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
-  <link rel="preload" as="image" href="assets/patterns/BG-Pattern-LightBlue.png">
+  <link rel="preload" as="image" href="assets/patterns/pattern-yellow.png">
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/manifest.css">
@@ -43,234 +43,342 @@
   }
   </script>
 </head>
-<body data-page="manifest">
-  <a href="#main" class="skip-link">Skip to content</a>
+<body data-page="manifest" data-pattern="yellow" data-hero="default">
+  <a href="#top" class="skip-link">Skip to content</a>
 
-  <!-- Ambient substrate (existing module from earlier tasks) -->
-  <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
-  <!-- Organism breach (existing WebGL module) — repurposed as ambient texture -->
-  <canvas id="organism" class="organism-canvas" aria-hidden="true"></canvas>
+  <!-- Gimmick mounts (populated by JS) -->
+  <div id="boot-mount"></div>
+  <div class="cursor-trail" aria-hidden="true">
+    <svg><path class="ghost"></path><path></path><circle r="3"></circle></svg>
+  </div>
+  <div class="readout" aria-hidden="true">
+    <div class="row"><span class="k">Brugge</span><span class="v">51.2093° N · 3.2247° E</span></div>
+    <div class="row"><span class="k">Local</span><span class="v live" data-local>00:00:00</span></div>
+    <div class="row"><span class="k">Cursor</span><span class="v" data-cursor>x000 · y000</span></div>
+    <div class="row"><span class="k">Altitude</span><span class="v" data-altitude>000%</span></div>
+    <div class="bar"><div class="fill" data-bar-fill></div></div>
+  </div>
+  <nav class="altitude" aria-label="Section nav" id="altitude-mount"></nav>
 
-  <main id="main">
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="inner">
+      <div style="display:flex;align-items:center;gap:0">
+        <a href="#top"><img class="lmark" src="assets/logos/CDMX-Logo.svg" alt="CDMX"></a>
+        <div class="links">
+          <a href="#top">Manifesto</a>
+          <a href="#creed">The Creed</a>
+          <a href="#pillars">C · D · M · x</a>
+          <a href="#principles">Principles</a>
+          <a href="#proof">Proof</a>
+        </div>
+      </div>
+      <div class="right">
+        <span class="idx">01 / 26 · BRUGGE</span>
+        <a class="cta" href="#book">Book a call <span class="arr">↗</span></a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- 1. HERO -->
-    <section class="hero" data-hero>
-      <div class="hero-pattern" data-parallax="0.4">
-        <img src="assets/patterns/BG-Pattern-LightBlue.png" alt="" aria-hidden="true">
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="bg-pattern" aria-hidden="true"></div>
+    <div class="bg-x" aria-hidden="true">x</div>
+    <div class="container" style="position:relative;z-index:2">
+
+      <div class="topline">
+        <div class="left">
+          <span class="mono prefix">Manifesto · v.04 · 2026</span>
+          <span class="mono" style="color:var(--fg-subtle)">One operator · three domains · one client at a time</span>
+        </div>
+        <div class="right">51.2093° N · 3.2247° E</div>
       </div>
 
-      <header class="hero-header">
-        <img class="hero-logo" src="assets/logos/CDMX-Logo.svg" alt="CDMX" width="240" height="50">
-        <p class="hero-baseline mono-label">Where digital works</p>
-      </header>
+      <div class="manifesto">
+        <h1>
+          <span class="line">I connect</span>
+          <span class="line">
+            <span class="v0">dots that don't</span>
+            <span class="v1 strike">dots that don't</span>
+            <span class="v2"><em>dots</em> that don't</span>
+          </span>
+          <span class="line">want to be<em> connected</em>.</span>
+          <span class="line muted">You already know why.</span>
+        </h1>
 
-      <div class="hero-meta">
-        <span class="bracket-tag">LAB</span>
-        <span class="bracket-tag">EST. 2024</span>
-        <span class="bracket-tag">BRUGGE · BE</span>
+        <div class="sub-row">
+          <div class="kol">
+            <span class="mono">What this is</span>
+            <p>A one-operator growth consultancy. <em>Digital Growth</em>, <em>Business Strategy</em>, <em>AI &amp; Automation</em> — compounded under one head so nothing gets lost in the hand-off.</p>
+          </div>
+          <div class="kol">
+            <span class="mono">What it isn't</span>
+            <p>Not an agency. No account managers. No decks sold as deliverables. No hours billed against a plan that already stopped making sense in week two.</p>
+          </div>
+        </div>
+
+        <div class="ctas">
+          <a class="btn primary" href="#book">Book the call <span class="arr">↗</span></a>
+          <a class="btn ghost" href="#creed">Read the creed <span class="arr">↓</span></a>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <h1 class="hero-display hero-headline">
-        I connect dots<br>
-        that don't want<br>
-        to be <span class="accent-yellow">connected</span>.
-      </h1>
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Connect the dots. <span class="dim">·</span> Compound the results. <span class="mark">×</span> One operator. <span class="dim">·</span> Three domains deep. <span class="mark">×</span> Where digital works. <span class="dim">·</span></span>
+      <span>Connect the dots. <span class="dim">·</span> Compound the results. <span class="mark">×</span> One operator. <span class="dim">·</span> Three domains deep. <span class="mark">×</span> Where digital works. <span class="dim">·</span></span>
+      <span>Connect the dots. <span class="dim">·</span> Compound the results. <span class="mark">×</span> One operator. <span class="dim">·</span> Three domains deep. <span class="mark">×</span> Where digital works. <span class="dim">·</span></span>
+      <span>Connect the dots. <span class="dim">·</span> Compound the results. <span class="mark">×</span> One operator. <span class="dim">·</span> Three domains deep. <span class="mark">×</span> Where digital works. <span class="dim">·</span></span>
+    </div>
+  </div>
 
-      <div class="hero-scroll">
-        <span class="mono-label">SCROLL</span>
-        <span class="hero-scroll-line"></span>
+  <!-- CREED -->
+  <section class="sec" id="creed">
+    <div class="container">
+      <div class="head">
+        <span class="m">The creed</span>
+        <div>
+          <h2>Five things I believe<br>before we talk.</h2>
+          <p class="lead">If any of these feel wrong, we shouldn't work together. That's the point of writing them down.</p>
+        </div>
       </div>
-    </section>
-
-    <!-- 2. SLOP CONCESSION -->
-    <section class="slop" id="slop">
-      <div class="container">
-        <div class="section-label">01 &nbsp;—&nbsp; The Exception</div>
-        <p class="slop-lede">
-          Generic pitches. Recycled frameworks. Landing pages that read like every other landing page. If you have opened five sites this week, you have read the same site five times.
-        </p>
-        <p class="slop-lede slop-lede--muted">
-          This is not a tool problem. It is a taste problem.
-        </p>
+      <div class="creed-list">
+        <div class="creed-item reveal">
+          <div class="num">01 / THE CREED</div>
+          <div class="claim">Specialists <em>ship specialty</em>. The business problem sits between their lanes.</div>
+          <div class="because">Growth dies in the gaps — between marketing and product, between strategy and the stack. I work in the gaps on purpose.</div>
+        </div>
+        <div class="creed-item reveal">
+          <div class="num">02 / THE CREED</div>
+          <div class="claim">Start from the <em>business outcome</em>. Every time. No exceptions.</div>
+          <div class="because">Not from the channel. Not from the tool. Not from what I happen to enjoy building this quarter. The outcome first — and then the shortest honest path to it.</div>
+        </div>
+        <div class="creed-item reveal">
+          <div class="num">03 / THE CREED</div>
+          <div class="claim">No hours sold. No reports filed. <em>Value created.</em> Compounding.</div>
+          <div class="because">A retainer buys the judgement, not the timesheet. I work in systems that keep working after the engagement ends.</div>
+        </div>
+        <div class="creed-item reveal">
+          <div class="num">04 / THE CREED</div>
+          <div class="claim">Depth beats surface advice — <em>every single time.</em></div>
+          <div class="because">I'd rather know one thing all the way down than ten things well enough to nod at. Mastery is knowing what you're allowed to skip.</div>
+        </div>
+        <div class="creed-item reveal">
+          <div class="num">05 / THE CREED</div>
+          <div class="claim">One client at a time. That's the only way the math works.</div>
+          <div class="because">Full attention is the product. If I'm splitting it across five logos, I'm selling a worse version of the thing you hired me for.</div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 3. TEXT-REVEAL CARD -->
-    <section class="reveal-section">
-      <div class="container">
-        <div class="reveal-card" data-text-reveal data-text="Most of what you see with AI is slop." data-reveal="The exception has a name.">
-          <p class="reveal-hint mono-label">Hover to reveal</p>
-          <div class="reveal-stage">
-            <p class="reveal-base">Most of what you see with AI is slop.</p>
-            <p class="reveal-hidden">The exception has a name.</p>
-            <span class="reveal-indicator"></span>
+  <!-- PILLARS -->
+  <section class="sec" id="pillars">
+    <div class="container">
+      <div class="head">
+        <span class="m">C · D · M · x</span>
+        <div>
+          <h2>Four letters. <em>One operating system.</em></h2>
+          <p class="lead">Curiosity, depth and mastery are the inputs. The <em>x</em> is what happens when one person holds all three — the multiplier no specialist team can replicate without a coordination tax.</p>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal">
+          <img class="letter" src="assets/logos/letter-C.png" alt="C / CURIOSITY">
+          <div>
+            <div class="idx">C / CURIOSITY</div>
+            <h3>Ask the question</h3>
+            <p>The question nobody else is asking. The one hiding under the brief. The one that makes the rest of the work obvious in retrospect.</p>
+          </div>
+        </div>
+        <div class="pillar reveal">
+          <img class="letter" src="assets/logos/letter-D.png" alt="D / DEPTH">
+          <div>
+            <div class="idx">D / DEPTH</div>
+            <h3>Go further</h3>
+            <p>Further than is comfortable. Past the first answer, past the second, into the version of the problem that is actually mechanical.</p>
+          </div>
+        </div>
+        <div class="pillar reveal">
+          <img class="letter" src="assets/logos/letter-M.png" alt="M / MASTERY">
+          <div>
+            <div class="idx">M / MASTERY</div>
+            <h3>Know the terrain</h3>
+            <p>Know enough about growth, strategy and the stack to know what you're allowed to skip. The map is not the territory — but you still need the map.</p>
+          </div>
+        </div>
+        <div class="pillar reveal x">
+          <img class="letter" src="assets/logos/letter-x.png" alt="x / MULTIPLIER">
+          <div>
+            <div class="idx">x / MULTIPLIER</div>
+            <h3>Compound it</h3>
+            <p>Where the three converge. One operator holding all three means no translation tax, no thrash, no hand-off. That's the x.</p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 4. C · D · M · x PHILOSOPHY -->
-    <section class="pillars" id="philosophy">
-      <div class="container">
-        <div class="section-label">02 &nbsp;—&nbsp; Operating System</div>
-        <h2 class="pillars-title">
-          C <span class="pillars-dot">·</span> D <span class="pillars-dot">·</span> M <span class="pillars-dot">·</span> <span class="accent-yellow">x</span>
-        </h2>
-        <p class="pillars-subtitle">Four letters. One operating system. The <span class="accent-yellow">x</span> is where the other three compound.</p>
-
-        <div class="pillars-grid">
-          <article class="pillar cdmx-pillar" data-modal-index="0" data-letter="C">
-            <div class="pillar-letter"><img src="assets/logos/C.png" alt="C" loading="lazy"></div>
-            <h3 class="pillar-name">Curiosity</h3>
-            <p class="pillar-desc">Ask the question no one else asks.</p>
-          </article>
-          <article class="pillar cdmx-pillar" data-modal-index="1" data-letter="D">
-            <div class="pillar-letter"><img src="assets/logos/D.png" alt="D" loading="lazy"></div>
-            <h3 class="pillar-name">Depth</h3>
-            <p class="pillar-desc">Go further than is comfortable.</p>
-          </article>
-          <article class="pillar cdmx-pillar" data-modal-index="2" data-letter="M">
-            <div class="pillar-letter"><img src="assets/logos/M.png" alt="M" loading="lazy"></div>
-            <h3 class="pillar-name">Mastery</h3>
-            <p class="pillar-desc">Know enough to know what you can skip.</p>
-          </article>
-          <article class="pillar cdmx-pillar pillar--x" data-modal-index="3" data-letter="x">
-            <div class="pillar-letter"><img src="assets/logos/x.png" alt="x" loading="lazy"></div>
-            <h3 class="pillar-name">Multiplier</h3>
-            <p class="pillar-desc">Where the three converge.</p>
-          </article>
+  <!-- PUZZLE -->
+  <section class="puzzle-sec" id="puzzle">
+    <div class="bg-contour" aria-hidden="true"></div>
+    <div class="container">
+      <div class="head">
+        <span class="m">Connect · the · dots</span>
+        <div>
+          <h2>Draw the line yourself.</h2>
+          <p class="lead">Seven dots in order. No click required — just pass your cursor across them. The eighth dot is the <em style="color:var(--yellow);font-style:normal">x</em>.</p>
         </div>
       </div>
-    </section>
-
-    <!-- 5. PROOF — LIVE LLM COMPLETION -->
-    <section class="proof" id="proof">
-      <div class="container">
-        <div class="section-label">03 &nbsp;—&nbsp; Proof</div>
-        <h2 class="proof-title">Proof, not argument.</h2>
-        <p class="proof-body">
-          The argument about AI has been made. What matters now is what people make with it.
-        </p>
-        <p class="proof-body proof-body--climax">
-          Most people will produce more mediocre work with AI. A few people will produce work that could not exist without it. The difference is
-          <span id="llm-slot" class="llm-slot" data-state="idle"></span>
-        </p>
-      </div>
-    </section>
-
-    <!-- 6. LAB PREVIEW -->
-    <section class="lab-preview" id="lab-preview">
-      <div class="container">
-        <div class="section-label">04 &nbsp;—&nbsp; Inside the lab</div>
-        <h2 class="lab-preview-title">Four experiments running.</h2>
-        <p class="lab-preview-body">
-          Codenamed. Running quietly. Each one is a compound bet: a question pursued with depth and mastery, multiplied by AI.
-        </p>
-
-        <!-- CPU-architecture-style SVG placeholder — Task 22 JS animates traveling lights on paths -->
-        <div class="lab-diagram" data-cpu-diagram>
-          <svg class="lab-diagram-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <!-- Paths between nodes and central hub -->
-            <g stroke="rgba(248,246,241,0.4)" fill="none" stroke-width="0.3" data-cpu-paths>
-              <path d="M 20 30 h 60 q 5 0 5 5 v 20" data-cpu-path="0"/>
-              <path d="M 180 25 h -60 q -5 0 -5 5 v 25" data-cpu-path="1"/>
-              <path d="M 20 90 h 60 q 5 0 5 -5 v -20" data-cpu-path="2"/>
-              <path d="M 180 95 h -60 q -5 0 -5 -5 v -25" data-cpu-path="3"/>
-            </g>
-            <!-- CPU box (the x multiplier) -->
-            <rect x="85" y="50" width="30" height="20" rx="2" fill="#1A1A1A" stroke="#F5C800" stroke-width="0.5"/>
-            <text x="100" y="64" font-family="Hanken Grotesk, sans-serif" font-size="10" font-weight="900" text-anchor="middle" fill="#F5C800">x</text>
-            <!-- Nodes — 4 codename chips -->
-            <g class="lab-node" data-codename="BEACON">
-              <rect x="8" y="22" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(197,224,216,0.6)" stroke-width="0.3"/>
-              <text x="22" y="33" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#C5E0D8">BEACON</text>
-            </g>
-            <g class="lab-node" data-codename="HEARTH">
-              <rect x="164" y="17" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(197,224,216,0.6)" stroke-width="0.3"/>
-              <text x="178" y="28" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#C5E0D8">HEARTH</text>
-            </g>
-            <g class="lab-node" data-codename="CHISEL">
-              <rect x="8" y="82" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(212,145,94,0.6)" stroke-width="0.3"/>
-              <text x="22" y="93" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#D4915E">CHISEL</text>
-            </g>
-            <g class="lab-node" data-codename="GLYPH">
-              <rect x="164" y="87" width="28" height="16" rx="1" fill="#1A1A1A" stroke="rgba(212,145,94,0.6)" stroke-width="0.3"/>
-              <text x="178" y="98" font-family="SF Mono, monospace" font-size="5" font-weight="700" text-anchor="middle" fill="#D4915E">GLYPH</text>
-            </g>
-            <!-- Traveling lights (Task 22 animates along paths) -->
-            <circle class="lab-light" r="2.5" fill="#F5C800" opacity="0" data-cpu-light="0"/>
-            <circle class="lab-light" r="2.5" fill="#C5E0D8" opacity="0" data-cpu-light="1"/>
-            <circle class="lab-light" r="2.5" fill="#D4915E" opacity="0" data-cpu-light="2"/>
-            <circle class="lab-light" r="2.5" fill="#F8F6F1" opacity="0" data-cpu-light="3"/>
-          </svg>
-        </div>
-
-        <a class="btn-yellow lab-preview-cta" href="/lab/">Enter the lab &nbsp;→</a>
-      </div>
-    </section>
-
-    <!-- 7. MARQUEE — QUESTIONS -->
-    <section class="marquee-section">
-      <div class="section-label container">05 &nbsp;—&nbsp; Ongoing questions</div>
-      <div class="marquee-wrap">
-        <div class="marquee" data-marquee>
-          <div class="marquee-track">
-            <span class="marquee-pill">What breaks if you try to build it alone?</span>
-            <span class="marquee-pill">Who was already paying attention before AI arrived?</span>
-            <span class="marquee-pill">Which conventions are you following because you don't know which ones to break?</span>
-            <span class="marquee-pill">How do you know if your output could not exist without it?</span>
+      <div data-puzzle></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:96px;align-items:center">
+        <div class="tilt-x" data-tilt-x>
+          <div class="face">
+            <span class="corner tl">C / 01</span>
+            <span class="corner tr">D / 02</span>
+            <span class="corner bl">M / 03</span>
+            <span class="corner br">x / 04</span>
+            <div class="letter">x</div>
           </div>
+          <div class="coord">the multiplier · standalone · 51.2093° N</div>
         </div>
-        <div class="marquee" data-marquee data-marquee-reverse>
-          <div class="marquee-track">
-            <span class="marquee-pill marquee-pill--outline">What question are you avoiding because the answer is obvious?</span>
-            <span class="marquee-pill marquee-pill--outline">Where does your curiosity stop being polite?</span>
-            <span class="marquee-pill marquee-pill--outline">How much of your process could a specialist not replicate?</span>
-            <span class="marquee-pill marquee-pill--outline">Which compound do you have that a generalist doesn't?</span>
-          </div>
+        <div>
+          <span class="mono" style="color:var(--copper);display:block;margin-bottom:14px"><span style="display:inline-block;width:22px;height:1px;background:var(--copper);vertical-align:middle;margin-right:10px"></span>x / standalone</span>
+          <h3 style="font-weight:800;font-size:clamp(28px,3vw,40px);letter-spacing:-0.02em;line-height:1.05;margin:0">The <em style="color:var(--yellow);font-style:normal">x</em> is the only letter that gets the yellow.</h3>
+          <p style="font-size:16px;line-height:1.65;color:var(--fg-muted);margin-top:18px;max-width:48ch">C, D, and M do the work. The x is what they compound into. That's why it earns the yellow — and why, in every composition, there is never more than one.</p>
         </div>
-        <div class="marquee" data-marquee>
-          <div class="marquee-track">
-            <span class="marquee-pill">What's the first thing you'd delete from your own workflow?</span>
-            <span class="marquee-pill">When was the last time you were surprised by your own output?</span>
-            <span class="marquee-pill">Where is depth a substitute for taste?</span>
-            <span class="marquee-pill">Who asks the questions you never allow yourself to ask?</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="sec" id="principles">
+    <div class="container">
+      <div class="head">
+        <span class="m">Operating principles</span>
+        <div>
+          <h2>How the work actually runs.</h2>
+          <p class="lead">The rules I wrote for myself after the third engagement where I should have said something sooner.</p>
+        </div>
+      </div>
+      <div class="principles">
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 01</span>
+          <h4>Outcomes, <em>not outputs</em>.</h4>
+          <p>A PDF is not a result. A meeting is not a result. A system that moves a number — that's a result. Everything else is scaffolding.</p>
+        </div>
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 02</span>
+          <h4>Ship production, <em>not pilots</em>.</h4>
+          <p>Five-plus AI-powered products into production. Not demos, not proofs-of-concept. Real things that real people use on a Tuesday.</p>
+        </div>
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 03</span>
+          <h4>Write it down, <em>or it didn't happen</em>.</h4>
+          <p>Every decision has a paper trail. Every system has a runbook. The work outlasts the engagement because the thinking is legible.</p>
+        </div>
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 04</span>
+          <h4>Disagree <em>in writing, early</em>.</h4>
+          <p>The cost of a direct objection in week one is always lower than the cost of a polite shrug in month three. I'll tell you when I think you're wrong.</p>
+        </div>
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 05</span>
+          <h4>Automate the <em>boring half</em>.</h4>
+          <p>If a human is doing it twice, a script should do it the third time. AI is a leverage tool, not a headline — it earns its place by disappearing.</p>
+        </div>
+        <div class="pr reveal">
+          <span class="n">PRINCIPLE / 06</span>
+          <h4>Stop when <em>it's stopped working</em>.</h4>
+          <p>Retainers end when the compounding stops. I'll tell you before you have to ask. That's the only way this stays honest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="sec tight" id="proof">
+    <div class="container">
+      <div class="head">
+        <span class="m">The ledger</span>
+        <div>
+          <h2>A decade of compounding, in four numbers.</h2>
+          <p class="lead">No logos wall. No stock photo team. Just the ledger.</p>
+        </div>
+      </div>
+      <div class="proof">
+        <div class="metric"><div class="k">Operator · years</div><div class="v"><em>12</em></div><div class="d">Building digital products and growth systems across B2B and consumer.</div></div>
+        <div class="metric"><div class="k">AI products shipped</div><div class="v">5<em>+</em></div><div class="d">In production. Not pilots. Not prototypes filed in a drawer.</div></div>
+        <div class="metric"><div class="k">Clients · concurrent</div><div class="v">1</div><div class="d">One at a time. It's not a scarcity tactic — it's the only way the work compounds.</div></div>
+        <div class="metric"><div class="k">Model</div><div class="v" style="font-size:clamp(22px,2.4vw,32px);letter-spacing:-0.02em;line-height:1.1">Retainer<br><em>only</em></div><div class="d">Monthly. Written outcomes. You can end it the first Friday of any month.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVAILABILITY -->
+  <section class="avail" id="book">
+    <div class="container">
+      <div class="grid">
+        <div>
+          <span class="m">Availability · 2026</span>
+          <h2>One slot open.<br>Q3 · starting<br>July 6.</h2>
+          <p class="sub">If the creed fits and the business problem is real, let's put thirty minutes on a calendar and see if the math works for both of us.</p>
+        </div>
+        <div class="right">
+          <div class="slot taken"><span class="dot"></span> Q1 · Booked</div>
+          <div class="slot taken"><span class="dot"></span> Q2 · Booked</div>
+          <div class="slot"><span class="dot"></span> Q3 · 1 slot · open</div>
+          <div class="slot taken"><span class="dot"></span> Q4 · Waitlist</div>
+          <div class="btn-row">
+            <a class="btn ink" href="mailto:renke@cdmx.be">Write to Renke <span class="arr">↗</span></a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- 8. FOOTER — MASSIVE CDMX WORDMARK -->
-    <footer class="footer" id="contact">
-      <div class="footer-inner">
-        <p class="footer-baseline mono-label">Where digital works</p>
-        <h2 class="footer-wordmark hero-display">CDMX</h2>
-        <canvas id="sigil" class="footer-sigil" aria-hidden="true"></canvas>
-
-        <div class="footer-meta">
-          <a class="footer-mail" href="mailto:renke@cdmx.be">renke@cdmx.be</a>
-          <span class="footer-divider">·</span>
-          <span>Brugge, BE</span>
-          <span class="footer-divider">·</span>
-          <span>MMXXVI</span>
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="container">
+      <div class="grid">
+        <div class="mark">
+          <img src="assets/logos/CDMX-Logo.svg" alt="CDMX">
+          <p class="manifesto-q">"Connect the dots. Compound the results." — The whole pitch, in five words, so there's nothing to misremember.</p>
         </div>
-
-        <p class="footer-tagline">
-          <span>Connect the dots.</span>
-          <span class="accent-yellow">Compound the results.</span>
-        </p>
+        <div>
+          <h4>The work</h4>
+          <a href="#creed">The creed</a>
+          <a href="#pillars">C · D · M · x</a>
+          <a href="#principles">Principles</a>
+          <a href="#proof">The ledger</a>
+        </div>
+        <div>
+          <h4>Operator</h4>
+          <a href="#">Renke Pieters</a>
+          <a href="#">Notes</a>
+          <a href="#">Case studies</a>
+          <a href="#">CV · long form</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="mailto:renke@cdmx.be">renke@cdmx.be</a>
+          <a href="#">LinkedIn ↗</a>
+          <a href="#book">Book a call ↗</a>
+        </div>
       </div>
-    </footer>
+      <div class="base">
+        <span>© 2026 · CDMX · One operator</span>
+        <span>Brugge · 51.2093° N, 3.2247° E</span>
+        <span>Where digital works.</span>
+      </div>
+    </div>
+  </footer>
 
-  </main>
-
-  <aside class="site-chrome">
-    <span>CDMX</span>
-    <span> / </span>
-    <span class="route">MANIFEST</span>
-    <span> / </span>
-    <span>BUILD 2026-04-21</span>
-  </aside>
+  <!-- Tweak panel mount (hidden unless ?tweaks=1 or postMessage activation) -->
+  <div class="tweak-panel" id="tweak-mount"></div>
 
   <script type="module" src="assets/js/main.js"></script>
 </body>
