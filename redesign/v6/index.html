@@ -634,7 +634,7 @@
         .hero-title .line-inner { display: block; transform: translateY(115%); }
         .hero-title .accent {
             color: var(--accent);
-            background: linear-gradient(90deg, var(--accent) 0%, #e0ff80 50%, var(--accent) 100%);
+            background: linear-gradient(90deg, var(--accent) 0%, #FFE88A 50%, var(--accent) 100%);
             background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -2024,15 +2024,19 @@
             border-radius: 100px;
         }
 
-        @media (max-width: 1024px) {
-            .mobile-cta-bar { display: block; }
-            #expertise.section { padding: 6rem 2rem; }
+        /* Pillar cards: stack to 1-col at iPad range too (up to 1099px) */
+        @media (max-width: 1099px) {
             .expertise-stack { min-height: auto; display: flex; flex-direction: column; gap: 1rem; }
             .expertise-card { transform: none !important; width: 100%; --tiltX: 0px !important; --tiltY: 0px !important; box-shadow: none !important; }
             .expertise-card::after { display: none; }
             .expertise-card:hover { transform: none !important; box-shadow: none !important; }
             .expertise-stack:has(.is-open) .expertise-card:not(.is-open) { opacity: 1; pointer-events: auto; }
             .expertise-proof-teaser { display: none; }
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-cta-bar { display: block; }
+            #expertise.section { padding: 6rem 2rem; }
             /* P1 #13: expand indicator on mobile */
             .expertise-card h3::after {
                 content: '+';
@@ -2464,6 +2468,68 @@
             transform: none;
           }
         }
+
+        /* =====================================================
+           "I close that gap" hover annotations (×4 copper mono)
+           ===================================================== */
+        .manifesto-closer { position: relative; }
+        .closer-annotations {
+            position: absolute;
+            inset: -40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .closer-annotation {
+            position: absolute;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--signal, #D4915E);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+            white-space: nowrap;
+        }
+        .closer-annotation--tl { top: -8px;    left: 6%; }
+        .closer-annotation--tr { top: -8px;    right: 6%; }
+        .closer-annotation--bl { bottom: -8px; left: 14%; }
+        .closer-annotation--br { bottom: -8px; right: 14%; }
+
+        .manifesto-closer:hover .closer-annotation,
+        .manifesto-closer:focus-within .closer-annotation {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .manifesto-closer:hover .closer-annotation--tl { transition-delay: 80ms; }
+        .manifesto-closer:hover .closer-annotation--tr { transition-delay: 180ms; }
+        .manifesto-closer:hover .closer-annotation--bl { transition-delay: 280ms; }
+        .manifesto-closer:hover .closer-annotation--br { transition-delay: 380ms; }
+
+        @media (max-width: 820px) {
+            .closer-annotations { display: none; } /* crowded on mobile */
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .closer-annotation {
+                transition: none !important;
+                transform: none;
+                opacity: 0.4;
+            }
+            .manifesto-closer:hover .closer-annotation { opacity: 1; }
+        }
+
+        /* =====================================================
+           Safety fallback: reveal hero title after 3.2s if JS fails
+           ===================================================== */
+        .hero-title .line-inner {
+            animation: hero-title-reveal-fallback 400ms 3200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes hero-title-reveal-fallback {
+            to { transform: translateY(0); }
+        }
+        /* GSAP takes over via inline-style override; if GSAP runs first,
+           inline-style `transform:translate3d(0,0,0)` wins over this animation */
     </style>
 </head>
 <body>
@@ -2646,6 +2712,12 @@
                     </div>
                 </div>
                 <span class="manifesto-closer-reveal-mobile">I close that gap.</span>
+                <div class="closer-annotations" aria-hidden="true">
+                    <span class="closer-annotation closer-annotation--tl">&mdash; strategy &times; execution</span>
+                    <span class="closer-annotation closer-annotation--tr">&mdash; AI &times; adoption</span>
+                    <span class="closer-annotation closer-annotation--bl">&mdash; intent &times; outcome</span>
+                    <span class="closer-annotation closer-annotation--br">&mdash; roadmap &times; results</span>
+                </div>
             </div>
             <!-- removed sig -->
             <div style="margin-top:2.5rem;">
