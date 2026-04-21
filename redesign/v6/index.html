@@ -1117,182 +1117,239 @@
         .manifesto-cta:hover .arr { transform: translateX(4px); }
 
         /* ============================================================
-           EXPERTISE — STACKED DISPLAY CARDS
+           EXPERTISE — DOMAINS SPLIT SWITCHER
            ============================================================ */
-        .expertise-stack {
+        .domains-split {
             display: grid;
-            grid-template-areas: 'stack';
-            place-items: center;
-            margin-top: 3rem;
-            min-height: 520px;
+            grid-template-columns: 0.9fr 1.4fr;
+            gap: 2rem;
+            margin-top: 4rem;
+            min-height: 480px;
+        }
+        @media (max-width: 900px) {
+            .domains-split { grid-template-columns: 1fr; gap: 1rem; min-height: 0; }
         }
 
-        .expertise-card {
-            grid-area: stack;
-            position: relative;
-            width: min(48rem, 88vw);
-            padding: 2rem 2.5rem 2.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            --tiltX: 0px;
-            --tiltY: 0px;
-            transform: skewY(-3deg) translate(var(--tiltX), var(--tiltY));
-            transition:
-                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.4s ease,
-                box-shadow 0.4s ease,
-                opacity 0.4s ease,
-                padding 0.4s ease;
-            overflow: hidden;
-            cursor: pointer;
-            will-change: transform;
-        }
-
-        /* Glow follow on hover */
-        .expertise-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
-                var(--accent-dim), transparent 50%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        .expertise-card:hover::before { opacity: 1; }
-
-        /* Dim overlay on non-top cards */
-        .expertise-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius);
-            background: var(--bg);
-            opacity: 0.5;
-            transition: opacity 0.7s ease;
-            pointer-events: none;
-        }
-        .expertise-card:hover::after { opacity: 0.15; }
-
-        /* Collapsed body — hidden by default */
-        .expertise-card-body {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .expertise-card-body-inner {
-            overflow: hidden;
-        }
-        .expertise-card.is-open .expertise-card-body {
-            grid-template-rows: 1fr;
-        }
-        .expertise-card.is-open {
-            padding: 2.5rem 2.5rem 2.5rem;
-        }
-        .expertise-card.is-open::after { opacity: 0; }
-
-        /* Card 1: back */
-        .expertise-card:nth-child(1) { z-index: 1; }
-        .expertise-card:nth-child(1):hover {
-            transform: skewY(-1.5deg) translate(calc(-2rem + var(--tiltX)), calc(-2.5rem + var(--tiltY)));
-            border-color: var(--accent-line);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        /* Card 2: middle */
-        .expertise-card:nth-child(2) {
-            z-index: 2;
-            transform: skewY(-3deg) translate(calc(2rem + var(--tiltX)), calc(3.5rem + var(--tiltY)));
-        }
-        .expertise-card:nth-child(2):hover {
-            transform: skewY(-1.5deg) translate(calc(2rem + var(--tiltX)), calc(2rem + var(--tiltY)));
-            border-color: var(--accent-line);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        /* Card 3: front (active) */
-        .expertise-card:nth-child(3) {
-            z-index: 3;
-            transform: skewY(-3deg) translate(calc(6rem + var(--tiltX)), calc(8rem + var(--tiltY)));
-            border-color: var(--accent-line);
-        }
-        .expertise-card:nth-child(3)::after { opacity: 0.15; }
-        .expertise-card:nth-child(3):hover {
-            transform: skewY(-1.5deg) translate(calc(6rem + var(--tiltX)), calc(6.5rem + var(--tiltY)));
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        /* Open state: straighten, lift, glow */
-        .expertise-card.is-open {
-            z-index: 20 !important;
-            transform: skewY(0deg) translate(2rem, 3.5rem) !important;
-            border-color: var(--accent-line);
-            box-shadow: 0 25px 80px rgba(0,0,0,0.4), 0 0 0 1px var(--accent-line);
-        }
-
-        /* Dim siblings when one card is focused */
-        .expertise-stack:has(.is-open) .expertise-card:not(.is-open) {
-            opacity: 0.35;
-            pointer-events: none;
-        }
-
-        /* Card header: number + title + proof teaser on one row */
-        .expertise-card-header {
+        /* Left column — tabs */
+        .domains-tabs {
             display: flex;
-            align-items: baseline;
-            gap: 1rem;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid var(--border);
         }
 
-        .expertise-num {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--accent);
-            letter-spacing: 0.2em;
-            opacity: 0.5;
-            flex-shrink: 0;
+        .domain-tab {
+            position: relative;
+            display: grid;
+            grid-template-columns: auto 1fr auto auto;
+            align-items: center;
+            gap: 1.5rem;
+            width: 100%;
+            padding: 1.75rem 1.5rem 1.75rem 0;
+            text-align: left;
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid var(--border);
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            font-family: inherit;
+            color: var(--fg-dim);
+            transition:
+                color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-left-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                background 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                padding-left 420ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .domain-tab:hover { color: var(--fg); }
+        .domain-tab.is-active {
+            color: var(--fg);
+            border-left-color: var(--accent);
+            background: linear-gradient(90deg, rgba(245,200,0,0.04), transparent 60%);
+            padding-left: 1.5rem;
         }
 
-        .expertise-proof-teaser {
-            margin-left: auto;
+        .domain-tab-num {
             font-family: var(--mono);
-            font-size: 0.55rem;
-            letter-spacing: 0.05em;
-            color: var(--accent);
-            opacity: 0.3;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+        }
+        .domain-tab.is-active .domain-tab-num { color: var(--accent); }
+
+        .domain-tab-name {
+            font-weight: 700;
+            font-size: clamp(1.4rem, 2vw, 1.9rem);
+            letter-spacing: -0.015em;
+            line-height: 1.1;
+        }
+
+        .domain-tab-proof {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
             white-space: nowrap;
-            transition: opacity 0.4s ease;
         }
-        .expertise-card.is-open .expertise-proof-teaser {
+        @media (max-width: 600px) { .domain-tab-proof { display: none; } }
+
+        .domain-tab-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid var(--border);
+            transition:
+                background 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .domain-tab.is-active .domain-tab-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(245,200,0,0.55);
+        }
+
+        /* Right column — panel */
+        .domains-panel {
+            position: relative;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            background: rgba(26, 26, 26, 0.4);
+            overflow: hidden;
+            min-height: 480px;
+        }
+        @media (max-width: 900px) {
+            .domains-panel { min-height: 420px; padding: 1.5rem; }
+        }
+
+        .domain-panel {
+            position: absolute;
+            inset: 2.5rem;
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition:
+                opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        @media (max-width: 900px) { .domain-panel { inset: 1.5rem; } }
+
+        .domain-panel.is-active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .domain-panel[hidden] { display: flex; } /* override hidden so positioned panels still stack */
+
+        .domain-panel-motif {
+            width: 100%;
+            max-width: 280px;
+            height: 80px;
+            color: var(--fg-dim);
+            opacity: 0.6;
+        }
+        .domain-panel-motif svg { width: 100%; height: 100%; }
+        .domain-panel-motif .motif-line {
+            stroke-dasharray: 300;
+            stroke-dashoffset: 300;
+        }
+        .domain-panel.is-active .domain-panel-motif .motif-line {
+            animation: motif-draw 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .domain-panel-motif .motif-dot {
             opacity: 0;
         }
-
-        .expertise-card h3 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 0;
-            margin-top: 0.8rem;
-            transition: margin 0.4s ease;
+        .domain-panel.is-active .domain-panel-motif .motif-dot {
+            animation: motif-dot-in 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation-delay: 1.2s;
         }
-        .expertise-card.is-open h3 { margin-bottom: 1.2rem; }
+        @keyframes motif-draw { to { stroke-dashoffset: 0; } }
+        @keyframes motif-dot-in { to { opacity: 1; } }
 
-        .expertise-card p {
+        .domain-panel-title {
+            font-weight: 800;
+            font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            color: var(--fg);
+            margin: 0;
+            max-width: 22ch;
+        }
+
+        .domain-panel-desc {
+            font-size: 1.02rem;
+            line-height: 1.65;
+            color: var(--fg-dim);
+            margin: 0;
+            max-width: 48ch;
+        }
+
+        .domain-panel-capabilities {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem 1.5rem;
+        }
+        @media (max-width: 900px) { .domain-panel-capabilities { grid-template-columns: 1fr; } }
+        .domain-panel-capabilities li {
+            position: relative;
+            padding-left: 1.25rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--fg);
+        }
+        .domain-panel-capabilities li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 8px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .domain-panel-proof {
+            margin-top: auto;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 0.8rem;
+            align-items: baseline;
             font-size: 0.85rem;
             color: var(--fg-dim);
-            line-height: 1.7;
-            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+        .domain-panel-proof .mono-prefix {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .domain-panel-proof .mono-prefix::before {
+            content: "";
+            display: inline-block;
+            width: 18px;
+            height: 1px;
+            background: var(--accent);
+            vertical-align: middle;
+            margin-right: 8px;
+            transform: translateY(-2px);
         }
 
-        .expertise-proof {
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            color: var(--accent);
-            letter-spacing: 0.05em;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border);
-            line-height: 1.6;
+        @media (max-width: 900px) {
+            .domain-panel-title { font-size: 1.4rem; }
+            .domain-panel-desc { font-size: 0.95rem; }
+            .domain-panel-motif { height: 60px; }
         }
 
         /* ============================================================
@@ -2038,28 +2095,9 @@
             border-radius: 100px;
         }
 
-        /* Pillar cards: stack to 1-col at iPad range too (up to 1099px) */
-        @media (max-width: 1099px) {
-            .expertise-stack { min-height: auto; display: flex; flex-direction: column; gap: 1rem; }
-            .expertise-card { transform: none !important; width: 100%; --tiltX: 0px !important; --tiltY: 0px !important; box-shadow: none !important; }
-            .expertise-card::after { display: none; }
-            .expertise-card:hover { transform: none !important; box-shadow: none !important; }
-            .expertise-stack:has(.is-open) .expertise-card:not(.is-open) { opacity: 1; pointer-events: auto; }
-            .expertise-proof-teaser { display: none; }
-        }
-
         @media (max-width: 1024px) {
             .mobile-cta-bar { display: block; }
             #expertise.section { padding: 6rem 2rem; }
-            /* P1 #13: expand indicator on mobile */
-            .expertise-card h3::after {
-                content: '+';
-                float: right;
-                font-weight: 400;
-                color: var(--muted);
-                transition: transform 0.3s ease;
-            }
-            .expertise-card.is-open h3::after { content: '\2212'; color: var(--accent); }
             .about-split { grid-template-columns: 1fr; }
             .about-image { min-height: 400px; }
             .fit-grid { grid-template-columns: 1fr; }
@@ -2125,7 +2163,6 @@
             .footer-badge,
             .orbital-card-time,
             .about-ticker-item,
-            .expertise-proof,
             .impact-context { color: var(--fg-dim); }
             .footer-badge { font-size: 0.6rem; }
             .faq-a-text { font-size: 0.95rem; }
@@ -2201,7 +2238,7 @@
             /* Preserve functional transitions */
             a, button, .faq-a, .faq-plus::before, .faq-plus::after,
             .nav-cta, .btn-primary, .btn-ghost, .cta-pulse-btn,
-            .expertise-card, .expertise-card::before,
+            .domain-tab, .domain-panel,
             .impact-stat, .orbital-node-dot, .orbital-card,
             .about-image img, .mobile-cta-bar {
                 transition-duration: 0.2s !important;
@@ -2910,39 +2947,111 @@
             <h2 class="section-heading">Three domains deep.<br>One operator <span class="accent">wide.</span></h2>
             <p class="section-intro">Each runs deep enough to stand alone. Together they create leverage that a fractional CMO, a consultancy, or three separate hires structurally cannot.</p>
 
-            <div class="expertise-stack">
-                <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-card-header">
-                        <div class="expertise-num">01</div>
-                        <span class="expertise-proof-teaser">&euro;2M+ attributed revenue</span>
-                    </div>
-                    <h3>Digital Growth</h3>
-                    <div class="expertise-card-body"><div class="expertise-card-body-inner">
-                        <p>Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments that teach you something win or lose.</p>
-                        <div class="expertise-proof">&euro;2M+ attributed through channels that didn't exist before</div>
-                    </div></div>
+            <div class="domains-split" data-domains>
+                <div class="domains-tabs" role="tablist" aria-label="Three domains">
+                    <button type="button" class="domain-tab is-active" role="tab" aria-selected="true" data-domain="0" data-cursor="hover">
+                        <span class="domain-tab-num">01</span>
+                        <span class="domain-tab-name">Digital Growth</span>
+                        <span class="domain-tab-proof">&euro;2M+ attributed revenue</span>
+                        <span class="domain-tab-dot" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="domain-tab" role="tab" aria-selected="false" data-domain="1" data-cursor="hover">
+                        <span class="domain-tab-num">02</span>
+                        <span class="domain-tab-name">Business Strategy</span>
+                        <span class="domain-tab-proof">Board sign-off in weeks</span>
+                        <span class="domain-tab-dot" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="domain-tab" role="tab" aria-selected="false" data-domain="2" data-cursor="hover">
+                        <span class="domain-tab-num">03</span>
+                        <span class="domain-tab-name">AI &amp; Automation</span>
+                        <span class="domain-tab-proof">Production AI systems shipped</span>
+                        <span class="domain-tab-dot" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-card-header">
-                        <div class="expertise-num">02</div>
-                        <span class="expertise-proof-teaser">Board sign-off in weeks</span>
-                    </div>
-                    <h3>Business Strategy</h3>
-                    <div class="expertise-card-body"><div class="expertise-card-body-inner">
-                        <p>From business model to execution plan in weeks. The kind of clarity that gets board sign-off and team alignment in a single meeting.</p>
-                        <div class="expertise-proof">Pivoted a business model + 3-year growth forecast with board sign-off</div>
-                    </div></div>
-                </div>
-                <div class="expertise-card" data-cursor="hover">
-                    <div class="expertise-card-header">
-                        <div class="expertise-num">03</div>
-                        <span class="expertise-proof-teaser">Production AI systems shipped</span>
-                    </div>
-                    <h3>AI &amp; Automation</h3>
-                    <div class="expertise-card-body"><div class="expertise-card-body-inner">
-                        <p>Not slide decks &mdash; working systems. An audit tool that cut review time by 3x. A content engine that does in hours what used to take weeks.</p>
-                        <div class="expertise-proof">Production AI systems shipped inside live workflows &mdash; not pilots</div>
-                    </div></div>
+
+                <div class="domains-panel" data-domain-panel>
+                    <article class="domain-panel is-active" role="tabpanel" data-panel="0">
+                        <div class="domain-panel-motif" data-motif="growth">
+                            <svg viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                                <path d="M 10 80 L 50 62 L 90 48 L 130 30 L 190 12" stroke-dasharray="220" stroke-dashoffset="220" class="motif-line"/>
+                                <circle cx="50" cy="62" r="3" fill="currentColor" class="motif-dot motif-dot-1"/>
+                                <circle cx="90" cy="48" r="3" fill="currentColor" class="motif-dot motif-dot-2"/>
+                                <circle cx="130" cy="30" r="3" fill="currentColor" class="motif-dot motif-dot-3"/>
+                                <circle cx="190" cy="12" r="4.5" fill="var(--accent)" class="motif-dot motif-dot-end"/>
+                            </svg>
+                        </div>
+                        <h3 class="domain-panel-title">Growth architecture that compounds.</h3>
+                        <p class="domain-panel-desc">Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments that teach you something win or lose.</p>
+                        <ul class="domain-panel-capabilities">
+                            <li>Attribution models you can actually trust</li>
+                            <li>Channels architected to feed each other</li>
+                            <li>Experiments designed to teach, win or lose</li>
+                            <li>New revenue channels stood up from zero</li>
+                        </ul>
+                        <div class="domain-panel-proof">
+                            <span class="mono-prefix">Proof</span>
+                            <span class="domain-panel-proof-text">&euro;2M+ attributed through channels that didn't exist before</span>
+                        </div>
+                    </article>
+
+                    <article class="domain-panel" role="tabpanel" data-panel="1" hidden>
+                        <div class="domain-panel-motif" data-motif="strategy">
+                            <svg viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                                <path d="M 20 50 L 80 50" class="motif-line"/>
+                                <path d="M 80 50 L 140 20" class="motif-line"/>
+                                <path d="M 80 50 L 140 50" class="motif-line"/>
+                                <path d="M 80 50 L 140 80" class="motif-line"/>
+                                <path d="M 140 50 L 190 50" class="motif-line motif-highlight"/>
+                                <circle cx="20" cy="50" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="80" cy="50" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="140" cy="20" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="140" cy="50" r="4" fill="var(--accent)" class="motif-dot"/>
+                                <circle cx="140" cy="80" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="190" cy="50" r="4.5" fill="var(--accent)" class="motif-dot"/>
+                            </svg>
+                        </div>
+                        <h3 class="domain-panel-title">One clear path, chosen from many.</h3>
+                        <p class="domain-panel-desc">From business model to execution plan in weeks. The kind of clarity that gets board sign-off and team alignment in a single meeting.</p>
+                        <ul class="domain-panel-capabilities">
+                            <li>Business model pivots validated fast</li>
+                            <li>3-year growth forecasts the board signs</li>
+                            <li>Execution plans a team can rally behind</li>
+                            <li>Alignment engineered into a single meeting</li>
+                        </ul>
+                        <div class="domain-panel-proof">
+                            <span class="mono-prefix">Proof</span>
+                            <span class="domain-panel-proof-text">Pivoted a business model + 3-year growth forecast with board sign-off</span>
+                        </div>
+                    </article>
+
+                    <article class="domain-panel" role="tabpanel" data-panel="2" hidden>
+                        <div class="domain-panel-motif" data-motif="ai">
+                            <svg viewBox="0 0 200 100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+                                <rect x="85" y="40" width="30" height="20" fill="none" stroke="var(--accent)" stroke-width="1" rx="1"/>
+                                <text x="100" y="54" font-size="10" fill="var(--accent)" font-weight="900" text-anchor="middle" font-family="Hanken Grotesk, sans-serif">x</text>
+                                <path d="M 100 40 L 100 20 L 30 20" class="motif-line"/>
+                                <path d="M 100 40 L 100 20 L 170 20" class="motif-line"/>
+                                <path d="M 100 60 L 100 80 L 30 80" class="motif-line"/>
+                                <path d="M 100 60 L 100 80 L 170 80" class="motif-line"/>
+                                <circle cx="30" cy="20" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="170" cy="20" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="30" cy="80" r="3" fill="currentColor" class="motif-dot"/>
+                                <circle cx="170" cy="80" r="3" fill="currentColor" class="motif-dot"/>
+                            </svg>
+                        </div>
+                        <h3 class="domain-panel-title">Systems that ship. Not decks.</h3>
+                        <p class="domain-panel-desc">Not slide decks &mdash; working systems. An audit tool that cut review time by 3x. A content engine that does in hours what used to take weeks.</p>
+                        <ul class="domain-panel-capabilities">
+                            <li>Audit tools that cut review time by 3x</li>
+                            <li>Content engines: hours, not weeks</li>
+                            <li>Workflow automation that survives contact with ops</li>
+                            <li>Production systems, not pilots or POCs</li>
+                        </ul>
+                        <div class="domain-panel-proof">
+                            <span class="mono-prefix">Proof</span>
+                            <span class="domain-panel-proof-text">Production AI systems shipped inside live workflows &mdash; not pilots</span>
+                        </div>
+                    </article>
                 </div>
             </div>
 
@@ -3470,72 +3579,51 @@
             window.addEventListener('resize', updateInnerSize);
         })();
 
-        // ============ GLOW FOLLOW + MOUSE TILT + CLICK TO EXPAND ON CARDS ============
-        (function() {
-            var stack = document.querySelector('.expertise-stack');
-            var cards = document.querySelectorAll('.expertise-card');
-            if (!stack || !cards.length) return;
+        // ============ DOMAINS SPLIT SWITCHER ============
+        (function initDomainSwitcher() {
+            const container = document.querySelector('[data-domains]');
+            if (!container) return;
+            const tabs = container.querySelectorAll('.domain-tab');
+            const panel = container.querySelector('[data-domain-panel]');
+            if (!tabs.length || !panel) return;
+            const panels = panel.querySelectorAll('.domain-panel');
 
-            // Per-card glow follow + click
-            cards.forEach(function(card) {
-                card.addEventListener('mousemove', function(e) {
-                    var r = card.getBoundingClientRect();
-                    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-                    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+            function activate(idx) {
+                tabs.forEach((t, i) => {
+                    const active = i === idx;
+                    t.classList.toggle('is-active', active);
+                    t.setAttribute('aria-selected', active ? 'true' : 'false');
                 });
-                card.addEventListener('click', function() {
-                    var wasOpen = card.classList.contains('is-open');
-                    document.querySelectorAll('.expertise-card.is-open').forEach(function(c) { c.classList.remove('is-open'); });
-                    if (!wasOpen) card.classList.add('is-open');
+                panels.forEach((p, i) => {
+                    const active = i === idx;
+                    p.classList.toggle('is-active', active);
                 });
-            });
-
-            // Section-level mouse follow: all cards shift toward cursor
-            var tiltX = 0, tiltY = 0, targetX = 0, targetY = 0, rafId = 0;
-            function lerp(a, b, t) { return a + (b - a) * t; }
-            function animate() {
-                // Skip tilt when any card is expanded
-                if (document.querySelector('.expertise-card.is-open')) {
-                    cancelAnimationFrame(rafId);
-                    return;
-                }
-                tiltX = lerp(tiltX, targetX, 0.12);
-                tiltY = lerp(tiltY, targetY, 0.12);
-                cards.forEach(function(card) {
-                    card.style.setProperty('--tiltX', tiltX + 'px');
-                    card.style.setProperty('--tiltY', tiltY + 'px');
-                });
-                rafId = requestAnimationFrame(animate);
             }
-            stack.addEventListener('mouseenter', function() { rafId = requestAnimationFrame(animate); });
-            stack.addEventListener('mouseleave', function() {
-                cancelAnimationFrame(rafId);
-                targetX = 0; targetY = 0;
-                // Ease back to zero
-                rafId = requestAnimationFrame(function easeBack() {
-                    tiltX = lerp(tiltX, 0, 0.08);
-                    tiltY = lerp(tiltY, 0, 0.08);
-                    cards.forEach(function(card) {
-                        card.style.setProperty('--tiltX', tiltX + 'px');
-                        card.style.setProperty('--tiltY', tiltY + 'px');
-                    });
-                    if (Math.abs(tiltX) > 0.1 || Math.abs(tiltY) > 0.1) {
-                        rafId = requestAnimationFrame(easeBack);
-                    } else {
-                        cards.forEach(function(card) {
-                            card.style.setProperty('--tiltX', '0px');
-                            card.style.setProperty('--tiltY', '0px');
-                        });
-                    }
-                });
+
+            tabs.forEach((t, i) => {
+                t.addEventListener('click', () => activate(i));
+                t.addEventListener('mouseenter', () => activate(i));
+                t.addEventListener('focus', () => activate(i));
             });
-            stack.addEventListener('mousemove', function(e) {
-                var r = stack.getBoundingClientRect();
-                var cx = (e.clientX - r.left) / r.width - 0.5;
-                var cy = (e.clientY - r.top) / r.height - 0.5;
-                targetX = cx * 16;  // max ±8px
-                targetY = cy * 12;  // max ±6px
+
+            container.addEventListener('keydown', (e) => {
+                if (!e.target.classList.contains('domain-tab')) return;
+                const current = Array.from(tabs).indexOf(e.target);
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const next = (current + 1) % tabs.length;
+                    tabs[next].focus();
+                    activate(next);
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const prev = (current - 1 + tabs.length) % tabs.length;
+                    tabs[prev].focus();
+                    activate(prev);
+                }
             });
+
+            // Strip 'hidden' attrs after init so CSS handles visibility
+            panels.forEach(p => p.removeAttribute('hidden'));
         })();
 
         // ============ MOBILE MENU ============
@@ -3938,11 +4026,12 @@
                 scrollTrigger: { trigger: '.impact-axis', start: 'top 70%', once: true }
             });
 
-            // EXPERTISE CARDS — stagger reveal
-            gsap.utils.toArray('.expertise-card').forEach((el, i) => {
-                gsap.from(el, { y: 80, opacity: 0, duration: 1, delay: i * 0.15, ease: 'power3.out',
-                    scrollTrigger: { trigger: '.expertise-stack', start: 'top 80%', once: true }
-                });
+            // DOMAINS SPLIT — tabs + panel reveal
+            gsap.from('.domain-tab', { y: 30, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
+                scrollTrigger: { trigger: '.domains-split', start: 'top 80%', once: true }
+            });
+            gsap.from('.domains-panel', { y: 30, opacity: 0, duration: 0.9, delay: 0.2, ease: 'power3.out',
+                scrollTrigger: { trigger: '.domains-split', start: 'top 80%', once: true }
             });
 
             // FIT COLS
