@@ -4,23 +4,92 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CDMX / not here</title>
-  <meta name="theme-color" content="#F8F6F1">
+  <meta name="theme-color" content="#0A0A0A">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/base.css">
   <style>
-    body[data-page="404"] { min-height: 100vh; display: grid; place-items: center; padding: var(--space-6); text-align: center; }
-    .four-line { font-size: clamp(var(--type-xl), 8vw, var(--type-3xl)); font-weight: 600; line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
-    .four-sub { margin-top: var(--space-4); color: var(--gray-500); font-size: var(--type-md); max-width: 36ch; margin-inline: auto; }
-    .four-back { display: inline-block; margin-top: var(--space-8); font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; border-bottom: 2px solid var(--emphasis); padding: var(--space-2) var(--space-4); transition: background var(--dur-fast) var(--ease-snap); }
-    .four-back:hover { background: var(--emphasis); }
+    body[data-page="404"] {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: var(--space-6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .four-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: url('/assets/patterns/BG-Pattern-LightGreen.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      filter: brightness(0.8);
+      z-index: 0;
+    }
+    .four-main {
+      position: relative;
+      z-index: 2;
+      max-width: 48rem;
+    }
+    .four-logo {
+      height: 1.6rem;
+      width: auto;
+      filter: invert(1) brightness(2);
+      margin-bottom: var(--space-8);
+    }
+    .four-label {
+      font-family: var(--font-mono);
+      font-size: var(--type-xs);
+      letter-spacing: var(--ls-mono-label);
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: var(--space-4);
+    }
+    .four-line {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 14vw, 10rem);
+      font-weight: var(--w-hero);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-display);
+      color: var(--fg);
+    }
+    .four-line .accent { color: var(--emphasis); }
+    .four-sub {
+      margin-top: var(--space-6);
+      color: var(--fg-muted);
+      font-size: var(--type-md);
+      max-width: 40ch;
+      margin-inline: auto;
+      line-height: var(--lh-normal);
+    }
+    .four-back {
+      display: inline-flex;
+      align-items: center;
+      margin-top: var(--space-12);
+      padding: var(--space-3) var(--space-8);
+      background: var(--emphasis);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: var(--type-sm);
+      font-weight: 700;
+      letter-spacing: var(--ls-mono-label);
+      text-transform: uppercase;
+      border-radius: 999px;
+      transition: transform var(--dur-fast) var(--ease-snap);
+    }
+    .four-back:hover { transform: translateY(-2px); }
   </style>
 </head>
 <body data-page="404">
-  <main>
-    <p class="four-line">Not here.</p>
-    <p class="four-sub">This page does not exist, and probably never did.</p>
+  <div class="four-pattern" aria-hidden="true"></div>
+  <main class="four-main">
+    <img class="four-logo" src="/assets/logos/CDMX-Logo.svg" alt="CDMX">
+    <p class="four-label">404 — signal lost</p>
+    <h1 class="four-line">Not <span class="accent">here</span>.</h1>
+    <p class="four-sub">This page does not exist, and probably never did. Return to somewhere the signal is stronger.</p>
     <a class="four-back" href="/">← back to the manifest</a>
   </main>
 </body>

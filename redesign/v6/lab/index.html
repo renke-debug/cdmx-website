@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CDMX / Lab</title>
-  <meta name="description" content="A non-linear constellation of active experiments, by codename.">
-  <meta name="theme-color" content="#F8F6F1">
+  <meta name="description" content="A non-linear constellation of active experiments, by codename. Where digital works.">
+  <meta name="theme-color" content="#0A0A0A">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/tokens.css">
@@ -17,8 +17,14 @@
   <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
 
   <header class="lab-header">
-    <h1 class="mono-label">CDMX / LAB</h1>
-    <p class="lab-tagline">Codenames only. Status is copper.</p>
+    <a href="/" class="lab-logo-link">
+      <img class="lab-logo" src="/assets/logos/CDMX-Logo.svg" alt="CDMX" width="140" height="30">
+    </a>
+    <div class="lab-header-meta">
+      <span class="bracket-tag">LAB</span>
+      <span class="bracket-tag">CODENAMES ONLY</span>
+    </div>
+    <p class="lab-tagline">Four experiments running. Status is copper. Pan, zoom, or press tab to use the list view.</p>
   </header>
 
   <main id="main">
@@ -27,10 +33,13 @@
   </main>
 
   <aside class="site-chrome">
-    <span>CDMX / </span><span class="route">LAB</span><span id="last-signal"></span>
+    <span>CDMX</span>
+    <span> / </span>
+    <span class="route">LAB</span>
+    <span id="last-signal"></span>
   </aside>
 
-  <a class="lab-return" href="/">← return to manifest</a>
+  <a class="lab-return" href="/">← return to the manifest</a>
 
   <script type="module" src="/assets/js/main.js"></script>
 </body>
