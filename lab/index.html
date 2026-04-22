@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDMX / Lab</title>
+  <meta name="description" content="What runs under the hood. Internal experiments and systems the operator is building, by codename. Not a services menu. Where digital works.">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/lab.css">
+</head>
+<body data-page="lab">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
+
+  <header class="lab-header">
+    <a href="/" class="lab-logo-link">
+      <img class="lab-logo" src="/assets/logos/CDMX-Logo.svg" alt="CDMX" width="140" height="30">
+    </a>
+    <div class="lab-header-meta">
+      <span class="bracket-tag">LAB</span>
+      <span class="bracket-tag">CODENAMES ONLY</span>
+    </div>
+    <p class="lab-tagline">What runs under the hood. Four experiments, by codename. Pan, zoom, or press tab for the list view.</p>
+  </header>
+
+  <main id="main">
+    <canvas id="constellation" class="constellation-canvas" aria-label="Lab constellation"></canvas>
+    <ul id="lab-list" class="lab-list" aria-label="All projects (list view)"></ul>
+  </main>
+
+  <aside class="site-chrome">
+    <span>CDMX</span>
+    <span> / </span>
+    <span class="route">LAB</span>
+    <span id="last-signal"></span>
+  </aside>
+
+  <a class="lab-return" href="/">← return to the manifest</a>
+
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

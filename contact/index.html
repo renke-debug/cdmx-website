@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDMX / Contact</title>
+  <meta name="description" content="Not an agency. Not a fractional CMO. If the embedded operator model fits, write. renke@cdmx.be. Where digital works.">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <style>
+    body[data-page="contact"] {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: var(--space-6);
+      gap: var(--space-12);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) { body[data-page="contact"] { padding: var(--space-12); } }
+
+    .contact-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 3;
+    }
+    .contact-logo {
+      height: 1.8rem;
+      width: auto;
+      filter: invert(1) brightness(2);
+    }
+    .contact-header-meta { display: flex; gap: var(--space-3); }
+
+    .contact-pattern {
+      position: absolute;
+      inset: -20vh -10vw;
+      z-index: 0;
+      pointer-events: none;
+      background-image: url('/assets/patterns/BG-Pattern-LightYellow.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.12;
+      filter: brightness(1.2);
+    }
+    .contact-pattern::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, var(--bg) 85%);
+    }
+
+    .contact-stage {
+      display: grid;
+      place-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-block {
+      text-align: center;
+      max-width: 44rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .contact-section-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--type-xs);
+      letter-spacing: var(--ls-mono-label);
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+    .contact-section-label::before {
+      content: '';
+      width: var(--space-8);
+      height: 1px;
+      background: var(--signal);
+    }
+    .contact-line {
+      font-family: var(--font-display);
+      font-weight: var(--w-hero);
+      font-size: clamp(2.25rem, 6vw, 5rem);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-display);
+      color: var(--fg);
+    }
+    .contact-line .accent { color: var(--emphasis); }
+    .contact-sub {
+      font-size: var(--type-md);
+      color: var(--fg-muted);
+      max-width: 32ch;
+      line-height: var(--lh-normal);
+    }
+    .contact-addr {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-3) var(--space-8);
+      background: var(--emphasis);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: var(--type-md);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border-radius: 999px;
+      transition: transform var(--dur-fast) var(--ease-snap);
+    }
+    .contact-addr:hover { transform: translateY(-2px); }
+    .contact-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 3;
+    }
+    .contact-footer p { color: var(--fg-subtle); font-family: var(--font-mono); font-size: var(--type-xs); letter-spacing: var(--ls-mono-label); text-transform: uppercase; }
+    .contact-footer a { color: var(--fg-muted); }
+    .contact-footer a:hover { color: var(--emphasis); }
+
+    .substrate-canvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.35; }
+  </style>
+</head>
+<body data-page="contact">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <canvas id="substrate" class="substrate-canvas" aria-hidden="true"></canvas>
+  <div class="contact-pattern" aria-hidden="true"></div>
+
+  <header class="contact-header">
+    <a href="/">
+      <img class="contact-logo" src="/assets/logos/CDMX-Logo.svg" alt="CDMX" width="140" height="30">
+    </a>
+    <div class="contact-header-meta">
+      <span class="bracket-tag">CONTACT</span>
+      <span class="bracket-tag">BRUGGE · BE</span>
+    </div>
+  </header>
+
+  <main id="main" class="contact-stage">
+    <div class="contact-block">
+      <span class="contact-section-label">If this resonates</span>
+      <h1 class="contact-line">Write.<br><span class="accent">One line is enough.</span></h1>
+      <p class="contact-sub">No form. No honeypot. No CTA factory. Just mail.</p>
+      <a class="contact-addr" href="mailto:renke@cdmx.be">renke@cdmx.be</a>
+    </div>
+  </main>
+
+  <footer class="contact-footer">
+    <p>Where digital works</p>
+    <p><a href="/">← return to the manifest</a></p>
+  </footer>
+
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+/* ==========================================================================
+   CDMX Design System — Foundations
+   Colors, typography, spacing, easing. Dark-first.
+   Source of truth; import on every CDMX artifact.
+   ========================================================================== */
+
+/* --- Fonts: Hanken Grotesk Variable (primary), JetBrains Mono (fallback for SF Mono) */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Self-hosted Hanken Grotesk variable — local-first, falls back to Google CDN */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('../fonts/HankenGrotesk-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Palette ---------------------------------------------------------- */
+  --ink:          #0A0A0A;   /* base canvas */
+  --warm-white:   #F8F6F1;   /* text on dark */
+  --yellow:       #F5C800;   /* the x-marker, emphasis */
+  --mint:         #C5E0D8;   /* decorative, pattern highlights */
+  --copper:       #D4915E;   /* decorative prefix lines, warm counter */
+
+  /* Grays (dark → light) */
+  --gray-900: #1A1A1A;
+  --gray-800: #2A2A2A;
+  --gray-700: #3D3A35;
+  --gray-500: #918D85;
+  --gray-400: #9E9A91;
+  --gray-300: #C9C5BC;
+
+  /* ---- Semantic surfaces ------------------------------------------------ */
+  --bg:            var(--ink);
+  --bg-elevated:   var(--gray-900);
+  --bg-raised:     var(--gray-800);
+  --fg:            var(--warm-white);
+  --fg-muted:      var(--gray-400);
+  --fg-subtle:     var(--gray-500);
+  --accent:        var(--yellow);
+  --accent-warm:   var(--copper);
+  --accent-cool:   var(--mint);
+
+  /* Borders — 6–8% white on dark */
+  --border-hair:   rgba(248, 246, 241, 0.06);
+  --border:        rgba(248, 246, 241, 0.08);
+  --border-strong: rgba(248, 246, 241, 0.14);
+
+  /* ---- Typography ------------------------------------------------------- */
+  --font-sans: "Hanken Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Courier New", ui-monospace, monospace;
+
+  /* Weights */
+  --w-body: 400;
+  --w-label: 600;
+  --w-head: 700;
+  --w-head-heavy: 800;
+  --w-hero: 900;          /* HERO ONLY */
+
+  /* Tracking */
+  --track-display: -0.02em;    /* tight for display */
+  --track-micro:   0.12em;     /* uppercase mono labels */
+
+  /* Scale (fluid) */
+  --fs-micro:   0.6875rem; /* 11px — mono micro labels */
+  --fs-small:   0.8125rem; /* 13px */
+  --fs-body:    1rem;      /* 16px */
+  --fs-lead:    1.125rem;  /* 18px */
+  --fs-h5:      1.25rem;
+  --fs-h4:      1.5rem;
+  --fs-h3:      2rem;
+  --fs-h2:      clamp(2.25rem, 2vw + 1.5rem, 3.25rem);
+  --fs-h1:      clamp(3rem, 4vw + 1rem, 5.25rem);
+  --fs-hero:    clamp(4.5rem, 8vw + 1rem, 9rem);
+
+  /* Line heights */
+  --lh-tight: 0.95;
+  --lh-snug:  1.12;
+  --lh-body:  1.55;
+  --lh-read:  1.7;
+
+  /* ---- Spacing (8pt base, compressed at small end) ---------------------- */
+  --sp-0:  0;
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+  --sp-11: 160px;
+
+  /* ---- Radii (never >3px) ---------------------------------------------- */
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 3px;  /* max */
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:   cubic-bezier(0.6, 0, 0.8, 0.3);
+  --dur-fast:   160ms;
+  --dur-base:   280ms;
+  --dur-slow:   520ms;
+  --dur-xslow:  900ms;
+
+  /* ---- Elevation (minimal — dark-first uses borders more than shadow) --- */
+  --shadow-none: none;
+  --shadow-1: 0 1px 0 0 rgba(248,246,241,0.04) inset;
+  --shadow-2: 0 8px 24px -12px rgba(0,0,0,0.6);
+  --shadow-3: 0 24px 60px -24px rgba(0,0,0,0.7);
+}
+
+/* ---- Base reset-ish --------------------------------------------------- */
+html { font-family: var(--font-sans); font-feature-settings: "ss01","cv11"; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-weight: var(--w-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* ---- Semantic text utilities -------------------------------------------
+   Use directly, e.g. <h1 class="hero">…</h1>, or copy the rules.
+   Rule: weight 900 is EXCLUSIVE to .hero. */
+
+.hero, h1.hero {
+  font-family: var(--font-sans);
+  font-weight: var(--w-hero);          /* 900 — hero only */
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-display);
+  color: var(--fg);
+}
+
+h1, .h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--w-head-heavy);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--track-display);
+  margin: 0;
+}
+
+h2, .h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--w-head-heavy);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--track-display);
+  margin: 0;
+}
+
+h3, .h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--w-head);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--track-display);
+  margin: 0;
+}
+
+h4, .h4 {
+  font-family: var(--font-sans);
+  font-weight: var(--w-head);
+  font-size: var(--fs-h4);
+  line-height: 1.2;
+  margin: 0;
+}
+
+h5, .h5 {
+  font-family: var(--font-sans);
+  font-weight: var(--w-label);
+  font-size: var(--fs-h5);
+  line-height: 1.3;
+  margin: 0;
+}
+
+p, .body {
+  font-family: var(--font-sans);
+  font-weight: var(--w-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-read);
+  color: var(--fg);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-read);
+  color: var(--fg);
+  font-weight: var(--w-body);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-weight: var(--w-label);
+  font-size: var(--fs-small);
+}
+
+/* Micro mono label: the CDMX signature. Uppercase, tracked out.
+   Often preceded by a copper rule. */
+.mono, code, kbd, .micro {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+/* The copper prefix rule — always before mono labels */
+.mono-prefix::before,
+.mono.prefix::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--copper);
+  vertical-align: middle;
+  margin-right: 10px;
+  transform: translateY(-1px);
+}
+
+/* Selection — yellow on ink */
+::selection { background: var(--yellow); color: var(--ink); }
+
+/* Focus — yellow hairline, no glow */
+:focus-visible { outline: 1px solid var(--yellow); outline-offset: 2px; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

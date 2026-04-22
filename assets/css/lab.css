@@ -1,0 +1,160 @@
+body[data-page="lab"] {
+  overflow: hidden;
+  height: 100vh;
+  background: var(--bg);
+}
+
+.lab-header {
+  position: fixed;
+  top: var(--space-6);
+  left: var(--space-6);
+  z-index: 10;
+  max-width: 28rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.lab-logo-link { display: inline-block; }
+.lab-logo {
+  height: 1.8rem;
+  width: auto;
+  filter: invert(1) brightness(2);
+}
+.lab-header-meta { display: flex; gap: var(--space-3); }
+.lab-tagline {
+  margin-top: var(--space-2);
+  font-size: var(--type-sm);
+  color: var(--fg-muted);
+  max-width: 26rem;
+  line-height: var(--lh-normal);
+}
+
+.constellation-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  cursor: grab;
+  touch-action: none;
+  background: var(--bg);
+}
+.constellation-canvas:active { cursor: grabbing; }
+
+.lab-list {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: var(--space-24) var(--space-6);
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--bg);
+}
+.lab-list li { max-width: 48rem; margin: 0 auto var(--space-4); }
+.lab-list-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--type-md);
+  line-height: var(--lh-normal);
+  color: var(--fg);
+  transition: background var(--dur-fast) var(--ease-expo);
+}
+.lab-list-item:hover { background: rgba(245, 200, 0, 0.04); }
+.lab-list-item strong {
+  font-family: var(--font-mono);
+  letter-spacing: var(--ls-mono-label);
+  color: var(--signal);
+  margin-right: var(--space-3);
+  text-transform: uppercase;
+}
+body.lab-list-visible .lab-list { opacity: 1; pointer-events: auto; }
+body.lab-list-visible .constellation-canvas { display: none; }
+
+.lab-return {
+  position: fixed;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: color var(--dur-fast) var(--ease-expo), border-color var(--dur-fast) var(--ease-expo);
+}
+.lab-return:hover { color: var(--signal); border-color: var(--signal); }
+
+.node-panel {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  border: 1px solid var(--border-hover);
+  padding: var(--space-8) var(--space-12);
+  max-width: 36rem;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-expo);
+}
+.node-panel[data-open="true"] { opacity: 1; pointer-events: auto; }
+.node-panel .codename {
+  font-family: var(--font-display);
+  font-weight: var(--w-hero);
+  font-size: clamp(var(--type-xl), 5vw, var(--type-3xl));
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--fg);
+}
+.node-panel .summary {
+  margin-top: var(--space-4);
+  color: var(--fg-muted);
+  font-size: var(--type-md);
+  line-height: var(--lh-normal);
+}
+.node-panel .techniques {
+  margin-top: var(--space-6);
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.node-panel .tech {
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--organism);
+  border: 1px solid var(--organism);
+  text-transform: uppercase;
+}
+.node-panel .status {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--type-xs);
+  color: var(--signal);
+  letter-spacing: var(--ls-mono-label);
+  text-transform: uppercase;
+}
+.node-panel .close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-6);
+  font-family: var(--font-mono);
+  color: var(--fg-subtle);
+  font-size: var(--type-xs);
+  letter-spacing: var(--ls-mono-label);
+  padding: 2px 4px;
+}
+.node-panel .close:hover { color: var(--emphasis); }
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-canvas { display: none; }
+  body[data-page="lab"] .lab-list { opacity: 1; pointer-events: auto; }
+}

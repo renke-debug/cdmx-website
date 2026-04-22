@@ -1,41 +1,37 @@
-# CDMX
+# CDMX — Embedded Operator
 
-> CDMX is a premium one-person B2B growth consultancy based in Bruges, Belgium, founded by Renke Pieters. Retainer-only, one client at a time. Investment starts at €5K/month with a 1-year engagement.
+> An embedded operator for B2B companies, based in Bruges, Belgium. Founded by Renke Pieters. Not an agency, not a fractional CMO, not three separate hires. Operates one client at a time on a one-year embedded model across digital growth, business strategy, and AI & automation.
 
-## What CDMX Does
-CDMX embeds a single operator across three disciplines — digital growth, business strategy, and AI & automation — inside one B2B client at a time. This is not advisory work. The operator builds, ships, and iterates alongside the client's team.
+## What this is
+CDMX is an embedded operator for B2B companies with 20–200 employees in Belgium and Europe. One operator sits inside the team for a year and runs three domains as one compounding system: digital growth, business strategy, and AI & automation. This is not a growth agency, not a fractional CMO, not a consulting firm. Agencies split accounts into pods. Fractional CMOs advise and manage. Consultants diagnose and hand off. An embedded operator sits in the seat, ships the systems, and is measured on the outcomes.
 
-## Services
-- Digital Growth: Growth architecture, attribution, channel strategy, structured experimentation
-- Business Strategy: Business model clarity, execution planning, growth forecasting, board-ready deliverables
-- AI & Automation: Production-grade AI systems built into operations — not slide decks or pilots
-
-## Target Audience
-- B2B companies with 20-200 employees
-- Companies at a growth inflection point
-- Based in Belgium or across Europe
-- Looking for senior capacity without three separate hires
-
-## Track Record
-- EUR 1M+ revenue generated through new sales channels (Belgian full-service marketing agency, 2024-2026)
-- 5 AI products shipped to production
-- Audit review cycles cut by 3x
-- 18-month embedded engagement in a 50+ person marketing agency
-
-## Engagement Model
-- Retainer-only, one client at a time
-- 1-year initial commitment
-- Investment starts at EUR 5K/month — less than a single senior hire, across three domains
-- Application-based intake process with 48-hour response
-
-## Founder
-- Name: Renke Pieters
-- Role: Growth Operator & Founder
-- Location: Bruges, Belgium
-- Experience: 8+ years in growth, 3 postgraduate degrees (Digital Marketing, AI, Experience Architect)
+## Operator
+- Renke Pieters — Founder. 8+ years as an independent operator. 3 postgraduates: Digital Marketing, Humane AI, Experience Architecture. Keynote speaker on growth, AI, and B2B strategy. Ironman finisher. Based in Bruges, Belgium.
 - LinkedIn: https://linkedin.com/in/renkepieters
 
+## Three domains, one brain
+- Digital Growth — Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments designed to teach win or lose.
+- Business Strategy — Business model to execution in weeks, not quarters. Clarity that gets board sign-off and team alignment in a single meeting.
+- AI & Automation — Production AI systems shipped into live workflows. Not pilots. Operational leverage that multiplies.
+
+## Engagement model
+- One year, embedded. Inside the team, not alongside it.
+- One client at a time.
+- Filter: B2B, 20–200 people, post-PMF, at a growth inflection. Not every buyer fits.
+
+## Track record
+- 20+ AI sessions delivered inside B2B teams.
+- Digital growth work for international brands across industries.
+- €2M+ new revenue attributed through channels that didn't exist before, in an 18-month embedded engagement.
+- 3x faster audit cycles via custom AI review tooling shipped to production.
+- Production AI systems running in live workflows. Not pilots.
+
+## Brand
+- Tagline: Connect the dots. Compound the results.
+- Baseline: Where digital works.
+- Manifesto opener: I connect dots that don't want to be connected.
+
 ## Contact
-- Email: renke@cdmx.be
 - Website: https://cdmx.be
+- Email: renke@cdmx.be
 - LinkedIn: https://linkedin.com/in/renkepieters
