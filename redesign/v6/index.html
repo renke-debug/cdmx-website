@@ -725,10 +725,10 @@
         }
 
         .hero-title {
-            font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+            font-size: clamp(2.2rem, 5.2vw, 4.4rem);
             font-weight: 800;
-            letter-spacing: -0.05em;
-            line-height: 0.95;
+            letter-spacing: -0.04em;
+            line-height: 0.98;
             margin-bottom: 1.5rem;
         }
         .hero-title .line { display: block; overflow: hidden; padding: 0.05em 0; }
@@ -1802,8 +1802,12 @@
             border-bottom: 1px solid var(--border);
             border-right: 1px solid var(--border);
             background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
         }
         .alts-item:last-child { border-right: 0; }
+        .alts-item-desc { flex-shrink: 0; }
+        .alts-item-gap { margin-top: auto !important; }
         .alts-item-label {
             font-family: var(--mono);
             font-size: 0.65rem;
@@ -3064,10 +3068,9 @@
                 <span class="line"><span class="line-inner">Not an agency.</span></span>
                 <span class="line"><span class="line-inner">Not a fractional CMO.</span></span>
                 <span class="line"><span class="line-inner"><span class="accent">Embedded operator.</span></span></span>
-                <span class="line"><span class="line-inner">One brain. <span class="accent">Three domains.</span></span></span>
             </h1>
             <div class="hero-eyebrow">I connect dots that don't want to be connected &middot; B2B, 20&ndash;200 people</div>
-            <p class="hero-sub">One operator inside your team for a year. Digital growth, business strategy, and AI run as one compounding system, not three vendors copying each other into CC.</p>
+            <p class="hero-sub">One brain, three domains. Digital growth, business strategy, and AI run as one compounding system inside your team for a year. Not three vendors copying each other into CC.</p>
             <div class="hero-credibility" aria-label="Credibility signals">
                 <span class="hero-credibility-item"><span class="hero-credibility-num">20+</span>AI sessions delivered inside B2B teams</span>
                 <span class="hero-credibility-divider" aria-hidden="true">&middot;</span>
