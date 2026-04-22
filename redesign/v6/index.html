@@ -2731,57 +2731,7 @@
           }
         }
 
-        /* =====================================================
-           "I close that gap" hover annotations (×4 copper mono)
-           ===================================================== */
-        .manifesto-closer { position: relative; }
-        .closer-annotations {
-            position: absolute;
-            inset: -40px;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .closer-annotation {
-            position: absolute;
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--signal, #D4915E);
-            opacity: 0;
-            transform: translateY(8px);
-            transition: opacity 400ms cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
-            white-space: nowrap;
-        }
-        .closer-annotation--tl { top: -8px;    left: 6%; }
-        .closer-annotation--tr { top: -8px;    right: 6%; }
-        .closer-annotation--bl { bottom: -8px; left: 14%; }
-        .closer-annotation--br { bottom: -8px; right: 14%; }
-
-        .manifesto-closer:hover .closer-annotation,
-        .manifesto-closer:focus-within .closer-annotation {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .manifesto-closer:hover .closer-annotation--tl { transition-delay: 80ms; }
-        .manifesto-closer:hover .closer-annotation--tr { transition-delay: 180ms; }
-        .manifesto-closer:hover .closer-annotation--bl { transition-delay: 280ms; }
-        .manifesto-closer:hover .closer-annotation--br { transition-delay: 380ms; }
-
-        @media (max-width: 820px) {
-            .closer-annotations { display: none; } /* crowded on mobile */
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .closer-annotation {
-                transition: none !important;
-                transform: none;
-                opacity: 0.4;
-            }
-            .manifesto-closer:hover .closer-annotation { opacity: 1; }
-        }
-
-        /* =====================================================
+/* =====================================================
            Safety fallback: reveal hero title after 3.2s if JS fails
            ===================================================== */
         .hero-title .line-inner {
@@ -3158,12 +3108,6 @@
                     </div>
                 </div>
                 <span class="manifesto-closer-reveal-mobile">I close that gap.</span>
-                <div class="closer-annotations" aria-hidden="true">
-                    <span class="closer-annotation closer-annotation--tl">&mdash; strategy &times; execution</span>
-                    <span class="closer-annotation closer-annotation--tr">&mdash; AI &times; adoption</span>
-                    <span class="closer-annotation closer-annotation--bl">&mdash; intent &times; outcome</span>
-                    <span class="closer-annotation closer-annotation--br">&mdash; roadmap &times; results</span>
-                </div>
             </div>
             <!-- removed sig -->
             <div style="margin-top:2.5rem;">
