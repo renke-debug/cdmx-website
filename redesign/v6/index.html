@@ -2562,6 +2562,61 @@
         }
         .puzzle-wrap.complete .puzzle-reveal-x { opacity: 0.9; }
 
+        /* Puzzle silos */
+        .silo-bg {
+          fill: rgba(197, 224, 216, 0.025);   /* mint at very low opacity */
+        }
+        .silo-divider {
+          stroke: rgba(212, 145, 94, 0.35);   /* copper */
+          stroke-width: 0.6;
+          stroke-dasharray: 4 6;
+          fill: none;
+        }
+        .silo-label-tick {
+          stroke: rgba(212, 145, 94, 0.7);    /* copper */
+          stroke-width: 1;
+        }
+        .silo-label-text {
+          font-family: var(--mono);
+          font-size: 14px;
+          letter-spacing: 2.2px;
+          text-transform: uppercase;
+          fill: rgba(212, 145, 94, 0.9);      /* copper */
+          font-weight: 500;
+          dominant-baseline: middle;
+        }
+
+        /* Dot labels — hidden by default, fade in on completion */
+        .dot-reveal-label {
+          font-family: var(--mono);
+          font-size: 11px;
+          letter-spacing: 1.2px;
+          text-transform: uppercase;
+          fill: rgba(248, 246, 241, 0.7);
+          opacity: 0;
+          transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+          pointer-events: none;
+        }
+        .dot-reveal-label.x-label {
+          fill: var(--accent);
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .puzzle-wrap.complete .dot-reveal-label { opacity: 1; }
+        .puzzle-wrap.complete .dot-reveal-label.d-0 { transition-delay: 200ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-1 { transition-delay: 320ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-2 { transition-delay: 440ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-3 { transition-delay: 560ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-4 { transition-delay: 680ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-5 { transition-delay: 800ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-6 { transition-delay: 920ms; }
+        .puzzle-wrap.complete .dot-reveal-label.d-7 { transition-delay: 1100ms; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .dot-reveal-label { transition: none; }
+          .puzzle-wrap.complete .dot-reveal-label { transition-delay: 0 !important; }
+        }
+
         .puzzle-hud {
           max-width: 1100px;
           margin: 0 auto;
@@ -3271,10 +3326,30 @@
       <div class="section-inner" style="position:relative; z-index:2;">
         <div class="section-label">Connect the dots</div>
         <h2 class="section-heading">Draw the line<br><span class="accent">yourself.</span></h2>
-        <p class="section-intro">Seven dots in sequence. No click required. Pass your cursor over each in order. The eighth is the <span class="accent">x</span>. That's the whole pitch, rendered as a gesture.</p>
+        <p class="section-intro">Three silos. Seven signals. Pass your cursor across them in order — the eighth is the <span class="accent">x</span>, where they stop speaking past each other.</p>
 
         <div class="puzzle-wrap" data-puzzle>
           <svg data-puzzle-svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid meet">
+            <g class="puzzle-silos" aria-hidden="true">
+              <!-- Silo backgrounds — very faint, only on silo 2 for visual rhythm -->
+              <rect class="silo-bg silo-bg--strategy" x="533.33" y="0" width="533.33" height="700"/>
+              <!-- Silo dividers — vertical dashed copper lines -->
+              <line class="silo-divider" x1="533.33" y1="40" x2="533.33" y2="660"/>
+              <line class="silo-divider" x1="1066.67" y1="40" x2="1066.67" y2="660"/>
+              <!-- Silo labels — top of each silo -->
+              <g class="silo-label silo-label--growth" transform="translate(15, 28)">
+                <line class="silo-label-tick" x1="0" y1="0" x2="22" y2="0"/>
+                <text class="silo-label-text" x="30" y="4">GROWTH</text>
+              </g>
+              <g class="silo-label silo-label--strategy" transform="translate(548, 28)">
+                <line class="silo-label-tick" x1="0" y1="0" x2="22" y2="0"/>
+                <text class="silo-label-text" x="30" y="4">STRATEGY</text>
+              </g>
+              <g class="silo-label silo-label--ai" transform="translate(1082, 28)">
+                <line class="silo-label-tick" x1="0" y1="0" x2="22" y2="0"/>
+                <text class="silo-label-text" x="30" y="4">AI</text>
+              </g>
+            </g>
             <text class="puzzle-reveal-x" x="800" y="350">x</text>
             <path class="puzzle-hint"></path>
             <path class="puzzle-link-shadow"></path>
@@ -3293,7 +3368,7 @@
             </svg>
             <p class="puzzle-reward-message">
               <span class="puzzle-reward-prefix">x</span>
-              <span>Compound engaged. The multiplier is live.</span>
+              <span>Seven silos. One operator. The <span class="accent">x</span> is where they stop speaking past each other.</span>
             </p>
           </div>
         </div>
@@ -4582,6 +4657,16 @@
         { x: 92, y: 78, n: '07' },
         { x: 50, y: 50, n: 'x' },
       ];
+      const LABELS = [
+        'Growth data',
+        'Customer signal',
+        'Strategy deck',
+        'Board sign-off',
+        'Ops cost',
+        'AI tooling',
+        'Product insight',
+        'One operator',
+      ];
       const W = 1600, H = 700;
       const sx = p => (p.x * W) / 100;
       const sy = p => (p.y * H) / 100;
@@ -4602,6 +4687,29 @@
         label.textContent = p.n;
         g.appendChild(circle);
         g.appendChild(label);
+
+        // Add the contextual reveal-label (fades in on 8/8 completion)
+        const reveal = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        reveal.setAttribute('class', 'dot-reveal-label d-' + i + (p.n === 'x' ? ' x-label' : ''));
+        if (p.n === 'x') {
+          // Center dot — place label centered below the giant x reveal
+          reveal.setAttribute('x', sx(p));
+          reveal.setAttribute('y', sy(p) + 140);
+          reveal.setAttribute('text-anchor', 'middle');
+        } else {
+          // Position label offset from dot — choose side based on x to stay in viewBox
+          const leftSide = sx(p) < W / 2;
+          const topHalf = sy(p) < H / 2;
+          const labelOffsetX = leftSide ? 14 : -14;
+          const labelTextAnchor = leftSide ? 'start' : 'end';
+          const labelOffsetY = topHalf ? 22 : -14;
+          reveal.setAttribute('x', sx(p) + labelOffsetX);
+          reveal.setAttribute('y', sy(p) + labelOffsetY);
+          reveal.setAttribute('text-anchor', labelTextAnchor);
+        }
+        reveal.textContent = LABELS[i];
+        g.appendChild(reveal);
+
         dotsG.appendChild(g);
       });
 
