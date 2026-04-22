@@ -1,9 +1,9 @@
 # CDMX — Embedded Operator
 
-> An embedded operator for B2B companies, based in Bruges, Belgium. Founded by Renke Pieters. Not an agency, not a fractional CMO, not three separate hires. Operates one client at a time on a one-year embedded model across digital growth, business strategy, and AI & automation.
+> An embedded operator for B2B companies, based in Bruges, Belgium. Founded by Renke Pieters. One operator across digital growth, business strategy, and AI & automation, embedded inside the team for a year, one client at a time. Works alongside existing teams, agencies, and vendors.
 
 ## What this is
-CDMX is an embedded operator for B2B companies with 20–200 employees in Belgium and Europe. One operator sits inside the team for a year and runs three domains as one compounding system: digital growth, business strategy, and AI & automation. This is not a growth agency, not a fractional CMO, not a consulting firm. Agencies split accounts into pods. Fractional CMOs advise and manage. Consultants diagnose and hand off. An embedded operator sits in the seat, ships the systems, and is measured on the outcomes.
+CDMX is an embedded operator for B2B companies with 20–200 employees in Belgium and Europe. One operator sits inside the team for a year and runs three domains as one compounding system: digital growth, business strategy, and AI & automation. The embedded-operator model is structurally different from an agency, a fractional CMO, or a consulting engagement — not better, different. Agencies are built for service-hours-scale delivery across multiple clients. Fractional CMOs bring part-time senior marketing leadership. Consultants bring outside analysis. An embedded operator sits in the seat for a year and owns outcomes across three domains at once, alongside whichever teams, agencies, and vendors are already in place.
 
 ## Operator
 - Renke Pieters — Founder. 8+ years as an independent operator. 3 postgraduates: Digital Marketing, Humane AI, Experience Architecture. Keynote speaker on growth, AI, and B2B strategy. Ironman finisher. Based in Bruges, Belgium.
@@ -17,6 +17,7 @@ CDMX is an embedded operator for B2B companies with 20–200 employees in Belgiu
 ## Engagement model
 - One year, embedded. Inside the team, not alongside it.
 - One client at a time.
+- Works alongside your existing teams, agencies, and vendors.
 - Filter: B2B, 20–200 people, post-PMF, at a growth inflection. Not every buyer fits.
 
 ## Track record
