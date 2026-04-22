@@ -2547,15 +2547,9 @@
           stroke-dasharray: 2 3;
         }
         .puzzle-wrap .puzzle-reveal-x {
-          font-family: 'Hanken Grotesk', sans-serif;
-          font-weight: 900;
-          font-size: 260px;
-          fill: var(--accent);
           opacity: 0;
           transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
-          letter-spacing: -0.05em;
-          dominant-baseline: middle;
-          text-anchor: middle;
+          overflow: visible;
         }
         .puzzle-wrap.complete {
           background: linear-gradient(180deg, rgba(245, 200, 0, 0.03), transparent 60%);
@@ -3350,7 +3344,9 @@
                 <text class="silo-label-text" x="30" y="4">AI</text>
               </g>
             </g>
-            <text class="puzzle-reveal-x" x="800" y="350">x</text>
+            <svg class="puzzle-reveal-x" x="600" y="150" width="400" height="400" viewBox="589 0 188 160" preserveAspectRatio="xMidYMid meet">
+              <path d="M737.1,103.5c-3.2-4.6-8.4-7.3-14-7.3h-23.3c-5.5-.2-6-3.2-4.2-5.8L768,.2h-41.1l-45.7,57c-2.9,2.6-7.3,2.6-10.2,0l-35.2-50c-3.1-4.4-8.1-7-13.5-7h-32.5l40.6,57.3c2.7,4,7.2,6.5,12.1,6.5h24,0c6.1,0,6.5,3.5,4.3,6.2l-72,89.6h41.1l45.5-56.6c2.9-2.8,7.5-2.8,10.5,0l35.7,50.3c2.7,4,7.2,6.5,12.1,6.5h33.3l-39.8-56.5Z" fill="var(--accent)"/>
+            </svg>
             <path class="puzzle-hint"></path>
             <path class="puzzle-link-shadow"></path>
             <path class="puzzle-link"></path>
@@ -3403,7 +3399,9 @@
                 </g>
 
                 <rect class="cpu-core" x="85" y="50" width="30" height="20" rx="1" fill="#1A1A1A" stroke="var(--accent)" stroke-width="0.6"/>
-                <text class="cpu-core-label" x="100" y="64" font-size="10" font-weight="900" text-anchor="middle" fill="var(--accent)">x</text>
+                <svg x="94" y="54" width="12" height="12" viewBox="589 0 188 160" preserveAspectRatio="xMidYMid meet">
+                    <path d="M737.1,103.5c-3.2-4.6-8.4-7.3-14-7.3h-23.3c-5.5-.2-6-3.2-4.2-5.8L768,.2h-41.1l-45.7,57c-2.9,2.6-7.3,2.6-10.2,0l-35.2-50c-3.1-4.4-8.1-7-13.5-7h-32.5l40.6,57.3c2.7,4,7.2,6.5,12.1,6.5h24,0c6.1,0,6.5,3.5,4.3,6.2l-72,89.6h41.1l45.5-56.6c2.9-2.8,7.5-2.8,10.5,0l35.7,50.3c2.7,4,7.2,6.5,12.1,6.5h33.3l-39.8-56.5Z" fill="var(--accent)"/>
+                </svg>
 
                 <circle class="cpu-light" r="2" fill="var(--accent)" opacity="0" data-cpu-light="0"></circle>
                 <circle class="cpu-light" r="2" fill="var(--mint, #C5E0D8)" opacity="0" data-cpu-light="1"></circle>
@@ -4759,13 +4757,18 @@
 
       function handleMove(e) {
         const p = toSvgPoint(e);
-        const nextIdx = hit.length;
-        if (nextIdx < DOTS.length) {
-          const t = DOTS[nextIdx];
+        // More forgiving hit: try the next few dots (handles fast cursor skipping)
+        for (let lookahead = 0; lookahead < 3 && hit.length + lookahead < DOTS.length; lookahead++) {
+          const idx = hit.length + lookahead;
+          const t = DOTS[idx];
           const dx = p.x - sx(t), dy = p.y - sy(t);
-          if (Math.hypot(dx, dy) < 38) {
-            hit.push(nextIdx);
+          if (Math.hypot(dx, dy) < 70) {
+            // Fill in any skipped dots in order
+            for (let k = hit.length; k <= idx; k++) {
+              if (!hit.includes(k)) hit.push(k);
+            }
             render();
+            break;
           }
         }
         // Draw cursor line from last hit (or first dot) to mouse
