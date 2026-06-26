@@ -58,7 +58,7 @@ body {
 .hero-headline {
   font-weight: var(--w-hero); font-size: var(--fs-hero);
   line-height: var(--lh-tight); letter-spacing: var(--track-display);
-  margin: 0; max-width: 16ch;
+  margin: 0; max-width: 18ch; text-wrap: balance;
 }
 .hero-headline .accent { color: var(--yellow); }
 .hero-sub {
