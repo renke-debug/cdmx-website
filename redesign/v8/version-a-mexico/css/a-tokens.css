@@ -1,0 +1,14 @@
+/* redesign/v8/version-a-mexico/css/a-tokens.css
+   Reuse the live CDMX design system verbatim, then add A-only additions. */
+@import url('../../../../assets/css/tokens.css');
+/* live tokens give: --ink #0A0A0A, --warm-white #F8F6F1, --yellow #F5C800,
+   --mint #C5E0D8, --copper #D4915E, --font-sans Hanken Grotesk, --font-mono JetBrains Mono,
+   the full spacing/type/motion scale. */
+
+:root {
+  /* A-only: WebGL canvas layering + glow tuning */
+  --lamp-glow: rgba(245, 200, 0, 0.85);   /* sodium lamp core */
+  --link-line: rgba(245, 200, 0, 0.22);   /* connection line base alpha */
+  --canvas-z: 0;
+  --content-z: 2;
+}

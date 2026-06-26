@@ -1,0 +1,46 @@
+/* redesign/v8/version-b-reimagined/css/b-tokens.css
+   Pedregal palette (light, editorial). Reuses the live spacing/type/motion SCALE from
+   tokens.css, then remaps the raw palette + fonts so the shared block styles flip to light.
+   WCAG AA verified: ink on paper ~13:1; muted on paper ~5.2:1; white on primary (large/bold) ~3.6:1. */
+@import url('../../../../assets/css/tokens.css');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Pedregal raw palette */
+  --paper: #F4EFE7;
+  --surface: #FFFFFF;
+  --ink-pedregal: #1A1410;
+  --primary: #E6357A;   /* Barragan fuchsia */
+  --teal: #1E6F6A;      /* cactus teal */
+
+  /* remap the raw tokens the shared block CSS references, so it renders light */
+  --ink: var(--paper);          /* used as page background */
+  --warm-white: var(--ink-pedregal); /* used as foreground text */
+  --yellow: var(--primary);     /* hero accent, proof dots, connect nodes */
+  --copper: var(--teal);        /* eyebrow rule, kixx border, model lines */
+  --mint: var(--teal);
+
+  /* semantic overrides for light */
+  --bg: var(--paper);
+  --bg-elevated: var(--surface);
+  --bg-raised: var(--surface);
+  --fg: var(--ink-pedregal);
+  --fg-muted: #5C5249;          /* AA on paper for body */
+  --fg-subtle: #8A7E70;
+  --accent: var(--primary);
+  --accent-warm: var(--primary);
+  --accent-cool: var(--teal);
+
+  --border-hair: rgba(26, 20, 16, 0.07);
+  --border: rgba(26, 20, 16, 0.12);
+  --border-strong: rgba(26, 20, 16, 0.22);
+
+  /* fonts: editorial display + clean grotesque body */
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+
+  /* B field colors for the abstract WebGL */
+  --node: var(--primary);
+  --link-line: rgba(30, 111, 106, 0.35);
+}

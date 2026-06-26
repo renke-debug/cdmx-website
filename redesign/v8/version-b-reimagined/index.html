@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CDMX - Connect the dots</title>
+  <meta name="description" content="The personal practice of Renke Pieters. Embedded operator for B2B companies in Belgium and Europe." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/b-tokens.css?v=1" />
+  <link rel="stylesheet" href="css/b-blocks.css?v=2" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div id="bg-scrim" aria-hidden="true"></div>
+
+  <main id="main">
+
+    <!-- Block 1: Hero -->
+    <section id="hero" class="block" data-block="1">
+      <p class="hero-mark reveal">CDMX</p>
+      <h1 class="hero-headline reveal">
+        Connect the dots.<br /><span class="accent">Compound the results.</span>
+      </h1>
+      <p class="hero-sub reveal">
+        A city draws itself out of the dark. First a few lights, then the lines
+        between them, then a whole city you can read. None of the lights matter alone.
+        What matters is the line between them. That is the work.
+      </p>
+      <p class="hero-status reveal">
+        Embedded operator. One client at a time. Currently booked. Next mandate by waitlist.
+      </p>
+      <p class="scroll-cue reveal">Scroll. Watch the connections form.</p>
+    </section>
+
+    <!-- Block 2: Origin -->
+    <section id="origin" class="block" data-block="2">
+      <p class="eyebrow reveal">The origin</p>
+      <h2 class="h-display reveal">A city that survived by connecting.</h2>
+      <div class="prose">
+        <p class="reveal">Mexico City should not work. Twenty-one million people, layer on layer: Aztec foundations under colonial stone under glass towers. For a while the world knew it for one word, murder capital, and wrote it off.</p>
+        <p class="reveal">It did not stay written off. It became one of the most alive places on earth, not by tearing down the old to make room for the new, but by binding them. Ancient markets next to design studios. Street vendors next to startups. Nothing was thrown away; everything was wired together. The city did not grow by addition. <em>It grew by connection.</em></p>
+        <p class="reveal">That is the whole idea behind this practice. Most companies are not short on talent or tools. The parts are usually fine on their own. They just do not talk. Connect the silos and the same parts start to multiply. CDMX is named after the city for exactly this reason. The work is the wiring.</p>
+      </div>
+    </section>
+
+    <!-- Block 3: Proof bar -->
+    <section id="proof" class="block" data-block="3">
+      <p class="eyebrow reveal">The record</p>
+      <h2 class="h-section reveal">Numbers, not adjectives.</h2>
+      <p class="lead reveal">The story is romantic. The record is not. Before the metaphor earns your time, here is what the work has produced.</p>
+      <ul class="proof-bar reveal">
+        <li><span class="proof-num">EUR 2M+</span><span class="proof-label">attributed revenue</span></li>
+        <li><span class="proof-num">Production AI</span><span class="proof-label">shipped, no pilots</span></li>
+        <li><span class="proof-num">3x</span><span class="proof-label">faster audit cycles</span></li>
+        <li><span class="proof-num">18 months</span><span class="proof-label">embedded in a B2B organization</span></li>
+        <li><span class="proof-num">8+ years</span><span class="proof-label">as an independent operator</span></li>
+      </ul>
+      <p class="proof-foot reveal">Backed by 3 postgraduate degrees: Digital Marketing, Humane AI, Experience Architecture.</p>
+    </section>
+
+    <!-- Block 4: The model -->
+    <section id="model" class="block" data-block="4">
+      <div class="split">
+        <div>
+          <p class="eyebrow reveal">The model</p>
+          <h2 class="h-section reveal">One head that connects three domains.</h2>
+          <div class="prose">
+            <p class="reveal">Most growth problems do not live in one department. They live in the gaps between them: marketing that does not talk to strategy, strategy that does not talk to the systems that run the business. The usual answer is to hire three specialists who each own a corner. Three roadmaps that rarely meet, and the space between them is where growth leaks out.</p>
+          </div>
+          <div class="contrast">
+            <span class="row reveal">Not <b>an agency</b>, which splits your problem across a team.</span>
+            <span class="row reveal">Not <b>a fractional CMO</b>, who advises and hands off the doing.</span>
+            <span class="row reveal">Not <b>three hires</b>, who each own a slice.</span>
+            <span class="row reveal">One operator who holds all three at once, so they stop being separate budgets and start being one motion.</span>
+          </div>
+          <ul class="domains reveal">
+            <li><span class="d-name">Digital Growth.</span> <span class="d-desc">The demand, the channels, the revenue you can attribute.</span></li>
+            <li><span class="d-name">Business Strategy.</span> <span class="d-desc">Where the company is going and what it says no to.</span></li>
+            <li><span class="d-name">AI and Automation.</span> <span class="d-desc">Production systems that take work off people, shipped, not promised.</span></li>
+          </ul>
+        </div>
+        <svg class="model-figure reveal" viewBox="0 0 300 230" role="img" aria-label="Three domains converging into one operator">
+          <rect x="2" y="2" width="296" height="226" rx="3" fill="#FFFFFF" opacity="0.5" stroke="rgba(26,20,16,0.10)" stroke-width="1"/>
+          <line class="link" x1="45" y1="45" x2="150" y2="170"/>
+          <line class="link" x1="150" y1="45" x2="150" y2="170"/>
+          <line class="link" x1="255" y1="45" x2="150" y2="170"/>
+          <circle class="node" cx="45" cy="45" r="6"/>
+          <circle class="node" cx="150" cy="45" r="6"/>
+          <circle class="node" cx="255" cy="45" r="6"/>
+          <circle class="core" cx="150" cy="170" r="11"/>
+          <text x="45" y="28" text-anchor="middle">Growth</text>
+          <text x="150" y="28" text-anchor="middle">Strategy</text>
+          <text x="255" y="28" text-anchor="middle">AI</text>
+          <text x="150" y="205" text-anchor="middle">One operator</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- Block 5: The connection / interaction -->
+    <section id="connect" class="block" data-block="5">
+      <p class="eyebrow reveal">Try it</p>
+      <h2 class="h-section reveal">Silos do nothing alone. Connect them.</h2>
+      <p class="lead reveal">Three points of light, each a domain that usually runs on its own budget and its own calendar. Link them and something happens that none could do alone. Nothing here is new. It just was not connected yet.</p>
+      <div class="connect-stage" id="connect-stage">
+        <svg viewBox="0 0 320 200" role="group" aria-label="Connect the three domains">
+          <line class="clink" pathLength="1" data-a="growth" data-b="strategy" x1="60" y1="55" x2="260" y2="65"/>
+          <line class="clink" pathLength="1" data-a="strategy" data-b="ai" x1="260" y1="65" x2="160" y2="165"/>
+          <line class="clink" pathLength="1" data-a="growth" data-b="ai" x1="60" y1="55" x2="160" y2="165"/>
+          <g class="cnode" data-id="growth" role="button" tabindex="0" aria-label="Connect Digital Growth">
+            <circle cx="60" cy="55" r="14"/><text x="60" y="32" text-anchor="middle">Growth</text>
+          </g>
+          <g class="cnode" data-id="strategy" role="button" tabindex="0" aria-label="Connect Business Strategy">
+            <circle cx="260" cy="65" r="14"/><text x="260" y="42" text-anchor="middle">Strategy</text>
+          </g>
+          <g class="cnode" data-id="ai" role="button" tabindex="0" aria-label="Connect AI and Automation">
+            <circle cx="160" cy="165" r="14"/><text x="160" y="192" text-anchor="middle">AI</text>
+          </g>
+        </svg>
+      </div>
+      <p class="connect-hint reveal" id="connect-hint">Click each point to connect the silos.</p>
+      <p class="connect-payoff" id="connect-payoff">Connected, the same parts multiply. That is the work.</p>
+    </section>
+
+    <!-- Block 6: Growing people -->
+    <section id="grow" class="block" data-block="6">
+      <p class="eyebrow reveal">The point of it</p>
+      <h2 class="h-display reveal">When the work connects, people grow with it.</h2>
+      <div class="prose">
+        <p class="reveal">A city is not its skyline. It is the people who get to stand in it with their heads up. Mexico City came back because connection gave ordinary people a place to belong and a reason to be proud of where they were from.</p>
+        <p class="reveal">The same is true inside a company. When disciplines stop working in isolation, the people inside them stop being cogs in a corner and start seeing the whole picture they are part of. The growth marketer finally understands the strategy they serve. The team that was carrying a problem alone realizes it was never theirs to carry alone. A year embedded means the skills stay long after the mandate closes. The company compounds because the people compound. <em>Both grow, or it did not work.</em></p>
+      </div>
+    </section>
+
+    <!-- Block 7: KIXX chapter -->
+    <section id="kixx" class="block" data-block="7">
+      <p class="eyebrow reveal">The current chapter</p>
+      <div class="kixx reveal">
+        <h2 class="h-section">Branch manager at KIXX from July 1, 2026.</h2>
+        <div class="prose">
+          <p>From July 1, 2026, I lead a branch of KIXX, a marketing agency of more than thirty people, with an innovation lens across the work. It is the same model at a different scale: connect the disciplines, ship production systems, grow the people who do the work.</p>
+          <p>KIXX is proof, not the headline. It is where the approach gets pressure-tested every day against real teams and real clients. An agency does not hand a branch to someone whose record does not hold up. The practice and the agency role run in the same direction; one keeps the other honest.</p>
+        </div>
+        <p class="meta">A chapter, not the headline.</p>
+      </div>
+    </section>
+
+    <!-- Block 8: The operator -->
+    <section id="operator" class="block" data-block="8">
+      <p class="eyebrow reveal">The operator</p>
+      <div class="operator reveal">
+        <img src="../../../assets/renke-pieters.jpg" alt="Renke Pieters" loading="lazy" width="280" height="350" />
+        <div>
+          <h2 class="h-section">Renke Pieters.</h2>
+          <div class="prose">
+            <p>Eight years working independently, eighteen of those months embedded full-time inside one B2B organization, learning what a company actually feels like from the inside rather than from a deck. Three postgraduate degrees behind the approach: Digital Marketing, Humane AI, Experience Architecture. A keynote speaker when the room is right. An Ironman finisher, which is the same skill as the work: hold the line for a long time when it stops being fun, because the work has to hold under load, like the body does.</p>
+            <p>That is the short version. The rest is in the work.</p>
+          </div>
+          <p class="creds">Operator. Keynote speaker. Ironman finisher.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Block 9: Honest filter + CTA -->
+    <section id="fit" class="block" data-block="9">
+      <p class="eyebrow reveal">Whether this fits</p>
+      <h2 class="h-section reveal">I take one client at a time, so the fit has to be right.</h2>
+      <div class="fit-grid reveal">
+        <div class="fit-col fit-for">
+          <h3>This is for</h3>
+          <p>A B2B company of roughly 20 to 200 people, in Belgium or Europe, with a growth problem that crosses more than one domain, and a founder or managing director who wants one operator accountable for the whole line rather than three vendors pointing at each other.</p>
+        </div>
+        <div class="fit-col fit-not">
+          <h3>This is not for</h3>
+          <p>A quick campaign, a single channel fixed, or a body for hire under someone else's plan. It does not fit anyone who wants ten clients served at once. The model is one client at a time, and that constraint is the whole value. Those are valid needs. They are just a different model than mine.</p>
+        </div>
+      </div>
+      <div class="cta reveal">
+        <p class="lead" style="margin-bottom: var(--sp-4);">One operator can hold one client at a time, so the next opening is a real constraint, not a sales line. New mandates by waitlist. If the fit is right, the next step is a conversation, not a pitch. Tell me where the lines are broken.</p>
+        <a href="mailto:renke@cdmx.be">Start the conversation: renke@cdmx.be</a>
+      </div>
+    </section>
+
+    <!-- Block 10: Footer + status -->
+    <footer id="status" class="block site-footer" data-block="10">
+      <div class="footer-grid reveal">
+        <div>
+          <p class="footer-mark">CDMX</p>
+          <p class="footer-tag">Where digital works.</p>
+          <p style="color: var(--fg-muted); max-width: 42ch;">The personal practice of Renke Pieters. Embedded operator for B2B companies in Belgium and Europe. One operator, one client at a time, one year embedded, connecting digital growth, business strategy and AI so the company and the people in it both grow.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Status</p>
+          <p style="color: var(--fg-muted);">Currently embedded.<br />Next mandate by waitlist.</p>
+        </div>
+        <div>
+          <p class="eyebrow">Contact</p>
+          <p><a href="mailto:renke@cdmx.be">renke@cdmx.be</a></p>
+          <p><a href="https://linkedin.com/in/renkepieters">linkedin.com/in/renkepieters</a></p>
+        </div>
+      </div>
+      <p class="footer-mark" style="margin-top: var(--sp-8);">Connect the dots. Compound the results.</p>
+    </footer>
+
+  </main>
+
+  <script type="module" src="js/scene-b.js?v=1"></script>
+  <script type="module" src="js/scroll-story.js?v=1"></script>
+  <script type="module" src="js/connect.js?v=1"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "Renke Pieters",
+        "jobTitle": "Embedded operator",
+        "email": "renke@cdmx.be",
+        "url": "https://cdmx.be",
+        "sameAs": ["https://linkedin.com/in/renkepieters"]
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "CDMX",
+        "description": "Embedded operator for B2B companies in Belgium and Europe. One operator, one client at a time, one year embedded, connecting digital growth, business strategy and AI.",
+        "founder": { "@type": "Person", "name": "Renke Pieters" },
+        "areaServed": "Europe",
+        "email": "renke@cdmx.be",
+        "url": "https://cdmx.be"
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
