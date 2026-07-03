@@ -1,0 +1,1448 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Renke Pieters · CDMX · Branch Manager KIXX, Brugge</title>
+<meta name="description" content="Renke Pieters leidt KIXX (performance-agency, Brugge) als Branch Manager. Keynote-spreker over AI en digitale groei. CDMX is zijn vennootschap." />
+<!-- LANCERING: 1) verwijder de noindex hieronder  2) serveer 404.html als foutpagina (Netlify: "/* /404.html 404" in _redirects | Apache: ErrorDocument 404 /404.html | nginx: error_page 404 /404.html;) -->
+<meta name="robots" content="noindex" />
+<link rel="canonical" href="https://cdmx.be/" />
+<meta property="og:title" content="Ik zet in beweging wat stilstaat · Renke Pieters, CDMX" />
+<meta property="og:description" content="Renke Pieters leidt KIXX als Branch Manager. Sleep de silo-letters en kijk zelf." />
+<meta property="og:url" content="https://cdmx.be/" />
+<meta property="og:image" content="https://cdmx.be/og.png" />
+<meta property="og:type" content="website" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Renke Pieters",
+  "url": "https://cdmx.be/",
+  "jobTitle": "Branch Manager",
+  "worksFor": { "@type": "Organization", "name": "KIXX", "url": "https://www.kixx-concept.be/" },
+  "affiliation": { "@type": "Organization", "name": "CDMX", "url": "https://cdmx.be/" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Blankenberge", "addressCountry": "BE" },
+  "workLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Brugge", "addressCountry": "BE" } },
+  "email": "mailto:renke@cdmx.be",
+  "sameAs": ["https://www.linkedin.com/in/renke-pieters/"],
+  "knowsAbout": ["AI in marketing", "digitale groei", "performance marketing", "marketing automation"],
+  "hasCredential": [
+    { "@type": "EducationalOccupationalCredential", "name": "Postgraduaat Digital Marketing" },
+    { "@type": "EducationalOccupationalCredential", "name": "Postgraduaat Humane AI" },
+    { "@type": "EducationalOccupationalCredential", "name": "Postgraduaat Experience Architecture" }
+  ]
+}
+</script>
+<link rel="icon" type="image/png" href="favicon.png" />
+<script src="lib/gsap.min.js" defer></script>
+<script src="lib/matter.min.js" defer></script>
+<style>
+/* ============================================================
+   CDMX v10 · DE GIDS, IN BEWEGING (cutting edge cut)
+   De originele brand guide als levende site. Vier silo-kolommen
+   openen de site, pagina's stapelen als lagen, kolommen schuiven
+   tegengesteld, letters onthullen via clip-path, en in het
+   intermezzo vallen de silo-letters met echte physics.
+   Eén font, vier pastellen, zwarte letters, contourlijnen.
+   ============================================================ */
+
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("../../assets/fonts/HankenGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --peach:  #FFBA94;
+  --green:  #C7E3BA;
+  --cyan:   #D9F7F5;
+  --yellow: #FFE57D;
+  --ink:    #101010;
+  --paper:  #FDFDFB;
+  --mint-a: #EDF7EA;
+  --mint-b: #CBEBD4;
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+
+body {
+  font-family: "Hanken Grotesk", "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  background: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body.lock { overflow: hidden; }
+
+::selection { background: var(--ink); color: var(--yellow); }
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.cta:focus-visible, .finale :focus-visible {
+  outline-color: var(--ink);
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+/* ============================================================
+   LOADER · vier silo-kolommen tillen op
+   ============================================================ */
+
+.loader {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex;
+  cursor: pointer;
+}
+.l-col {
+  flex: 1;
+  background: var(--c);
+  display: grid; place-items: center;
+  will-change: transform;
+}
+/* optisch gelijke hoogte en gedeelde baseline voor de vier letters */
+.l-col img { height: clamp(56px, 11vw, 104px); width: auto; opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .loader { display: none; } }
+
+/* ---------- vaste chrome: nav + paginanummer + voortgang ---------- */
+
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem var(--gutter);
+  mix-blend-mode: darken;
+  pointer-events: none;
+}
+.nav a { pointer-events: auto; text-decoration: none; display: inline-block; }
+.nav .mark img { height: 20px; width: auto; }
+.nav-links {
+  display: flex; gap: 1.4rem;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.nav-links a { position: relative; padding-bottom: 2px; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 2px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.progress {
+  position: fixed; top: 0; left: 0; z-index: 45;
+  height: 3px; width: 100%;
+  transform: scaleX(0); transform-origin: left;
+  background: var(--ink);
+  mix-blend-mode: darken;
+}
+
+/* ---------- pagina-skelet: gestapelde lagen ---------- */
+
+.page {
+  position: sticky; top: 0;
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(5rem, 12vh, 8rem) var(--gutter);
+  overflow: hidden;
+  box-shadow: 0 -28px 70px rgba(16, 16, 16, 0.28);
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: minmax(12rem, 22rem) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: start;
+  max-width: 78rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.label {
+  font-size: clamp(0.82rem, 1.1vw, 1rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 300;
+  padding-top: 0.7em;
+}
+.label b { font-weight: 800; }
+
+.statement {
+  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.body-copy {
+  margin-top: clamp(1.4rem, 3vh, 2.4rem);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.65;
+  font-weight: 400;
+  max-width: 56ch;
+}
+.body-copy + .body-copy { margin-top: 1em; }
+.body-copy strong { font-weight: 800; }
+
+.annot {
+  margin-top: clamp(1.8rem, 4vh, 3rem);
+  display: grid;
+  grid-template-columns: max-content minmax(0, 30ch);
+  justify-content: start;
+  gap: 1rem;
+  align-items: start;
+}
+.annot svg { width: 46px; height: 46px; overflow: visible; }
+.annot svg path, .annot svg line {
+  stroke: var(--ink); stroke-width: 1.6; fill: none;
+  stroke-linecap: round;
+}
+.annot p {
+  font-size: 0.86rem; line-height: 1.5; font-weight: 400;
+  padding-top: 1.4rem;
+}
+
+/* ---------- reveals ---------- */
+
+.rv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0s);
+}
+.in .rv { opacity: 1; transform: none; }
+
+.ln { display: block; overflow: hidden; }
+.ln > span {
+  display: block;
+  transform: translateY(112%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0s);
+}
+.in .ln > span { transform: translateY(0); }
+
+/* char-mode: GSAP neemt het over van de CSS-maskers */
+.char-mode .ln > span { transition: none; transform: none; }
+.char-mode .word { display: inline-block; white-space: nowrap; }
+.char-mode .ch {
+  display: inline-block;
+  transform: translateY(115%) rotate(7deg);
+  transform-origin: 0 100%;
+  will-change: transform;
+}
+
+.drift, .letter-art img { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv, .ln > span, .char-mode .ch { opacity: 1; transform: none !important; transition: none; }
+  html { scroll-behavior: auto; }
+  .operator { height: auto; }
+  .op-pin { position: static; height: auto; }
+  .timeline { max-height: none; overflow: visible; }
+  .timeline::after { display: none; }
+}
+
+/* ============================================================
+   00 · COVER
+   ============================================================ */
+
+.cover {
+  background: linear-gradient(150deg, var(--mint-a) 0%, var(--mint-b) 100%);
+  justify-content: space-between;
+  padding-top: clamp(6rem, 16vh, 10rem);
+}
+/* de originele brand-guide patterns, integraal overgenomen */
+.contours {
+  position: absolute; inset: -12%;
+  width: 124%; height: 124%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none; user-select: none;
+  opacity: 0;
+  animation: contours-in 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes contours-in { to { opacity: 1; } }
+.adrift { animation: adrift 40s ease-in-out infinite alternate; }
+.contours.adrift { animation: contours-in 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+                              adrift 40s ease-in-out infinite alternate; }
+@keyframes adrift {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to { transform: translate(-2.5%, 1.5%) rotate(2.2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contours, .contours.adrift { animation: none; opacity: 1; }
+  .adrift { animation: none; }
+}
+
+.cover-hero { position: relative; z-index: 2; margin-top: 2vh; }
+.cover-hero h1 { margin-top: 1.1rem; }
+.cover-cta {
+  margin-top: clamp(1.6rem, 4vh, 2.6rem);
+  /* flex-end: de onderstreping van de ghost-link ligt gelijk met
+     de onderkant van de zwarte knop */
+  display: flex; align-items: flex-end; gap: 1.6rem; flex-wrap: wrap;
+}
+.cta-ghost {
+  font-weight: 800; font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  letter-spacing: 0.03em; text-decoration: none;
+  border-bottom: 2px solid var(--ink); padding-bottom: 2px;
+}
+.cta-ghost:hover { background: var(--yellow); }
+.finale .cta-ghost:hover { background: var(--paper); }
+
+.cover-foot {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 2rem;
+}
+.cover-kicker {
+  margin-top: clamp(1.1rem, 2.5vh, 1.8rem);
+  font-size: clamp(0.98rem, 1.4vw, 1.2rem);
+  font-weight: 400; line-height: 1.6; max-width: 48ch;
+}
+.cover-kicker b { font-weight: 800; }
+.cover-cue {
+  display: flex; align-items: center; gap: 0.9rem;
+  font-weight: 800; font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.cue-dash {
+  display: inline-block; width: 42px; height: 14px;
+  background: var(--ink);
+  clip-path: polygon(0 55%, 72% 55%, 100% 0, 100% 100%, 0 100%);
+  animation: nudge 2.6s ease-in-out infinite;
+}
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+@media (prefers-reduced-motion: reduce) { .cue-dash { animation: none; } }
+
+/* ============================================================
+   01 · STATEMENT (witte gids-pagina)
+   ============================================================ */
+
+.statement-xl {
+  font-size: clamp(2.4rem, 6vw, 5.4rem);
+  max-width: 14ch;
+}
+/* contourwoord als vectorpaden uit het font (ronde joins): open
+   letters, geen vulling */
+.hollow { font-style: normal; }
+.hollow svg {
+  display: inline-block;
+  height: 0.731em; width: auto;
+  overflow: visible;
+  vertical-align: -0.017em;
+}
+.hollow svg path {
+  fill: none;
+  stroke: var(--ink); stroke-width: 30;
+  stroke-linejoin: round; stroke-linecap: round;
+}
+
+/* ============================================================
+   LETTER-HOOFDSTUKKEN
+   ============================================================ */
+
+.chapter { color: var(--ink); }
+.chapter .inner {
+  position: relative; z-index: 2;
+  max-width: 78rem; margin-inline: auto; width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.chapter.flip .inner { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.chapter.flip .letter-art { order: -1; }
+
+.letter-art {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 34vh;
+}
+.letter-art img {
+  width: min(34vw, 420px);
+  height: auto;
+}
+
+.ch-label {
+  font-size: 0.82rem; letter-spacing: 0.2em;
+  text-transform: uppercase; font-weight: 300;
+  display: flex; align-items: center; gap: 0.9rem;
+}
+.ch-label b { font-weight: 800; }
+/* extra lucht tussen "De" en de letter, anders leest DE C als DEC */
+.ch-label .cl { margin-left: 0.35em; }
+/* merkvorm uit de guide (zelfde dash als bij "where digital works")
+   in plaats van een generiek streepje */
+.ch-label::before {
+  content: ""; width: 2.4rem; height: 12px; background: var(--ink);
+  clip-path: polygon(0 55%, 72% 55%, 100% 0, 100% 100%, 0 100%);
+  display: inline-block;
+}
+.ch-head {
+  margin-top: 1.1rem;
+  font-size: clamp(1.9rem, 3.8vw, 3.4rem);
+  line-height: 1.05; font-weight: 800;
+  text-transform: uppercase; letter-spacing: -0.01em;
+  max-width: 17ch;
+}
+
+.ch-c { background: var(--peach); }
+.ch-d { background: var(--green); }
+.ch-m { background: var(--cyan); }
+.ch-x { background: var(--yellow); }
+
+/* ---------- bewijsstrook in gids-kleurspecs-stijl ---------- */
+
+.persp { perspective: 900px; }
+.proof-strip {
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  gap: 2px;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+.proof-cell {
+  background: var(--paper); padding: 1rem 0.9rem 0.9rem;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proof-cell:hover { transform: translateY(-5px); }
+.proof-num {
+  font-size: clamp(1.15rem, 1.9vw, 1.7rem);
+  font-weight: 900; letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.proof-cap {
+  margin-top: 0.45rem;
+  font-size: 0.72rem; line-height: 1.35; font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.proof-foot {
+  margin-top: 0.9rem;
+  font-size: 0.8rem; font-weight: 400; letter-spacing: 0.04em;
+}
+.proof-foot b { font-weight: 800; }
+
+/* ============================================================
+   INTERMEZZO · physics-speeltuin met de silo-letters
+   ============================================================ */
+
+.inter {
+  background: linear-gradient(165deg, var(--mint-a) 0%, var(--mint-b) 100%);
+  justify-content: flex-start;
+}
+.inter canvas {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.inter canvas:active { cursor: grabbing; }
+.inter-copy { position: relative; z-index: 2; pointer-events: none; }
+.inter-copy .statement { max-width: 16ch; }
+.inter-hint {
+  position: absolute; z-index: 2;
+  right: var(--gutter); bottom: 1.4rem;
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  pointer-events: none;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 0.55rem 0.9rem;
+}
+.inter-fallback {
+  display: none;
+  position: relative; z-index: 2;
+  margin-top: 8vh;
+  justify-content: center; gap: clamp(1rem, 5vw, 4rem);
+}
+.inter-fallback img { width: clamp(3.4rem, 10vw, 7rem); height: auto; }
+.no-physics .inter-fallback { display: flex; }
+.no-physics .inter canvas, .no-physics .inter-hint { display: none; }
+
+/* ============================================================
+   DE OPERATOR (witte pagina, gestrooide letters)
+   ============================================================ */
+
+/* fullscreen kaart in gids-pastel (zoals het visitekaartje); de extra
+   sectiehoogte is de scrollruimte voor de timeline binnen de gepinde kaart */
+.operator {
+  background: var(--peach);
+  height: 250svh;
+  padding: 0;
+  justify-content: flex-start;
+  /* de kaart (op-pin) pint, de sectie zelf niet; overflow moet open,
+     anders is de sticky binnenin dood */
+  position: relative;
+  overflow: visible;
+}
+.op-pin {
+  position: sticky; top: 0;
+  height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(5rem, 12vh, 8rem) var(--gutter);
+  overflow: hidden;
+}
+.scatter {
+  position: absolute; z-index: 1; width: clamp(3rem, 7vw, 6rem);
+  opacity: 0.9; pointer-events: none; user-select: none;
+  animation: floaty 7s ease-in-out infinite alternate;
+  animation-delay: var(--fd, 0s);
+}
+.scatter img { width: 100%; height: auto; }
+.sc-c { top: 10%;  left: 6%;  rotate: -14deg; }
+.sc-d { top: 14%;  right: 7%; rotate: 10deg; }
+.sc-m { bottom: 12%; left: 9%; rotate: 8deg; }
+.sc-x { bottom: 10%; right: 6%; rotate: -9deg; }
+@keyframes floaty {
+  from { transform: translateY(-9px); }
+  to { transform: translateY(9px); }
+}
+@media (prefers-reduced-motion: reduce) { .scatter { animation: none; } }
+
+.op-grid {
+  position: relative; z-index: 2;
+  max-width: 78rem; margin-inline: auto; width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.op-photo { position: relative; justify-self: center; }
+.op-photo::before {
+  content: ""; position: absolute; inset: 0;
+  transform: translate(-14px, 14px);
+  background: var(--green);
+  z-index: -1;
+}
+.op-photo img {
+  width: min(70vw, 330px); height: auto;
+  filter: saturate(0.92);
+}
+.op-stages {
+  margin-top: 1rem;
+  font-size: 0.78rem; line-height: 1.7; font-weight: 500;
+  letter-spacing: 0.04em;
+  max-width: 56ch;
+}
+
+/* ---------- timeline: waar ik vandaan kom, wat ik meenam ---------- */
+
+.timeline {
+  margin-top: clamp(1.6rem, 3.5vh, 2.4rem);
+  position: relative;
+  max-width: 56ch;
+  max-height: 42vh;
+  overflow: hidden;
+}
+/* fade onderaan als hint dat er meer volgt; verdwijnt als de
+   timeline uitgescrold is */
+.timeline::after {
+  content: ""; position: absolute;
+  left: 0; right: 0; bottom: 0; height: 2.4rem;
+  background: linear-gradient(transparent, var(--peach));
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.timeline.tl-done::after { opacity: 0; }
+.tl-scroll { position: relative; will-change: transform; }
+.tl-scroll::before {
+  content: ""; position: absolute;
+  left: 7px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--ink);
+}
+.tl-row {
+  position: relative;
+  display: grid; grid-template-columns: 16px 1fr;
+  gap: 1rem;
+}
+.tl-row + .tl-row { margin-top: 1.15rem; }
+.tl-dot {
+  width: 16px; height: 16px; margin-top: 1px;
+  background: var(--tc, var(--paper));
+  border: 2px solid var(--ink); border-radius: 4px;
+  position: relative; z-index: 1;
+}
+.tl-tag {
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+}
+.tl-txt {
+  margin-top: 0.3rem;
+  font-size: 0.95rem; line-height: 1.55; font-weight: 400;
+}
+/* "Meegenomen:" telkens op een eigen regel */
+.tl-txt b { display: block; margin-top: 0.2rem; font-weight: 800; }
+
+/* ============================================================
+   SLOT · WHERE DIGITAL WORKS
+   ============================================================ */
+
+.finale {
+  background: linear-gradient(160deg, #FFF3C4 0%, var(--yellow) 55%, #FFD9BC 100%);
+  justify-content: space-between;
+  padding-top: 0;
+}
+
+.marquee {
+  position: relative; z-index: 2;
+  margin: 4.3rem calc(var(--gutter) * -1) 0;
+  background: var(--ink); color: var(--paper);
+  overflow: hidden; white-space: nowrap;
+  padding: 0.85rem 0;
+  font-size: 0.8rem; font-weight: 800;
+  letter-spacing: 0.28em; text-transform: uppercase;
+}
+.marquee-track {
+  display: inline-block;
+  animation: slide 30s linear infinite;
+}
+@keyframes slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+.finale-head {
+  position: relative; z-index: 2;
+  font-size: clamp(2.8rem, 8vw, 7rem);
+  line-height: 0.98; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.02em;
+  max-width: 15ch;
+  margin-top: 4vh;
+}
+.finale-sub {
+  position: relative; z-index: 2;
+  margin-top: 1.6rem;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  max-width: 46ch; line-height: 1.6;
+}
+.cta {
+  position: relative; z-index: 2;
+  display: inline-block; margin-top: 2rem;
+  padding: 1rem 1.7rem;
+  background: var(--ink); color: var(--paper);
+  text-decoration: none;
+  font-weight: 800; font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  letter-spacing: 0.03em;
+  transition: box-shadow 0.3s;
+}
+.cta:hover { box-shadow: 6px 6px 0 rgba(16, 16, 16, 0.55); }
+.finale-foot {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+  margin-top: 3vh;
+}
+.finale-foot .mark img { height: 22px; width: auto; }
+.finale-meta {
+  text-align: right;
+  font-size: 0.82rem; line-height: 1.7; font-weight: 500;
+}
+.finale-meta a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.finale-meta .signoff { font-weight: 800; letter-spacing: 0.04em; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 860px) {
+  .page { position: relative; box-shadow: none; }
+  .operator { height: auto; }
+  .op-pin { position: static; height: auto; }
+  .timeline { max-height: none; overflow: visible; }
+  .timeline::after { display: none; }
+  .guide-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .chapter .inner, .chapter.flip .inner { grid-template-columns: 1fr; }
+  .chapter .letter-art, .chapter.flip .letter-art { order: 2; }
+  .letter-art { min-height: 0; margin-top: 2rem; justify-content: flex-end; }
+  .letter-art img { width: min(46vw, 240px); }
+  .proof-strip { grid-template-columns: repeat(2, 1fr); }
+  .proof-cell:nth-child(5) { grid-column: 1 / -1; }
+  .op-grid { grid-template-columns: 1fr; }
+  .op-photo { justify-self: start; }
+  .nav-links { gap: 0.9rem; font-size: 0.66rem; }
+  .nav-links .hide-s { display: none; }
+  .cover-foot { flex-direction: column; align-items: flex-start; }
+  /* strooiletters vallen op mobiel midden in de timeline-tekst */
+  .scatter { display: none; }
+  .marquee { margin: 4.3rem calc(var(--gutter) * -1) 0; }
+}
+</style>
+</head>
+<body class="lock">
+
+<!-- ========== LOADER: vier silo's tillen op ========== -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="l-col" style="--c: var(--peach)"><img src="../../assets/logos/letter-C.png" alt="" /></div>
+  <div class="l-col" style="--c: var(--green)"><img src="../../assets/logos/letter-D.png" alt="" /></div>
+  <div class="l-col" style="--c: var(--cyan)"><img src="../../assets/logos/letter-M.png" alt="" /></div>
+  <div class="l-col" style="--c: var(--yellow)"><img src="../../assets/logos/letter-x.png" alt="" /></div>
+</div>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Hoofdnavigatie">
+  <a class="mark magnet" href="#cover" aria-label="CDMX, naar boven">
+    <img src="../../assets/logos/CDMX-Logo.svg" alt="CDMX" />
+  </a>
+  <div class="nav-links">
+    <a class="magnet" href="#c">Connectie</a>
+    <a class="magnet" href="#d">Digitaal</a>
+    <a class="magnet" href="#m">Mens</a>
+    <a class="magnet" href="#x">KIXX</a>
+    <a class="magnet hide-s" href="mailto:renke@cdmx.be">Contact</a>
+  </div>
+</nav>
+
+<!-- ========== 00 · COVER ========== -->
+<header class="page cover" id="cover">
+  <img class="contours adrift" src="../../assets/patterns/pattern-mint.png" alt="" aria-hidden="true" />
+
+  <div class="cover-hero drift" data-shift="-30">
+    <p class="label rv"><b>CDMX</b> · Renke Pieters · Brugge</p>
+    <h1 class="statement statement-xl" aria-label="Ik zet in beweging wat stilstaat.">
+      <span class="ln"><span>Ik zet in <em class="hollow"><svg viewBox="63 -714 5214 730" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="scale(1,-1)"><path transform="translate(0,0)" d="M63.2,696.8 330.2,696.8 384.8,691.1 421.6,681.6 442.7,673.3 462.6,662.8 480.7,650.5 496.7,636.4 516.6,611.7 530.0,585.4 536.4,564.5 540.9,532.7 540.3,500.6 536.5,476.3 529.6,453.2 516.3,426.4 495.6,398.1 493.0,391.2 493.1,376.6 500.1,363.7 523.5,345.5 539.5,329.4 551.9,312.5 562.2,293.2 570.0,272.0 575.4,248.5 578.3,223.8 578.5,193.4 576.1,167.6 571.1,143.4 563.7,121.0 553.9,100.2 541.5,81.0 526.6,63.5 509.3,47.8 490.1,34.3 468.9,23.0 445.1,13.7 407.7,4.6 379.9,1.2 63.2,0.2ZM350.8,131.8 377.0,135.5 397.1,142.7 413.0,153.3 426.8,171.3 434.1,193.0 435.2,224.6 429.3,248.8 417.1,268.1 404.7,279.1 390.4,286.8 372.2,292.5 355.1,294.9 236.2,295.4 221.2,291.4 215.0,286.6 210.2,280.4 206.2,265.4 206.2,161.4 210.2,146.4 215.0,140.2 221.2,135.4 236.2,131.4ZM318.1,423.2 342.2,425.6 360.5,431.8 376.2,442.5 387.8,456.5 395.7,475.8 398.2,498.7 395.2,520.1 386.7,537.6 377.5,547.4 366.0,555.1 351.5,561.0 336.2,564.2 236.2,565.6 221.2,561.6 210.2,550.6 206.2,535.6 206.2,453.2 210.2,438.2 215.0,432.0 228.4,424.2Z"/><path transform="translate(635,0)" d="M63.2,696.8 529.0,696.8 529.0,569.4 236.2,569.2 221.2,565.2 215.0,560.4 210.2,554.2 206.2,539.2 207.2,444.4 215.0,431.0 228.4,423.2 510.2,422.0 510.2,294.6 236.2,294.4 221.2,290.4 210.2,279.4 206.2,264.4 206.2,157.8 210.2,142.8 215.0,136.6 221.2,131.8 236.2,127.8 529.0,127.6 529.0,0.2 63.2,0.2Z"/><path transform="translate(1230,0)" d="M10.5,696.8 159.6,696.8 270.0,320.1 273.1,313.0 284.1,302.4 298.9,298.5 313.7,302.5 319.8,307.1 327.6,320.3 423.2,655.6 563.6,655.6 659.1,320.4 666.9,307.2 680.2,299.6 687.9,298.6 702.7,302.4 708.9,307.0 716.8,320.2 827.0,696.8 976.1,696.8 765.0,0.2 627.2,0.2 522.1,349.9 514.2,362.9 508.1,367.5 493.4,371.3 478.7,367.5 467.8,356.9 464.7,349.9 359.6,0.2 221.6,0.2Z"/><path transform="translate(2237,0)" d="M63.2,696.8 529.0,696.8 529.0,569.4 236.2,569.2 221.2,565.2 215.0,560.4 210.2,554.2 206.2,539.2 207.2,444.4 215.0,431.0 228.4,423.2 510.2,422.0 510.2,294.6 236.2,294.4 221.2,290.4 210.2,279.4 206.2,264.4 206.2,157.8 210.2,142.8 215.0,136.6 221.2,131.8 236.2,127.8 529.0,127.6 529.0,0.2 63.2,0.2Z"/><path transform="translate(2832,0)" d="M364.0,-16.8 324.1,-14.7 298.0,-10.9 261.9,-1.9 227.3,11.3 204.7,22.9 173.6,43.0 145.3,66.6 120.3,93.0 97.8,123.3 78.1,156.9 66.6,181.4 53.2,219.1 46.1,246.5 39.1,288.4 36.5,318.5 35.8,364.7 39.0,409.1 43.5,438.1 53.1,478.2 61.9,504.3 72.4,528.8 91.1,563.3 112.9,594.5 137.9,622.3 165.9,646.9 196.4,667.8 219.2,680.3 253.8,694.8 279.1,702.4 317.9,710.1 358.4,713.6 388.5,713.5 435.1,709.1 463.6,703.5 491.4,695.5 530.8,679.1 567.9,657.2 589.8,640.6 610.3,621.9 638.1,590.0 653.8,566.9 667.5,542.6 684.7,501.9 550.3,453.5 531.6,492.2 507.0,524.0 476.2,549.2 441.4,566.1 400.4,575.4 355.7,576.4 317.0,569.9 296.9,563.2 276.9,553.5 247.1,532.2 221.6,503.9 209.4,484.6 199.5,464.3 186.7,424.3 179.9,378.2 179.9,319.7 186.4,274.5 199.0,234.3 217.4,199.6 236.6,175.1 264.4,151.3 295.7,134.3 325.6,124.9 365.0,120.1 404.0,122.2 441.4,130.3 462.9,138.5 479.9,147.6 496.8,159.3 510.9,172.3 524.8,189.7 537.5,211.8 540.0,219.0 539.2,234.0 531.2,246.7 518.1,254.0 388.8,255.2 388.8,382.6 684.8,382.6 685.0,2.0 683.0,0.0 559.2,0.3 555.3,14.7 545.8,26.2 532.0,31.7 524.4,31.7 517.2,29.9 478.4,7.0 447.3,-5.2 407.4,-13.9Z"/><path transform="translate(3589,0)" d="M63.2,696.8 206.0,696.8 206.0,0.2 63.2,0.2Z"/><path transform="translate(3878,0)" d="M63.2,696.8 209.5,696.8 431.9,337.1 443.0,326.5 457.9,322.9 465.6,324.0 478.8,331.8 486.4,345.2 487.4,352.9 487.6,696.8 630.4,696.8 630.4,0.2 482.9,0.2 261.8,360.9 250.7,371.5 235.7,375.2 220.9,371.0 214.8,366.2 210.1,360.1 206.2,345.2 206.0,0.2 63.2,0.2Z"/><path transform="translate(4592,0)" d="M364.0,-16.8 324.1,-14.7 298.0,-10.9 261.9,-1.9 227.3,11.3 204.7,22.9 173.6,43.0 145.3,66.6 120.3,93.0 97.8,123.3 78.1,156.9 66.6,181.4 53.2,219.1 46.1,246.5 39.1,288.4 36.5,318.5 35.8,364.7 39.0,409.1 43.5,438.1 53.1,478.2 61.9,504.3 72.4,528.8 91.1,563.3 112.9,594.5 137.9,622.3 165.9,646.9 196.4,667.8 219.2,680.3 253.8,694.8 279.1,702.4 317.9,710.1 358.4,713.6 388.5,713.5 435.1,709.1 463.6,703.5 491.4,695.5 530.8,679.1 567.9,657.2 589.8,640.6 610.3,621.9 638.1,590.0 653.8,566.9 667.5,542.6 684.7,501.9 550.3,453.5 531.6,492.2 507.0,524.0 476.2,549.2 441.4,566.1 400.4,575.4 355.7,576.4 317.0,569.9 296.9,563.2 276.9,553.5 247.1,532.2 221.6,503.9 209.4,484.6 199.5,464.3 186.7,424.3 179.9,378.2 179.9,319.7 186.4,274.5 199.0,234.3 217.4,199.6 236.6,175.1 264.4,151.3 295.7,134.3 325.6,124.9 365.0,120.1 404.0,122.2 441.4,130.3 462.9,138.5 479.9,147.6 496.8,159.3 510.9,172.3 524.8,189.7 537.5,211.8 540.0,219.0 539.2,234.0 531.2,246.7 518.1,254.0 388.8,255.2 388.8,382.6 684.8,382.6 685.0,2.0 683.0,0.0 559.2,0.3 555.3,14.7 545.8,26.2 532.0,31.7 524.4,31.7 517.2,29.9 478.4,7.0 447.3,-5.2 407.4,-13.9Z"/></g></svg></em></span></span>
+      <span class="ln" style="--d: 0.12s"><span>wat stilstaat.</span></span>
+    </h1>
+    <p class="cover-kicker rv" style="--d: 0.28s">
+      Sinds 1 juli 2026 leid ik <b>KIXX</b>, een performance-agency van dertig+ mensen
+      in Brugge. Silo's verbinden, focus op performance, team laten groeien.
+    </p>
+    <div class="cover-cta rv" style="--d: 0.4s">
+      <a class="cta magnet" href="mailto:renke@cdmx.be?subject=Keynote%20of%20vraag">Stuur een mail</a>
+      <a class="cta-ghost" href="https://www.kixx-concept.be" target="_blank" rel="noopener">werk met KIXX &rarr;</a>
+    </div>
+  </div>
+
+  <div class="cover-foot drift" data-shift="20">
+    <div class="annot rv" style="--d: 0.5s">
+      <svg viewBox="0 0 46 46" aria-hidden="true">
+        <path d="M6,4 C10,26 24,40 44,42" />
+        <line x1="44" y1="42" x2="34" y2="40" />
+        <line x1="44" y1="42" x2="42" y2="32" />
+      </svg>
+      <p>Vier letters, vier silo's die verbonden raken. Waarom dat het werk is:
+      scroll maar.</p>
+    </div>
+    <div class="cover-cue rv" style="--d: 0.6s">
+      where digital works <span class="cue-dash" aria-hidden="true"></span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ========== 02 · C · CONNECTIE ========== -->
+<section class="page chapter ch-c" id="c">
+  <div class="inner">
+    <div class="drift" data-shift="-55">
+      <p class="ch-label rv"><b>01 · De <span class="cl">C</span></b>&nbsp;van connectie</p>
+      <h2 class="ch-head">
+        <span class="ln"><span>Alles staat er al.</span></span>
+        <span class="ln" style="--d: 0.1s"><span>Het praat alleen</span></span>
+        <span class="ln" style="--d: 0.2s"><span>niet met elkaar.</span></span>
+      </h2>
+      <p class="body-copy rv" style="--d: 0.25s">
+        Groei zit zelden in één afdeling, ze zit in de kloof ertussen: data die niemand
+        leest, marketing die niet met strategie praat, mensen die naast elkaar werken in
+        plaats van met elkaar. De onderdelen zijn meestal prima. <strong>Ze staan alleen
+        los van elkaar.</strong>
+      </p>
+      <p class="body-copy rv" style="--d: 0.35s">
+        Mijn doel is om deze silo's te verbinden. Vanaf dan is groei een
+        vermenigvuldiging, geen optelsom.
+      </p>
+    </div>
+    <div class="letter-art rv drift" style="--d: 0.2s" data-shift="65" data-letter>
+      <img src="../../assets/logos/letter-C.png" alt="De C uit het CDMX-logo: verbonden silo's" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== 03 · D · DIGITAAL ========== -->
+<section class="page chapter ch-d flip" id="d">
+  <div class="inner">
+    <div class="letter-art rv drift" style="--d: 0.2s" data-shift="-65" data-letter>
+      <img src="../../assets/logos/letter-D.png" alt="De D uit het CDMX-logo" />
+    </div>
+    <div class="drift" data-shift="55">
+      <p class="ch-label rv"><b>02 · De <span class="cl">D</span></b>&nbsp;van digitaal</p>
+      <h2 class="ch-head">
+        <span class="ln"><span>Cijfers,</span></span>
+        <span class="ln" style="--d: 0.1s"><span>geen adjectieven.</span></span>
+      </h2>
+      <p class="body-copy rv" style="--d: 0.2s">
+        Digitaal is voor mij pas af als het draait: geen decks die in een lade
+        verdwijnen. Systemen in productie, omzet die je kan aanwijzen.
+      </p>
+      <div class="persp">
+        <div class="proof-strip" id="proofStrip" role="list">
+          <div class="proof-cell rv" style="--d: 0.3s" role="listitem">
+            <p class="proof-num">€3M+</p>
+            <p class="proof-cap">attributed revenue uit new sales en accountgroei</p>
+          </div>
+          <div class="proof-cell rv" style="--d: 0.37s" role="listitem">
+            <p class="proof-num">6</p>
+            <p class="proof-cap">AI-pilots draaien vandaag; wat werkt, gaat in productie</p>
+          </div>
+          <div class="proof-cell rv" style="--d: 0.44s" role="listitem">
+            <p class="proof-num">3</p>
+            <p class="proof-cap">nieuwe services uitgerold: server-side tracking, GEO, geautomatiseerde marketingscans</p>
+          </div>
+          <div class="proof-cell rv" style="--d: 0.51s" role="listitem">
+            <p class="proof-num">4 jr</p>
+            <p class="proof-cap">bij KIXX: van digital marketeer tot Branch Manager</p>
+          </div>
+          <div class="proof-cell rv" style="--d: 0.58s" role="listitem">
+            <p class="proof-num">8 jr</p>
+            <p class="proof-cap">in marketing zonder pauze, sinds 2021 ook zelfstandig</p>
+          </div>
+        </div>
+      </div>
+      <p class="proof-foot rv" style="--d: 0.5s">
+        Onderbouwd met drie postgraduaten: <b>Digital Marketing · Humane AI · Experience
+        Architecture</b>. Elk cijfer is verifieerbaar in één gesprek, of via <a href="https://www.linkedin.com/in/renke-pieters/" target="_blank" rel="noopener">LinkedIn</a>. Vraag ernaar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 04 · M · MENS ========== -->
+<section class="page chapter ch-m" id="m">
+  <div class="inner">
+    <div class="drift" data-shift="-55">
+      <p class="ch-label rv"><b>03 · De <span class="cl">M</span></b>&nbsp;van mens</p>
+      <h2 class="ch-head">
+        <span class="ln"><span>Systemen kan je kopen.</span></span>
+        <span class="ln" style="--d: 0.1s"><span>Mensen moet je meekrijgen.</span></span>
+      </h2>
+      <p class="body-copy rv" style="--d: 0.2s">
+        Een bedrijf is niet zijn organigram, het zijn de mensen die hun schouders
+        zetten achter het gezamenlijke punt B. Wanneer disciplines stoppen met
+        eilandjes te zijn, stoppen mensen met radertjes te zijn: ze zien opnieuw het
+        geheel waar ze deel van uitmaken.
+      </p>
+      <p class="body-copy rv" style="--d: 0.3s">
+        Vier jaar middenin KIXX leerde me hoe een bedrijf vanbinnen voelt, en dat geen
+        systeem blijft draaien als de mensen het niet dragen. <strong>Het bedrijf groeit
+        omdat de mensen groeien.</strong> Het is ook het stuk waar ik zelf het hardst
+        aan werk.
+      </p>
+      <div class="annot rv" style="--d: 0.4s">
+        <svg viewBox="0 0 46 46" aria-hidden="true">
+          <path d="M6,4 C10,26 24,40 44,42" />
+          <line x1="44" y1="42" x2="34" y2="40" />
+          <line x1="44" y1="42" x2="42" y2="32" />
+        </svg>
+        <p>Systeem &eacute;n mens. Allebei, of het heeft niet gewerkt.</p>
+      </div>
+    </div>
+    <div class="letter-art rv drift" style="--d: 0.2s" data-shift="65" data-letter>
+      <img src="../../assets/logos/letter-M.png" alt="De M uit het CDMX-logo" />
+    </div>
+  </div>
+</section>
+
+<!-- ========== 05 · X · KIXX ========== -->
+<section class="page chapter ch-x flip" id="x">
+  <div class="inner">
+    <div class="letter-art rv drift" style="--d: 0.2s" data-shift="-65" data-letter>
+      <img src="../../assets/logos/letter-x.png" alt="De X uit het CDMX-logo, het herkenbare merkteken" />
+    </div>
+    <div class="drift" data-shift="55">
+      <p class="ch-label rv"><b>04 · De <span class="cl">X</span></b>&nbsp;van KIXX</p>
+      <h2 class="ch-head">
+        <span class="ln"><span>KIXX. Ons team.</span></span>
+        <span class="ln" style="--d: 0.1s"><span>Aan mij om dat</span></span>
+        <span class="ln" style="--d: 0.2s"><span>waar te maken.</span></span>
+      </h2>
+      <p class="body-copy rv" style="--d: 0.2s">
+        Sinds 1 juli leid ik KIXX: een performance-agency van meer dan dertig mensen in
+        Brugge, een vestiging binnen de groep. KIXX staat zelf niet stil, net daarom
+        past het. Hetzelfde model op grotere schaal: disciplines verbinden, systemen bouwen die
+        blijven draaien, mensen laten groeien in hun werk.
+      </p>
+      <p class="body-copy rv" style="--d: 0.3s">
+        Ik stuur niet vanuit de zijlijn: ik sta in het werk, naast de mensen die het
+        elke dag doen. <strong>Waar we naartoe werken:
+        het beste performance-agency in de Benelux.</strong>
+      </p>
+      <div class="annot rv" style="--d: 0.4s">
+        <svg viewBox="0 0 46 46" aria-hidden="true">
+          <path d="M6,4 C10,26 24,40 44,42" />
+          <line x1="44" y1="42" x2="34" y2="40" />
+          <line x1="44" y1="42" x2="42" y2="32" />
+        </svg>
+        <p>De X staat niet toevallig voor vermenigvuldigen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 06 · INTERMEZZO · physics ========== -->
+<section class="page inter" id="speel">
+  <canvas id="world" aria-hidden="true"></canvas>
+  <div class="inter-copy guide-grid">
+    <p class="label rv"><b>Intermezzo</b> · speel gerust</p>
+    <div>
+      <h2 class="statement">
+        <span class="ln"><span>Silo's bewegen pas</span></span>
+        <span class="ln" style="--d: 0.12s"><span>als jij beweegt.</span></span>
+      </h2>
+      <div class="annot rv" style="--d: 0.3s">
+        <svg viewBox="0 0 46 46" aria-hidden="true">
+          <path d="M6,4 C10,26 24,40 44,42" />
+          <line x1="44" y1="42" x2="34" y2="40" />
+          <line x1="44" y1="42" x2="42" y2="32" />
+        </svg>
+        <p>Sleep de letters. Meer moet dat niet zijn.</p>
+      </div>
+    </div>
+  </div>
+  <div class="inter-fallback" aria-hidden="true">
+    <img src="../../assets/logos/letter-C.png" alt="" />
+    <img src="../../assets/logos/letter-D.png" alt="" />
+    <img src="../../assets/logos/letter-M.png" alt="" />
+    <img src="../../assets/logos/letter-x.png" alt="" />
+  </div>
+  <p class="inter-hint">sleep ze samen &middot; c &middot; d &middot; m &middot; x</p>
+</section>
+
+<!-- ========== 07 · DE OPERATOR ========== -->
+<section class="page operator" id="operator">
+  <div class="op-pin">
+  <span class="scatter sc-c" style="--fd: 0s" aria-hidden="true"><img src="../../assets/logos/letter-C.png" alt="" /></span>
+  <span class="scatter sc-d" style="--fd: 1.4s" aria-hidden="true"><img src="../../assets/logos/letter-D.png" alt="" /></span>
+  <span class="scatter sc-m" style="--fd: 2.8s" aria-hidden="true"><img src="../../assets/logos/letter-M.png" alt="" /></span>
+  <span class="scatter sc-x" style="--fd: 4.2s" aria-hidden="true"><img src="../../assets/logos/letter-x.png" alt="" /></span>
+
+  <div class="op-grid">
+    <div class="op-photo rv drift" data-shift="-45">
+      <img src="../../assets/renke-pieters-2.jpg" alt="Renke Pieters" width="330" height="494" loading="lazy" />
+    </div>
+    <div class="drift" data-shift="40">
+      <p class="label rv"><b>De mens</b> achter de vier letters</p>
+      <h2 class="statement" style="margin-top: 1rem;">
+        <span class="ln"><span>Renke Pieters.</span></span>
+      </h2>
+      <p class="body-copy rv" style="--d: 0.2s">
+        Keynote-spreker over AI en digitale groei. Ironman-finisher (Frankfurt, 2025),
+        dezelfde discipline als het werk: de lijn vasthouden wanneer het niet meer leuk
+        is. En daarnaast de andere snelheid: surfen, de zee, Spaans dat op peil blijft
+        met één reis per jaar. Vader van twee. Van Blankenberge, werkt in Brugge.
+      </p>
+      <p class="op-stages rv" style="--d: 0.25s">
+        Keynotes o.a. voor Marketing Performance Day · Indeed AI-panel · KIXX Academy ·
+        Euromeat Group · Noel Franklin · Rexel
+      </p>
+      <div class="timeline rv" style="--d: 0.3s" id="tlView">
+        <div class="tl-scroll" id="tlScroll">
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--cyan)"></span>
+          <div>
+            <p class="tl-tag">2017 · C Hotels · F&amp;B Manager</p>
+            <p class="tl-txt">Eerste leidinggevende rol, in de hospitality in Oostende.
+            <b>Meegenomen: alles begint bij gastvrijheid.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--green)"></span>
+          <div>
+            <p class="tl-tag">2018 · Silverjet Belgium · sales &amp; marketing</p>
+            <p class="tl-txt">Luxereizen verkopen en vermarkten.
+            <b>Meegenomen: verkopen is luisteren.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--cyan)"></span>
+          <div>
+            <p class="tl-tag">2020 · Proud Mary · online marketeer</p>
+            <p class="tl-txt">Het digitale vak geleerd, hands-on.
+            <b>Meegenomen: online is meetbaar, dus eerlijk.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--yellow)"></span>
+          <div>
+            <p class="tl-tag">2021 · Vitinn · zelfstandig in bijberoep</p>
+            <p class="tl-txt">IJslands voor vuurtoren, zoals die van Blankenberge: licht
+            schijnen, anderen op koers helpen.
+            <b>Meegenomen: alles zelf leren doen.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--cyan)"></span>
+          <div>
+            <p class="tl-tag">2022 · KIXX · van marketeer tot strategist</p>
+            <p class="tl-txt">Digital Performance Marketeer, daarna Digital Growth &amp;
+            AI Strategist. <b>Meegenomen: hoe een agency vanbinnen voelt.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--green)"></span>
+          <div>
+            <p class="tl-tag">2024 · VIVES · docent e-commerce</p>
+            <p class="tl-txt">Praktijkinzichten uit het werkveld, in het postgraduaat
+            Digitale Marketing. <b>Meegenomen: uitleggen is de beste leerschool.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <div>
+            <p class="tl-tag">2025 · CDMX · Growth &amp; Innovation Manager</p>
+            <p class="tl-txt">Eigen vennootschap, genoemd naar Mexico City:
+            straatcultuur en start-up-energie bovenop eeuwenoude geschiedenis. Het
+            acroniem kwam vanzelf: curiosity, drive, mastery, multiplies.
+            <b>Meegenomen: van licht schijnen naar in beweging zetten.</b></p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot" style="--tc: var(--ink)"></span>
+          <div>
+            <p class="tl-tag">2026 · KIXX · Branch Manager</p>
+            <p class="tl-txt">Een ploeg van dertig+ in Brugge.
+            <b>Meegenomen: alles hierboven.</b></p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== 08 · SLOT ========== -->
+<footer class="page finale" id="einde">
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Where digital works · CDMX · Brugge · Sinds 1 juli 2026 · Branch Manager van KIXX ·&nbsp;</span><span>Where digital works · CDMX · Brugge · Sinds 1 juli 2026 · Branch Manager van KIXX ·&nbsp;</span>
+    </div>
+  </div>
+
+  <img class="contours adrift" src="../../assets/patterns/pattern-yellow.png" alt="" aria-hidden="true" />
+
+  <div class="drift" data-shift="35">
+    <h2 class="finale-head" data-chars aria-label="Staat er iets stil?">
+      <span class="ln"><span>Staat er</span></span>
+      <span class="ln" style="--d: 0.1s"><span>iets stil?</span></span>
+    </h2>
+    <p class="finale-sub rv" style="--d: 0.3s">
+      CDMX is mijn bedrijf. Sinds 1 juli leid ik KIXX als Branch Manager. Werk met KIXX?
+      Dat loopt via <a href="https://www.kixx-concept.be" target="_blank" rel="noopener">kixx-concept.be</a>. Voor een
+      keynote of een goeie vraag: één mail volstaat.
+    </p>
+    <div class="cover-cta rv" style="--d: 0.42s">
+      <a class="cta magnet" href="mailto:renke@cdmx.be?subject=Keynote%20of%20vraag">Stuur die mail</a>
+      <a class="cta-ghost" href="https://www.linkedin.com/in/renke-pieters/" target="_blank" rel="noopener">of stuur een DM op LinkedIn &rarr;</a>
+    </div>
+  </div>
+
+  <div class="finale-foot">
+    <span class="mark rv"><img src="../../assets/logos/CDMX-Logo.svg" alt="CDMX" /></span>
+    <p class="finale-meta rv" style="--d: 0.15s">
+      <a href="https://www.linkedin.com/in/renke-pieters/" target="_blank" rel="noopener">linkedin.com/in/renke-pieters</a><br />
+      <span class="signoff">Vier silo's, &eacute;&eacute;n beweging.</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var mobile = window.matchMedia("(max-width: 860px)");
+  var fine = window.matchMedia("(pointer: fine)").matches;
+  var G = window.gsap || null;
+
+  /* ============ LOADER: vier silo's tillen op ============ */
+  var loader = document.getElementById("loader");
+  var cover = document.getElementById("cover");
+  var seen = false;
+  try { seen = sessionStorage.getItem("cdmx-loaded") === "1"; } catch (e) {}
+  function endLoader() {
+    if (loader) { loader.remove(); loader = null; }
+    document.body.classList.remove("lock");
+    cover.classList.add("in");
+    try { sessionStorage.setItem("cdmx-loaded", "1"); } catch (e) {}
+    measure();
+  }
+  if (!loader || reduced || !G || seen) {
+    endLoader();
+  } else {
+    var cols = loader.querySelectorAll(".l-col");
+    var imgs = loader.querySelectorAll(".l-col img");
+    var tl = G.timeline({ onComplete: endLoader });
+    tl.to(imgs, { opacity: 1, duration: 0.04, stagger: 0.06 }, 0.05)
+      .from(imgs, { y: 50, scale: 0.75, rotation: -8, duration: 0.45, ease: "back.out(1.6)", stagger: 0.06 }, 0.05)
+      .to(imgs, { y: -26, opacity: 0, duration: 0.28, ease: "power2.in", stagger: 0.045 }, "+=0.15")
+      .to(cols, { yPercent: -101, duration: 0.6, ease: "expo.inOut", stagger: 0.06 }, "-=0.2");
+    loader.addEventListener("click", function () { tl.progress(1); });
+    setTimeout(function () { if (loader) endLoader(); }, 3200);
+  }
+
+  /* ankerlinks: sticky pagina's melden hun eigen positie fout,
+     dus navigeer op de gecachete layout-posities */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var target = document.querySelector(a.getAttribute("href"));
+      if (!target) return;
+      e.preventDefault();
+      var y = typeof target._top === "number" ? target._top : target.offsetTop;
+      window.scrollTo({ top: y, behavior: reduced ? "auto" : "smooth" });
+    });
+  });
+
+  /* ============ char-splitting voor de grote headlines ============ */
+  function splitChars(h) {
+    h.classList.add("char-mode");
+    h.querySelectorAll(".ln > span").forEach(function (line) {
+      var words = line.textContent.split(" ");
+      line.textContent = "";
+      words.forEach(function (w, wi) {
+        var ws = document.createElement("span");
+        ws.className = "word";
+        w.split("").forEach(function (c) {
+          var s = document.createElement("span");
+          s.className = "ch";
+          s.textContent = c;
+          ws.appendChild(s);
+        });
+        line.appendChild(ws);
+        if (wi < words.length - 1) line.appendChild(document.createTextNode(" "));
+      });
+    });
+  }
+  var charHeads = [];
+  if (G && !reduced) {
+    document.querySelectorAll("[data-chars]").forEach(function (h) {
+      splitChars(h);
+      charHeads.push(h);
+    });
+  }
+  function playChars(page) {
+    charHeads.forEach(function (h) {
+      if (!page.contains(h) || h._played) return;
+      h._played = true;
+      G.to(h.querySelectorAll(".ch"), {
+        y: 0, rotation: 0, duration: 0.9, ease: "expo.out",
+        stagger: 0.022, delay: 0.1,
+        onStart: function () {
+          h.querySelectorAll(".ch").forEach(function (c) { c.style.transform = ""; });
+        },
+        startAt: { y: "115%", rotation: 7 }
+      });
+    });
+  }
+
+  /* ============ reveals per pagina + paginanummer ============ */
+  var pages = Array.prototype.slice.call(document.querySelectorAll(".page"));
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        if (G && !reduced) playChars(e.target);
+      }
+    });
+  }, { threshold: 0.35 });
+  pages.forEach(function (p) { io.observe(p); });
+
+  /* ============ scroll-engine: lagen, schuivers, clip ============ */
+  var progress = document.getElementById("progress");
+  var drifts = Array.prototype.slice.call(document.querySelectorAll(".drift"));
+  var letters = Array.prototype.slice.call(document.querySelectorAll("[data-letter] img"));
+  var strip = document.getElementById("proofStrip");
+  var opPage = document.getElementById("operator");
+  var tlView = document.getElementById("tlView");
+  var tlScroll = document.getElementById("tlScroll");
+
+  function measure() {
+    if (!pages) return; /* endLoader kan vóór de declaraties lopen (herhaalbezoek) */
+    var y = 0;
+    pages.forEach(function (p) { p._top = y; y += p.offsetHeight; });
+    lastSy = null; /* forceer een engine-pass met de nieuwe offsets */
+  }
+  function sectionFor(el) {
+    var n = el;
+    while (n && !n.classList.contains("page")) n = n.parentElement;
+    return n;
+  }
+  drifts.forEach(function (d) { d._page = sectionFor(d); });
+  letters.forEach(function (l) { l._page = sectionFor(l); });
+  var stripPage = strip ? sectionFor(strip) : null;
+
+  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var lastSy = null;
+  var idleFrames = 0, engineRunning = false;
+
+  function engine() {
+    var sy = window.scrollY;
+    if (sy === lastSy) {
+      /* na ~1s stilstand: loop pauzeren; scroll/resize wekt hem weer */
+      if (++idleFrames > 60) { engineRunning = false; return; }
+      requestAnimationFrame(engine);
+      return;
+    }
+    idleFrames = 0;
+    lastSy = sy;
+    var vh = window.innerHeight;
+
+    var total = document.documentElement.scrollHeight - vh;
+    if (progress) progress.style.transform = "scaleX(" + (total > 0 ? sy / total : 0) + ")";
+
+    if (!reduced && !mobile.matches) {
+      drifts.forEach(function (d) {
+        var p = d._page; if (!p) return;
+        var t = clamp((sy - p._top) / vh, -1, 1.6);
+        d.style.transform = "translate3d(0," + (t * parseFloat(d.dataset.shift || 0)).toFixed(1) + "px,0)";
+      });
+
+      letters.forEach(function (img) {
+        var p = img._page; if (!p) return;
+        var t = clamp((sy + vh - p._top) / (vh * 2), 0, 1);
+        var pe = clamp((sy + vh - p._top) / (vh * 0.9), 0, 1);
+        var s = 1.12 - t * 0.15;
+        var r = (t - 0.5) * -5;
+        var ins = ((1 - pe) * 46).toFixed(1);
+        var rad = ((1 - pe) * 320).toFixed(0);
+        img.style.transform = "scale(" + s.toFixed(3) + ") rotate(" + r.toFixed(2) + "deg)";
+        img.style.clipPath = "inset(" + ins + "% " + ins + "% " + ins + "% " + ins + "% round " + rad + "px)";
+      });
+
+      if (strip && stripPage) {
+        var pe2 = clamp(((sy + vh - stripPage._top) / vh) * 1.4 - 0.35, 0, 1);
+        strip.style.transform = "rotateX(" + ((1 - pe2) * 24).toFixed(2) + "deg)";
+      }
+
+      /* operator-kaart: scroll de timeline binnen de gepinde kaart;
+         klaar op 75% zodat de kaart nog even rustig blijft staan
+         voor de finale eroverheen schuift */
+      if (tlScroll && tlView && opPage) {
+        var span2 = opPage.offsetHeight - vh;
+        var p3 = span2 > 0 ? clamp(((sy - opPage._top) / span2) * 1.33, 0, 1) : 1;
+        var ov = tlScroll.scrollHeight - tlView.clientHeight;
+        if (ov > 0) tlScroll.style.transform = "translateY(" + (-p3 * ov).toFixed(1) + "px)";
+        tlView.classList.toggle("tl-done", p3 >= 1);
+      }
+    }
+    requestAnimationFrame(engine);
+  }
+
+  function wakeEngine() {
+    if (reduced || engineRunning) return;
+    engineRunning = true;
+    idleFrames = 0;
+    requestAnimationFrame(engine);
+  }
+
+  measure();
+  window.addEventListener("resize", function () { measure(); wakeEngine(); });
+  window.addEventListener("load", function () { measure(); wakeEngine(); });
+  window.addEventListener("scroll", wakeEngine, { passive: true });
+  if (!reduced) wakeEngine();
+  else if (progress) progress.style.display = "none";
+
+  /* ============ magnetische elementen ============ */
+  if (G && fine && !reduced) {
+    document.querySelectorAll(".magnet").forEach(function (el) {
+      var st = el.classList.contains("cta") ? 0.35 : 0.5;
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        G.to(el, {
+          x: (e.clientX - r.left - r.width / 2) * st,
+          y: (e.clientY - r.top - r.height / 2) * st,
+          duration: 0.4, ease: "power3.out"
+        });
+      });
+      el.addEventListener("pointerleave", function () {
+        G.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.4)" });
+      });
+    });
+  }
+
+  /* ============ INTERMEZZO: Matter.js physics ============ */
+  var interPage = document.getElementById("speel");
+  var canvas = document.getElementById("world");
+  if (!window.Matter || reduced || !canvas) {
+    document.body.classList.add("no-physics");
+  } else {
+    var M = window.Matter;
+    var engine2 = M.Engine.create();
+    engine2.gravity.y = 1;
+    var render = null, runner = null, spawned = false;
+    var mouseC = null, letterBodies = [], builtW = 0, connected = false;
+
+    var LETTERS = [
+      { src: "../../assets/logos/letter-C.png", w: 669, h: 669 },
+      { src: "../../assets/logos/letter-D.png", w: 669, h: 669 },
+      { src: "../../assets/logos/letter-M.png", w: 669, h: 669 },
+      { src: "../../assets/logos/letter-x.png", w: 781, h: 666 }
+    ];
+    var PASTELS = ["#FFBA94", "#C7E3BA", "#D9F7F5", "#FFE57D"];
+
+    function buildWorld() {
+      var w = interPage.clientWidth, h = interPage.clientHeight;
+      M.Composite.clear(engine2.world, false);
+
+      /* renderer één keer aanmaken; bij rebuild alleen de maat bijwerken.
+         (Een tweede Render.create deep-merged de volledige engine en
+         crasht op de circulaire referenties in de wereld.) */
+      if (!render) {
+        render = M.Render.create({
+          canvas: canvas, engine: engine2,
+          options: {
+            width: w, height: h,
+            background: "transparent", wireframes: false,
+            pixelRatio: Math.min(window.devicePixelRatio || 1, 2)
+          }
+        });
+        M.Render.run(render);
+      } else {
+        M.Render.setSize(render, w, h);
+      }
+
+      /* muren: vloer, links, rechts */
+      var opts = { isStatic: true, render: { visible: false } };
+      M.Composite.add(engine2.world, [
+        M.Bodies.rectangle(w / 2, h + 60, w * 2, 120, opts),
+        M.Bodies.rectangle(-60, h / 2, 120, h * 4, opts),
+        M.Bodies.rectangle(w + 60, h / 2, 120, h * 4, opts)
+      ]);
+
+      /* de vier silo-letters */
+      var size = clamp(w * 0.13, 80, 170);
+      letterBodies = [];
+      LETTERS.forEach(function (L, i) {
+        var lw = size * (L.w / 669);
+        var lh = size * (L.h / 669);
+        var b = M.Bodies.rectangle(
+          w * (0.18 + i * 0.21), -140 - i * 170, lw * 0.92, lh * 0.92,
+          {
+            restitution: 0.55, friction: 0.35, chamfer: { radius: 12 },
+            angle: (Math.random() - 0.5) * 0.6,
+            render: { sprite: { texture: L.src, xScale: lw / L.w, yScale: lh / L.h } }
+          }
+        );
+        letterBodies.push(b);
+        M.Composite.add(engine2.world, b);
+      });
+      builtW = w;
+
+      /* pastel silo-blokjes */
+      for (var i = 0; i < 9; i++) {
+        var s = 24 + Math.random() * 44;
+        M.Composite.add(engine2.world, M.Bodies.rectangle(
+          w * (0.1 + Math.random() * 0.8), -500 - Math.random() * 500, s, s,
+          {
+            restitution: 0.5, friction: 0.3, chamfer: { radius: 6 },
+            render: { fillStyle: PASTELS[i % 4] }
+          }
+        ));
+      }
+
+      /* muis-sleep: één keer aanmaken, hergebruiken over rebuilds */
+      if (!mouseC) {
+        var mouse = M.Mouse.create(canvas);
+        mouseC = M.MouseConstraint.create(engine2, {
+          mouse: mouse, constraint: { stiffness: 0.15, render: { visible: false } }
+        });
+        if (!fine) {
+          canvas.removeEventListener("touchmove", mouse.mousemove);
+          canvas.removeEventListener("touchstart", mouse.mousedown);
+          canvas.removeEventListener("touchend", mouse.mouseup);
+        }
+        mouse.element.removeEventListener("wheel", mouse.mousewheel);
+      }
+      M.Composite.add(engine2.world, mouseC);
+    }
+
+    /* tik of klik: geef de stapel een duw (één listener, werkt ook op touch) */
+    canvas.addEventListener("pointerdown", function (e) {
+      var r = canvas.getBoundingClientRect();
+      var px = e.clientX - r.left, py = e.clientY - r.top;
+      M.Composite.allBodies(engine2.world).forEach(function (b) {
+        if (b.isStatic) return;
+        var dx = b.position.x - px, dy = b.position.y - py;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 160) {
+          M.Body.setVelocity(b, {
+            x: b.velocity.x + (dx / (d || 1)) * 7,
+            y: b.velocity.y - 9 - Math.random() * 4
+          });
+          M.Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.25);
+        }
+      });
+    });
+
+    /* de metafoor beloont verbinden: vier letters samen = bevestiging */
+    var tick = 0;
+    M.Events.on(engine2, "afterUpdate", function () {
+      if (connected || ++tick % 30 !== 0 || letterBodies.length < 4) return;
+      var maxD = 0;
+      for (var i = 0; i < 4; i++) {
+        for (var j = i + 1; j < 4; j++) {
+          var dx = letterBodies[i].position.x - letterBodies[j].position.x;
+          var dy = letterBodies[i].position.y - letterBodies[j].position.y;
+          maxD = Math.max(maxD, Math.sqrt(dx * dx + dy * dy));
+        }
+      }
+      if (maxD < clamp(interPage.clientWidth * 0.32, 300, 460)) {
+        connected = true;
+        var hint = document.querySelector(".inter-hint");
+        if (hint) hint.textContent = "mooi · verbonden";
+      }
+    });
+
+    runner = M.Runner.create();
+
+    /* hint en annotatie per apparaat */
+    if (!fine) {
+      var hintEl = document.querySelector(".inter-hint");
+      var annotEl = document.querySelector("#speel .annot p");
+      if (hintEl) hintEl.textContent = "tik ze samen · c · d · m · x";
+      if (annotEl) annotEl.textContent = "Tik op de letters. Meer moet dat niet zijn.";
+    }
+
+    var interIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (!spawned) { spawned = true; buildWorld(); }
+          M.Runner.run(runner, engine2);
+        } else {
+          M.Runner.stop(runner);
+        }
+      });
+    }, { threshold: 0.15 });
+    interIO.observe(interPage);
+
+    var rT;
+    window.addEventListener("resize", function () {
+      if (!spawned) return;
+      /* alleen bij echte breedtewijziging herbouwen (mobiele URL-balk niet) */
+      if (Math.abs(interPage.clientWidth - builtW) < 2) return;
+      clearTimeout(rT);
+      rT = setTimeout(buildWorld, 250);
+    });
+  }
+});
+</script>
+
+</body>
+</html>
