@@ -1,98 +1,227 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CDMX / not here</title>
-  <meta name="description" content="Not here. Return to the manifest. CDMX, embedded operator for B2B companies.">
-  <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0A0A0A">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/HankenGrotesk-Variable.woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/css/tokens.css">
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <style>
-    body[data-page="404"] {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: var(--space-6);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .four-pattern {
-      position: absolute;
-      inset: 0;
-      background-image: url('/assets/patterns/BG-Pattern-LightGreen.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.1;
-      filter: brightness(0.8);
-      z-index: 0;
-    }
-    .four-main {
-      position: relative;
-      z-index: 2;
-      max-width: 48rem;
-    }
-    .four-logo {
-      height: 1.6rem;
-      width: auto;
-      filter: invert(1) brightness(2);
-      margin-bottom: var(--space-8);
-    }
-    .four-label {
-      font-family: var(--font-mono);
-      font-size: var(--type-xs);
-      letter-spacing: var(--ls-mono-label);
-      text-transform: uppercase;
-      color: var(--signal);
-      margin-bottom: var(--space-4);
-    }
-    .four-line {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 14vw, 10rem);
-      font-weight: var(--w-hero);
-      line-height: var(--lh-tight);
-      letter-spacing: var(--ls-display);
-      color: var(--fg);
-    }
-    .four-line .accent { color: var(--emphasis); }
-    .four-sub {
-      margin-top: var(--space-6);
-      color: var(--fg-muted);
-      font-size: var(--type-md);
-      max-width: 40ch;
-      margin-inline: auto;
-      line-height: var(--lh-normal);
-    }
-    .four-back {
-      display: inline-flex;
-      align-items: center;
-      margin-top: var(--space-12);
-      padding: var(--space-3) var(--space-8);
-      background: var(--emphasis);
-      color: var(--bg);
-      font-family: var(--font-mono);
-      font-size: var(--type-sm);
-      font-weight: 700;
-      letter-spacing: var(--ls-mono-label);
-      text-transform: uppercase;
-      border-radius: 999px;
-      transition: transform var(--dur-fast) var(--ease-snap);
-    }
-    .four-back:hover { transform: translateY(-2px); }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 · CDMX</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" href="favicon.png" />
+<style>
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("assets/fonts/HankenGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root {
+  --peach:  #FFBA94;
+  --green:  #C7E3BA;
+  --cyan:   #D9F7F5;
+  --yellow: #FFE57D;
+  --ink:    #101010;
+  --paper:  #FDFDFB;
+  --mint-a: #EDF7EA;
+  --mint-b: #CBEBD4;
+  /* krijtjes: de vier pastellen, maar aangezet zoals in de tattoo */
+  --k-geel:   #F2B531;
+  --k-groen:  #55A860;
+  --k-blauw:  #3FA8C9;
+  --k-oranje: #EF8A4E;
+  --k-roze:   #E2547A;
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  font-family: "Hanken Grotesk", "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(150deg, var(--mint-a) 0%, var(--mint-b) 100%);
+  display: flex; flex-direction: column;
+  min-height: 100svh;
+  padding: 1.1rem var(--gutter) 2rem;
+  overflow-x: clip;
+}
+a { color: inherit; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; }
+.nav img { height: 20px; width: auto; display: block; }
+.nav a { text-decoration: none; }
+.nav-back {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--ink); padding-bottom: 2px;
+}
+
+.wrap {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.card { position: relative; text-align: center; max-width: 34rem; z-index: 2; }
+
+.label {
+  font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase;
+  font-weight: 300;
+}
+.label b { font-weight: 800; }
+
+.big {
+  margin-top: 0.6rem;
+  font-size: clamp(5rem, 18vw, 11rem);
+  line-height: 1; font-weight: 900; letter-spacing: -0.02em;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.06em;
+}
+.big svg { width: 0.9em; height: 0.9em; overflow: visible; }
+
+.sub {
+  margin-top: 1.4rem;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+}
+.cta {
+  display: inline-block; margin-top: 1.8rem;
+  padding: 1rem 1.7rem;
+  background: var(--ink); color: var(--paper);
+  text-decoration: none; font-weight: 800;
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem); letter-spacing: 0.03em;
+  transition: box-shadow 0.3s;
+}
+.cta:hover { box-shadow: 6px 6px 0 rgba(16, 16, 16, 0.4); }
+
+.signoff {
+  margin-top: 2.2rem;
+  font-size: 0.86rem; font-weight: 800; letter-spacing: 0.06em;
+  font-style: italic;
+}
+
+/* ---------- de kindertekening ---------- */
+.doodle {
+  position: absolute; z-index: 1;
+  pointer-events: none; user-select: none;
+  overflow: visible;
+  animation: floaty 6s ease-in-out infinite alternate;
+  animation-delay: var(--fd, 0s);
+}
+.doodle path, .doodle circle, .doodle line {
+  fill: none; stroke-width: 5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+@keyframes floaty {
+  from { transform: translateY(-7px) rotate(-1deg); }
+  to { transform: translateY(7px) rotate(1.5deg); }
+}
+@media (prefers-reduced-motion: reduce) { .doodle { animation: none; } }
+
+.d-palm  { left: 4%;  bottom: 8%;  width: clamp(70px, 12vw, 150px); }
+.d-golf  { left: 12%; top: 16%;    width: clamp(70px, 11vw, 140px); }
+.d-surf  { right: 6%; bottom: 12%; width: clamp(56px, 9vw, 110px); }
+.d-koffie{ right: 12%; top: 14%;   width: clamp(40px, 6vw, 70px); }
+.d-vogel { left: 22%; bottom: 26%; width: clamp(56px, 8vw, 96px); }
+.d-vlag  { right: 20%; top: 34%;   width: clamp(70px, 10vw, 130px); }
+
+@media (max-width: 700px) {
+  .d-golf { top: 10%; }
+  .d-vlag { display: none; }
+  .d-vogel { left: 8%; bottom: 18%; }
+}
+</style>
 </head>
-<body data-page="404">
-  <div class="four-pattern" aria-hidden="true"></div>
-  <main class="four-main">
-    <img class="four-logo" src="/assets/logos/CDMX-Logo.svg" alt="CDMX">
-    <p class="four-label">404 — signal lost</p>
-    <h1 class="four-line">Not <span class="accent">here</span>.</h1>
-    <p class="four-sub">This page does not exist, and probably never did. Return to somewhere the signal is stronger.</p>
-    <a class="four-back" href="/">← back to the manifest</a>
-  </main>
+<body>
+
+<nav class="nav">
+  <a href="/" aria-label="CDMX, naar de startpagina">
+    <img src="assets/logos/CDMX-Logo.svg" alt="CDMX" />
+  </a>
+  <a class="nav-back" href="/">terug &rarr;</a>
+</nav>
+
+<main class="wrap">
+
+  <!-- palmboom -->
+  <svg class="doodle d-palm" style="--fd: 0.4s" viewBox="0 0 120 160" aria-hidden="true">
+    <path d="M58,152 C56,120 55,88 57,60" stroke="var(--ink)" />
+    <path d="M46,152 L74,152" stroke="var(--ink)" />
+    <path d="M57,60 C42,52 26,54 14,66 C30,60 46,62 57,66" stroke="var(--k-groen)" />
+    <path d="M57,60 C70,48 88,46 102,54 C86,52 70,58 60,64" stroke="var(--k-groen)" />
+    <path d="M57,60 C50,44 50,30 58,18 C58,32 60,46 62,58" stroke="var(--k-groen)" />
+    <path d="M57,60 C68,50 84,60 90,72 C78,64 66,64 60,66" stroke="var(--k-groen)" />
+    <circle cx="50" cy="68" r="4" stroke="var(--ink)" />
+    <circle cx="62" cy="72" r="4" stroke="var(--ink)" />
+  </svg>
+
+  <!-- golfjes -->
+  <svg class="doodle d-golf" style="--fd: 1.2s" viewBox="0 0 140 60" aria-hidden="true">
+    <path d="M6,20 C16,10 26,10 36,20 C46,30 56,30 66,20 C76,10 86,10 96,20" stroke="var(--k-blauw)" />
+    <path d="M20,42 C30,32 40,32 50,42 C60,52 70,52 80,42 C90,32 100,32 110,42" stroke="var(--k-blauw)" />
+  </svg>
+
+  <!-- surfplank -->
+  <svg class="doodle d-surf" style="--fd: 2s" viewBox="0 0 80 130" aria-hidden="true">
+    <path d="M40,6 C62,34 66,86 44,122 C24,90 20,40 40,6 Z" stroke="var(--ink)" />
+    <path d="M40,18 C42,50 42,84 42,108" stroke="var(--k-oranje)" />
+  </svg>
+
+  <!-- koffietas -->
+  <svg class="doodle d-koffie" style="--fd: 0.8s" viewBox="0 0 70 70" aria-hidden="true">
+    <path d="M14,26 L20,60 L48,60 L54,26 Z" stroke="var(--ink)" />
+    <path d="M54,32 C64,32 66,46 52,48" stroke="var(--ink)" />
+    <path d="M26,18 C24,12 28,10 26,6" stroke="var(--k-oranje)" />
+    <path d="M38,18 C36,12 40,10 38,6" stroke="var(--k-oranje)" />
+  </svg>
+
+  <!-- kolibrie -->
+  <svg class="doodle d-vogel" style="--fd: 1.6s" viewBox="0 0 100 80" aria-hidden="true">
+    <path d="M30,44 C38,32 56,30 64,40 C70,48 62,58 50,56 C38,54 32,50 30,44 Z" stroke="var(--k-roze)" />
+    <path d="M46,38 C40,26 46,16 58,12 C52,22 52,32 54,36" stroke="var(--k-blauw)" />
+    <path d="M64,40 L84,34" stroke="var(--ink)" />
+    <circle cx="58" cy="42" r="1.6" stroke="var(--ink)" />
+    <path d="M36,54 C30,62 22,66 14,64" stroke="var(--k-roze)" />
+  </svg>
+
+  <!-- vlaggetjes -->
+  <svg class="doodle d-vlag" style="--fd: 0.2s" viewBox="0 0 140 50" aria-hidden="true">
+    <path d="M4,10 C40,26 100,26 136,8" stroke="var(--ink)" />
+    <path d="M28,19 L32,34 L42,22" stroke="var(--k-geel)" />
+    <path d="M58,24 L60,40 L72,26" stroke="var(--k-roze)" />
+    <path d="M90,23 L94,38 L104,21" stroke="var(--k-groen)" />
+  </svg>
+
+  <div class="card">
+    <p class="label"><b>404</b> · niets aan de hand</p>
+    <h1 class="big" aria-label="404">
+      <span>4</span>
+      <!-- de nul is gaan surfen: kindertekening-zon -->
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="30" fill="none" stroke="var(--k-geel)" stroke-width="6" stroke-linecap="round" />
+        <g stroke="var(--k-geel)" stroke-width="6" stroke-linecap="round">
+          <line x1="60" y1="10" x2="60" y2="22" />
+          <line x1="60" y1="98" x2="60" y2="110" />
+          <line x1="10" y1="60" x2="22" y2="60" />
+          <line x1="98" y1="60" x2="110" y2="60" />
+          <line x1="25" y1="25" x2="34" y2="34" />
+          <line x1="86" y1="86" x2="95" y2="95" />
+          <line x1="95" y1="25" x2="86" y2="34" />
+          <line x1="34" y1="86" x2="25" y2="95" />
+        </g>
+        <g stroke="var(--ink)" stroke-width="4" stroke-linecap="round" fill="none">
+          <circle cx="50" cy="54" r="1.4" />
+          <circle cx="70" cy="54" r="1.4" />
+          <path d="M48,68 C54,76 66,76 72,68" />
+        </g>
+      </svg>
+      <span>4</span>
+    </h1>
+    <p class="sub">
+      Deze pagina is gaan surfen. Hier staat niets stil;
+      hier staat gewoon niets.
+    </p>
+    <a class="cta" href="/">Terug naar de beweging</a>
+    <p class="signoff">es lo que hay.</p>
+  </div>
+
+</main>
+
 </body>
 </html>

@@ -1,38 +1,26 @@
-# CDMX — Embedded Operator
+# CDMX · Renke Pieters
 
-> An embedded operator for B2B companies, based in Bruges, Belgium. Founded by Renke Pieters. One operator across digital growth, business strategy, and AI & automation, embedded inside the team for a year, one client at a time. Works alongside existing teams, agencies, and vendors.
+> CDMX is de vennootschap van Renke Pieters (Blankenberge, werkt in Brugge, België). Sinds 1 juli 2026 leidt hij KIXX, een performance-agency van dertig+ mensen in Brugge, als Branch Manager. Motto: "Ik zet in beweging wat stilstaat."
 
-## What this is
-CDMX is an embedded operator for B2B companies with 20–200 employees in Belgium and Europe. One operator sits inside the team for a year and runs three domains as one compounding system: digital growth, business strategy, and AI & automation. The embedded-operator model is structurally different from an agency, a fractional CMO, or a consulting engagement — not better, different. Agencies are built for service-hours-scale delivery across multiple clients. Fractional CMOs bring part-time senior marketing leadership. Consultants bring outside analysis. An embedded operator sits in the seat for a year and owns outcomes across three domains at once, alongside whichever teams, agencies, and vendors are already in place.
+## Wie
+- Renke Pieters: Branch Manager van KIXX (via CDMX). Keynote-spreker over AI en digitale groei. Docent e-commerce in het postgraduaat Digitale Marketing (VIVES). Ironman-finisher (Frankfurt, 2025). Vader van twee.
+- LinkedIn: https://www.linkedin.com/in/renke-pieters/
+- Contact: renke@cdmx.be (keynotes en vragen). Klantwerk loopt via KIXX: https://www.kixx-concept.be/
 
-## Operator
-- Renke Pieters — Founder. 8+ years as an independent operator. 3 postgraduates: Digital Marketing, Humane AI, Experience Architecture. Keynote speaker on growth, AI, and B2B strategy. Ironman finisher. Based in Bruges, Belgium.
-- LinkedIn: https://linkedin.com/in/renkepieters
+## Wat CDMX is
+CDMX is een persoonlijke vennootschap, geen agency. De naam komt van Mexico City (straatcultuur en start-up-energie bovenop eeuwenoude geschiedenis) en staat ook voor: curiosity, drive, mastery, multiplies. Het logo bestaat uit vier silo-letters die verbonden raken; dat is ook het werk: silo's verbinden, focus op performance, teams laten groeien.
 
-## Three domains, one brain
-- Digital Growth — Growth architecture that reinforces itself. Attribution you trust, channels that feed each other, experiments designed to teach win or lose.
-- Business Strategy — Business model to execution in weeks, not quarters. Clarity that gets board sign-off and team alignment in a single meeting.
-- AI & Automation — Production AI systems shipped into live workflows. Not pilots. Operational leverage that multiplies.
+## De vier letters
+- C · Connectie: groei zit zelden in één afdeling, ze zit in de kloof ertussen; verbind de silo's en groei wordt een vermenigvuldiging in plaats van een optelsom.
+- D · Digitaal: cijfers, geen adjectieven. €3M+ attributed revenue uit new sales en accountgroei; 6 AI-pilots in bedrijf, wat werkt gaat in productie; 3 nieuwe services (server-side tracking, GEO, geautomatiseerde marketingscans); 4 jaar bij KIXX van digital marketeer tot Branch Manager; 8 jaar in marketing zonder pauze, sinds 2021 ook zelfstandig.
+- M · Mens: systemen kan je kopen, mensen moet je meekrijgen; het bedrijf groeit omdat de mensen groeien.
+- X · KIXX: sinds 1 juli 2026 Branch Manager van KIXX in Brugge; doel: het beste performance-agency in de Benelux.
 
-## Engagement model
-- One year, embedded. Inside the team, not alongside it.
-- One client at a time.
-- Works alongside your existing teams, agencies, and vendors.
-- Filter: B2B, 20–200 people, post-PMF, at a growth inflection. Not every buyer fits.
+## Loopbaan
+2017 C Hotels (F&B Manager, Oostende) · 2018 Silverjet Belgium (sales & marketing) · 2020 Proud Mary (online marketeer) · 2021 Vitinn (zelfstandig in bijberoep; IJslands voor vuurtoren) · 2022 KIXX (Digital Performance Marketeer, daarna Digital Growth & AI Strategist) · 2024 VIVES (docent e-commerce) · 2025 CDMX (Growth & Innovation Manager) · 2026 KIXX (Branch Manager).
 
-## Track record
-- 20+ AI sessions delivered inside B2B teams.
-- Digital growth work for international brands across industries.
-- €2M+ new revenue attributed through channels that didn't exist before, in an 18-month embedded engagement.
-- 3x faster audit cycles via custom AI review tooling shipped to production.
-- Production AI systems running in live workflows. Not pilots.
+## Opleiding
+Drie postgraduaten: Digital Marketing, Humane AI, Experience Architecture.
 
-## Brand
-- Tagline: Connect the dots. Compound the results.
-- Baseline: Where digital works.
-- Manifesto opener: I connect dots that don't want to be connected.
-
-## Contact
-- Website: https://cdmx.be
-- Email: renke@cdmx.be
-- LinkedIn: https://linkedin.com/in/renkepieters
+## Keynotes
+O.a. voor Marketing Performance Day, Indeed AI-panel, KIXX Academy, Euromeat Group, Noel Franklin en Rexel. Boeken via renke@cdmx.be.

@@ -1,8 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /brand-guidelines.html
-Disallow: /brand-guidelines
+Disallow: /redesign/
+Disallow: /archive/
+Disallow: /Brand/
 Sitemap: https://cdmx.be/sitemap.xml
-
-# The lab is public.
-# Brand guidelines are internal — not indexed.
