@@ -670,7 +670,9 @@ a { color: inherit; }
   .chapter .inner, .chapter.flip .inner { grid-template-columns: 1fr; }
   .chapter .letter-art, .chapter.flip .letter-art { order: 2; }
   .letter-art { min-height: 0; margin-top: 2rem; justify-content: flex-end; }
-  .letter-art img { width: min(46vw, 240px); }
+  /* zigzag-ritme: flip-hoofdstukken (D, X) zetten hun letter links */
+  .chapter.flip .letter-art { justify-content: flex-start; }
+  .letter-art img { width: min(52vw, 280px); }
   .proof-strip { grid-template-columns: repeat(2, 1fr); }
   .proof-cell:nth-child(5) { grid-column: 1 / -1; }
   .op-grid { grid-template-columns: 1fr; }
@@ -1204,6 +1206,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var total = document.documentElement.scrollHeight - vh;
     if (progress) progress.style.transform = "scaleX(" + (total > 0 ? sy / total : 0) + ")";
+
+    if (!reduced && mobile.matches) {
+      /* mobiel: dezelfde signatuur-reveal als desktop (clip, schaal,
+         rotatie) plus een lichte parallax, maar gekeyd op de letter
+         zelf; die staat onderaan een lang hoofdstuk, dus de
+         paginatop is daar geen bruikbare referentie */
+      letters.forEach(function (img) {
+        var box = img.parentElement.getBoundingClientRect();
+        var p = clamp((vh - box.top) / (vh * 0.8), 0, 1.4);
+        var pe = clamp(p * 1.7, 0, 1);
+        var dir = parseFloat(img.parentElement.dataset.shift || 65) < 0 ? 1 : -1;
+        var s = 1.14 - Math.min(p, 1) * 0.16;
+        var r = (p - 0.55) * 6 * dir;
+        var ty = ((1 - Math.min(p, 1)) * 44).toFixed(1);
+        var ins = ((1 - pe) * 46).toFixed(1);
+        var rad = ((1 - pe) * 320).toFixed(0);
+        img.style.transform = "translate3d(0," + ty + "px,0) scale(" + s.toFixed(3) + ") rotate(" + r.toFixed(2) + "deg)";
+        img.style.clipPath = "inset(" + ins + "% " + ins + "% " + ins + "% " + ins + "% round " + rad + "px)";
+      });
+    }
 
     if (!reduced && !mobile.matches) {
       drifts.forEach(function (d) {
